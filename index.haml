@@ -1,0 +1,58 @@
+- require 'date'
+%html
+  %head
+    %meta{:charset => "utf-8"}
+    %script{:type => "text/javascript", :src => "http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"}
+    %script{:type => "text/javascript", :src => "http://momentjs.com/static/js/global.js"}
+    %script{:type => "text/javascript", :src => "js/suncalc.js"}
+    %script{:type => "text/javascript", :src => "js/passover.js"}
+    %script{:type => "text/javascript", :src => "js/hebrew_date.js"}
+    %script{:type => "text/javascript", :src => "js/config.js"}
+    %script{:type => "text/javascript", :src => "js/schedule.js"}
+    %link{:rel => "stylesheet", :href => "http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"}
+  %body
+    .container-fluid
+      .row.calendar_row
+        .col-xs-6.col-xs-offset-1
+          .well
+            %input.calendar{:type => :date}
+      .row
+        .col-xs-6.col-xs-offset-1
+          %table.table.table-striped.table-bordered
+            %tr.header
+              %th
+              %th
+              %th.hidden.selihot סְלְיחוֹת
+              %th קָרְבָּנוֹת
+              %th הוֹדוּ
+              %th יִשְׁתַּבַּח
+              %th עֲמִידָה
+              %th.event.hidden
+            - Date::DAYNAMES[0,6].each do |day|
+              %tr.one_day{:class => day}
+                %td #{day}
+                %td.date
+                %td.hidden.selihot
+                %td.korbanot
+                %td.hodu
+                %td.yishtabach
+                %td.amidah
+                %td.event.hidden.RoshHodesh רֹאשׁ חֹדֶשׁ
+                %td.event.hidden.Taanit תַּעֲנִית
+                %td.event.hidden.Hanuka חֲנֻכַּה
+                %td.event.hidden.Purim פּוּרִים
+                %td.event.hidden.Moed חוֹל הַמוֹעֵד
+                %td.hidden.placeholder
+      .row
+        .col-xs-6.col-xs-offset-1
+          .well
+            %p This page is an open source project, created by Isaac Betesh.
+            %p
+              It uses Vladimir Agafonkin's
+              %a{:href => "https://github.com/mourner/suncalc"} SunCalc JavaScript library
+            %a{:href => "https://github.com/betesh/nahar-shalom-schedule"} View Source
+:css
+  @media print
+  {
+    .calendar_row { display:none }
+  }
