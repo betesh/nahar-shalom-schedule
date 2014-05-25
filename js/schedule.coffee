@@ -13,12 +13,13 @@ write_schedule = (day_iterator) ->
     $(".#{day}").removeClass('hidden')
     $(".#{day} .selihot").addClass('hidden').html('')
     $(".#{day} .placeholder").addClass('hidden')
+    $(".#{day} .date").html(day_iterator.format("D MMM"))
     date = day_iterator.toDate()
     hebrew_date = new HebrewDate(date)
+    show_event(day, event, hebrew_date) for event in events
     if hebrew_date.isYomTov() || hebrew_date.isYomKippur()
       $(".#{day}").addClass('hidden')
     else
-      $(".#{day} .date").html(day_iterator.format("D MMM"))
       sunrise = moment(SunCalc.getTimes(date, window.config.latitude, window.config.longitude).sunrise)
       $(".#{day} .amidah").html(time_format(sunrise))
       $(".#{day} .yishtabach").html(time_format(sunrise.subtract('minutes', 8)))
@@ -28,7 +29,6 @@ write_schedule = (day_iterator) ->
         $(".#{day} .selihot").removeClass('hidden').html(time_format(sunrise.subtract('minutes', 56)))
       if hebrew_date.isElul() && !hebrew_date.isRoshChodesh()
         $(".#{day} .selihot").removeClass('hidden').html(time_format(sunrise.subtract('minutes', 50)))
-      show_event(day, event, hebrew_date) for event in events
     day_iterator.add('days', 1)
   $(".header .event")[show_if($('.one_day .event').not('.hidden').length > 0)]('hidden')
   ($(".#{day} .placeholder")[show_if(has_no_event(day))]('hidden') for day in moment.weekdays()[0,6]) unless $(".header .event").hasClass('hidden')
