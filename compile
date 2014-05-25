@@ -1,0 +1,4 @@
+#! /bin/bash
+
+coffee --compile js/*.coffee
+haml index.haml index.html
