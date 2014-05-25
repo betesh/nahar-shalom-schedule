@@ -51,8 +51,23 @@
               It uses Vladimir Agafonkin's
               %a{:href => "https://github.com/mourner/suncalc"} SunCalc JavaScript library
             %a{:href => "https://github.com/betesh/nahar-shalom-schedule"} View Source
+      .row.links.text-center
+        .col-xs-3.col-xs-offset-1
+          %p View this page online @
+          %p
+            %img{:src => "images/live.png"}
+          %p http://nahar-shalom.s3-website-us-east-1.amazonaws.com/index.html
+        .col-xs-3
+          %p Have an idea for how we can make this page even better? Submit your sugggestions online @
+          %p
+            %img{:src => "images/issues.png"}
+          %p https://github.com/betesh/nahar-shalom-schedule/issues/new
 :css
   @media print
   {
     .calendar_row { display:none }
+  }
+  @media screen
+  {
+    .links { display:none }
   }
