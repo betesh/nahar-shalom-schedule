@@ -8,6 +8,7 @@
     %script{:type => "text/javascript", :src => "js/passover.js"}
     %script{:type => "text/javascript", :src => "js/hebrew_date.js"}
     %script{:type => "text/javascript", :src => "js/config.js"}
+    %script{:type => "text/javascript", :src => "js/mincha.js"}
     %script{:type => "text/javascript", :src => "js/schedule.js"}
     %link{:rel => "stylesheet", :href => "http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"}
   %body
@@ -33,6 +34,7 @@
               %th הוֹדוּ
               %th יִשְׁתַּבַּח
               %th עֲמִידָה
+              %th מִנְחָה
               %th.event.hidden
             - Date::DAYNAMES.each do |day|
               %tr.one_day{:class => day}
@@ -43,6 +45,7 @@
                 %td.hodu
                 %td.yishtabach
                 %td.amidah
+                %td.mincha
                 %td.event.hidden.RoshHodesh רֹאשׁ חֹדֶשׁ
                 %td.event.hidden.Taanit תַּעֲנִית
                 %td.event.hidden.Hanuka חֲנֻכַּה

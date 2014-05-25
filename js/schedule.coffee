@@ -21,6 +21,7 @@ write_schedule = (day_iterator) ->
     $(".#{day} .placeholder").addClass('hidden')
     $(".#{day} .date").html(day_iterator.format("D MMM"))
     date = day_iterator.toDate()
+    zmanim = SunCalc.getTimes(date, window.config.latitude, window.config.longitude)
     hebrew_date = new HebrewDate(date)
     show_event(day, event, hebrew_date) for event in events
     if hebrew_date.isYomKippur() || hebrew_date.isRoshHashana()
@@ -28,7 +29,7 @@ write_schedule = (day_iterator) ->
     else if hebrew_date.isYomTov() || hebrew_date.isShabbat()
       shaharit_is_fixed_at(day, 7, 45)
     else
-      sunrise = moment(SunCalc.getTimes(date, window.config.latitude, window.config.longitude).sunrise)
+      sunrise = moment(zmanim.sunrise)
       $(".#{day} .amidah").html(time_format(sunrise))
       $(".#{day} .yishtabach").html(time_format(sunrise.subtract('minutes', 8)))
       $(".#{day} .hodu").html(time_format(sunrise.subtract('minutes', if hebrew_date.isMoed() then 12 else 11)))
@@ -37,6 +38,7 @@ write_schedule = (day_iterator) ->
         $(".#{day} .selihot").removeClass('hidden').html(time_format(sunrise.subtract('minutes', 56)))
       if hebrew_date.isElul() && !hebrew_date.isRoshChodesh()
         $(".#{day} .selihot").removeClass('hidden').html(time_format(sunrise.subtract('minutes', 50)))
+    $(".#{day} .mincha").html(mincha(zmanim, hebrew_date))
     day_iterator.add('days', 1)
   $(".header .event")[show_if($('.one_day .event').not('.hidden').length > 0)]('hidden')
   ($(".#{day} .placeholder")[show_if(has_no_event(day))]('hidden') for day in moment.weekdays()) unless $(".header .event").hasClass('hidden')
