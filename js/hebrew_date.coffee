@@ -56,6 +56,8 @@ rosh_hodesh_distances = (year_length) ->
     distances = distances.concat([5 * 59 + 16, 5 * 59 + 17]) if (385 == year_length)
   distances
 
+begin_tal_umatar = (date) -> date.getMonth() == 11 && date.getDate() == (6 - parseInt(new Date(date.getFullYear() + 1, 1, 29).getMonth()))
+
 class HebrewDate
   constructor: (date) ->
     @pesach_distance = pesach_distance(date)
@@ -63,6 +65,7 @@ class HebrewDate
     {@year_length, @pesach_date} = get_pesach_and_year_length(date)
     @past_pesach_distance = get_distance(@pesach_date, date)
     @rosh_hodesh_distances = rosh_hodesh_distances(@year_length)
+    @begin_tal_umatar = begin_tal_umatar(date)
   isPesach: -> is_distance_in_range(@pesach_distance, 0, 8)
   isShavuot: -> is_distance_in_range(@pesach_distance, SHAVUOT_DISTANCE, 2)
   isElul: -> is_distance_in_range(@pesach_distance, SUKKOT_DISTANCE - 43, 29)
@@ -90,9 +93,13 @@ class HebrewDate
     is_distance_in_range(@past_pesach_distance, distance, 1)
   isTaanit: -> @is9Av() || @is17Tammuz() || @isFastOfGedaliah() || @isTaanitEster() || @is10Tevet()
   isRoshHodesh: -> @past_pesach_distance in @rosh_hodesh_distances
+  isPesachSheni: -> is_distance_in_range(@pesach_distance, 29, 1)
+  isLagLaomer: -> is_distance_in_range(@pesach_distance, 33, 1)
+  isBeginTalUmatar: -> @begin_tal_umatar
 
 HebrewDate.prototype.isRoshHaShanah = HebrewDate.prototype.isRoshHashanah
 HebrewDate.prototype.isRoshChodesh = HebrewDate.prototype.isRoshHodesh
+HebrewDate.prototype.isLagBaOmer = HebrewDate.prototype.isLagLaOmer = HebrewDate.prototype.isLagBaomer = HebrewDate.prototype.isLagLaomer
 HebrewDate.prototype.isHanuka = HebrewDate.prototype.isHanukka = HebrewDate.prototype.isHanukah = HebrewDate.prototype.isHanukkah = HebrewDate.prototype.isChanuka = HebrewDate.prototype.isChanukka = HebrewDate.prototype.isChanukah = HebrewDate.prototype.isChanukkah
 HebrewDate.prototype.is17Tamuz = HebrewDate.prototype.is17Tammuz
 HebrewDate.prototype.is9Ab = HebrewDate.prototype.is9Av
