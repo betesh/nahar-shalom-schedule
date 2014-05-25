@@ -1,0 +1,13 @@
+#! /usr/bin/env ruby
+
+`#{File.expand_path("#{__FILE__}/..")}/compile`
+
+require 'aws-sdk'
+yaml = YAML::load(File.open('aws.yml'))
+AWS.config(yaml['credentials'])
+bucket = AWS::S3.new.buckets[yaml['bucket']]
+
+files = (Dir['js/*.js'] + Dir['images/*'] + Dir['*.html']).collect(&:to_s)
+
+files.each { |f| bucket.objects[f].write(Pathname.new(f), :acl => :public_read) }
+
