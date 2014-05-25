@@ -34,7 +34,7 @@
               %th יִשְׁתַּבַּח
               %th עֲמִידָה
               %th.event.hidden
-            - Date::DAYNAMES[0,6].each do |day|
+            - Date::DAYNAMES.each do |day|
               %tr.one_day{:class => day}
                 %td #{day}
                 %td.date
@@ -51,6 +51,8 @@
                 %td.event.hidden.LagLaomer ל"ג לָעֹמֶר
                 %td.event.hidden.PesachSheni פֶּסַח שֵׁנִי
                 %td.event.hidden.BeginTalUmatar טַל וּמָטָר
+                %td.event.hidden.YomTob יוֹם טוֹב
+                %td.event.hidden.YomKippur יוֹם הַכִּפֻּרִים
                 %td.hidden.placeholder
       .row
         .col-xs-6.col-xs-offset-1

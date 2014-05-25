@@ -96,8 +96,10 @@ class HebrewDate
   isPesachSheni: -> is_distance_in_range(@pesach_distance, 29, 1)
   isLagLaomer: -> is_distance_in_range(@pesach_distance, 33, 1)
   isBeginTalUmatar: -> @begin_tal_umatar
+  isShabbat: -> 6 == @day_of_week
 
-HebrewDate.prototype.isRoshHaShanah = HebrewDate.prototype.isRoshHashanah
+HebrewDate.prototype.isRoshHaShana = HebrewDate.prototype.isRoshHashana = HebrewDate.prototype.isRoshHaShanah = HebrewDate.prototype.isRoshHashanah
+HebrewDate.prototype.isYomTob = HebrewDate.prototype.isYomTov
 HebrewDate.prototype.isRoshChodesh = HebrewDate.prototype.isRoshHodesh
 HebrewDate.prototype.isLagBaOmer = HebrewDate.prototype.isLagLaOmer = HebrewDate.prototype.isLagBaomer = HebrewDate.prototype.isLagLaomer
 HebrewDate.prototype.isHanuka = HebrewDate.prototype.isHanukka = HebrewDate.prototype.isHanukah = HebrewDate.prototype.isHanukkah = HebrewDate.prototype.isChanuka = HebrewDate.prototype.isChanukka = HebrewDate.prototype.isChanukah = HebrewDate.prototype.isChanukkah

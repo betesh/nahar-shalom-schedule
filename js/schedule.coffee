@@ -7,18 +7,26 @@ has_no_event = (day) -> event_array(day).indexOf(false) < 0
 
 show_if = (condition) -> if condition then 'removeClass' else 'addClass'
 
+shaharit_is_fixed_at = (day, hour, minute) ->
+  time = moment().hour(hour).minute(minute)
+  $(".#{day} .korbanot").html(time.format("h:mm"))
+  $(".#{day} .hodu").html(time.add('minutes', 15).format("h:mm"))
+  $(".#{day} .yishtabach").html('')
+  $(".#{day} .amidah").html('')
+
 write_schedule = (day_iterator) ->
   day_iterator.day('Sunday')
-  for day in moment.weekdays()[0,6]
-    $(".#{day}").removeClass('hidden')
+  for day in moment.weekdays()
     $(".#{day} .selihot").addClass('hidden').html('')
     $(".#{day} .placeholder").addClass('hidden')
     $(".#{day} .date").html(day_iterator.format("D MMM"))
     date = day_iterator.toDate()
     hebrew_date = new HebrewDate(date)
     show_event(day, event, hebrew_date) for event in events
-    if hebrew_date.isYomTov() || hebrew_date.isYomKippur()
-      $(".#{day}").addClass('hidden')
+    if hebrew_date.isYomKippur() || hebrew_date.isRoshHashana()
+      shaharit_is_fixed_at(day, 7, 0)
+    else if hebrew_date.isYomTov() || hebrew_date.isShabbat()
+      shaharit_is_fixed_at(day, 7, 45)
     else
       sunrise = moment(SunCalc.getTimes(date, window.config.latitude, window.config.longitude).sunrise)
       $(".#{day} .amidah").html(time_format(sunrise))
@@ -31,9 +39,9 @@ write_schedule = (day_iterator) ->
         $(".#{day} .selihot").removeClass('hidden').html(time_format(sunrise.subtract('minutes', 50)))
     day_iterator.add('days', 1)
   $(".header .event")[show_if($('.one_day .event').not('.hidden').length > 0)]('hidden')
-  ($(".#{day} .placeholder")[show_if(has_no_event(day))]('hidden') for day in moment.weekdays()[0,6]) unless $(".header .event").hasClass('hidden')
+  ($(".#{day} .placeholder")[show_if(has_no_event(day))]('hidden') for day in moment.weekdays()) unless $(".header .event").hasClass('hidden')
   $(".header .selihot")[show_if($('.one_day .selihot').not('.hidden').length > 0)]('hidden')
-  ($(".#{day} .selihot").removeClass('hidden') for day in moment.weekdays()[0,6]) unless $(".header .selihot").hasClass('hidden')
+  ($(".#{day} .selihot").removeClass('hidden') for day in moment.weekdays()) unless $(".header .selihot").hasClass('hidden')
 
 $ ->
   window.events = (e.className.replace(/hidden/, '').replace(/event/, '').replace(/\s*/, '') for e in $('.sunday .event'))
