@@ -20,9 +20,8 @@ write_schedule = (day_iterator) ->
     $(".#{day} .selihot").addClass('hidden').html('')
     $(".#{day} .placeholder").addClass('hidden')
     $(".#{day} .date").html(day_iterator.format("D MMM"))
-    date = day_iterator.toDate()
-    zmanim = SunCalc.getTimes(date, window.config.latitude, window.config.longitude)
-    hebrew_date = new HebrewDate(date)
+    hebrew_date = new HebrewDate(day_iterator.toDate())
+    zmanim = SunCalc.getTimes(moment(day_iterator).toDate().setHours(12), window.config.latitude, window.config.longitude)
     show_event(day, event, hebrew_date) for event in events
     if hebrew_date.isYomKippur() || hebrew_date.isRoshHashana()
       shaharit_is_fixed_at(day, 7, 0)
