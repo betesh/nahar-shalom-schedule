@@ -56,6 +56,14 @@ rosh_hodesh_distances = (year_length) ->
     distances = distances.concat([5 * 59 + 16, 5 * 59 + 17]) if (385 == year_length)
   distances
 
+fast_of_tevet_distance = (year_length) ->
+  if year_length in [353, 383]
+    STANDARD_10_TEVET_DISTANCE - 1
+  else if year_length in [355, 385]
+    STANDARD_10_TEVET_DISTANCE + 1
+  else
+    STANDARD_10_TEVET_DISTANCE
+
 begin_tal_umatar = (date) -> date.getMonth() == 11 && date.getDate() == (6 - parseInt(new Date(date.getFullYear() + 1, 1, 29).getMonth()))
 
 class HebrewDate
@@ -86,11 +94,7 @@ class HebrewDate
   is17Tammuz: -> @is_fast_with_sunday_postponement(FAST_AB_DISTANCE - 21)
   isFastOfGedaliah: -> @is_fast_with_sunday_postponement(SUKKOT_DISTANCE - 12)
   isTaanitEster: -> (!@isShabbat() && is_distance_in_range(@pesach_distance, PURIM_DISTANCE - 1, 1)) || (4 == @day_of_week && is_distance_in_range(@pesach_distance, PURIM_DISTANCE - 3, 1))
-  is10Tevet: ->
-    distance = STANDARD_10_TEVET_DISTANCE
-    distance-- if @year_length in [353, 383]
-    distance++ if @year_length in [355, 385]
-    is_distance_in_range(@past_pesach_distance, distance, 1)
+  is10Tevet: -> is_distance_in_range(@past_pesach_distance, fast_of_tevet_distance(@year_length), 1)
   isTaanit: -> @is9Av() || @is17Tammuz() || @isFastOfGedaliah() || @isTaanitEster() || @is10Tevet()
   isRoshHodesh: -> @past_pesach_distance in @rosh_hodesh_distances
   isPesachSheni: -> is_distance_in_range(@pesach_distance, 29, 1)
@@ -105,6 +109,21 @@ class HebrewDate
   isErebYomTob: -> true in (is_distance_in_range(@pesach_distance, start_range - 1, 1) for start_range in YOM_TOB_START_RANGES)
   is1stDayOfYomTob: -> true in (is_distance_in_range(@pesach_distance, start_range, 1) for start_range in YOM_TOB_START_RANGES)
   is1stDayOfShabuot: -> is_distance_in_range(@pesach_distance, SHAVUOT_DISTANCE, 1)
+  isTuBAb: -> is_distance_in_range(@pesach_distance, FAST_AB_DISTANCE + 6, 1)
+  isMaharHodesh: -> @isShabbat() && !@isRoshHodesh() && (@past_pesach_distance + 1) in @rosh_hodesh_distances
+  isShushanPurim: -> is_distance_in_range(@pesach_distance, PURIM_DISTANCE + 1, 1)
+  isPurimKatan: -> @year_length > 380 && is_distance_in_range(@pesach_distance, PURIM_DISTANCE - 30, 1)
+  isShushanPurimKatan: -> @year_length > 380 && is_distance_in_range(@pesach_distance, PURIM_DISTANCE - 30, 1)
+  isShabbatMevarechim: -> @isShabbat() && !@isRoshHodesh() && (true in (((@past_pesach_distance + n) in @rosh_hodesh_distances) for n in [1..7]))
+  isShabbatSheqalim: -> @isShabbat() && is_distance_in_range(@pesach_distance, PURIM_DISTANCE - 19, 7)
+  isShabbatZachor: -> @isShabbat() && is_distance_in_range(@pesach_distance, PURIM_DISTANCE - 7, 7)
+  isShabbatParah: -> @isShabbat() && is_distance_in_range(@pesach_distance, -27, 7)
+  isShabbatHaHodesh: -> @isShabbat() && is_distance_in_range(@pesach_distance, -20, 7)
+  isShabbatHaGadol: -> @isShabbat() && is_distance_in_range(@pesach_distance, -7, 7)
+  isHachrazatTaanit: -> @isShabbat() && (is_distance_in_range(@pesach_distance, FAST_AB_DISTANCE - 27, 7) || is_distance_in_range(@past_pesach_distance, fast_of_tevet_distance(@year_length) - 7, 7))
+  isErubTabshilin: -> @day_of_week in [3,4] && @isErebYomTob()
+  isHataratNedarim: -> true in ((is_distance_in_range(@pesach_distance, SUKKOT_DISTANCE - n, 1)) for n in [55,45,15,6])
+  isTuBiShvat: -> is_distance_in_range(@pesach_distance, (if @year_length > 380 then -89 else -59), 1)
 
 HebrewDate.prototype.isRoshHaShana = HebrewDate.prototype.isRoshHashana = HebrewDate.prototype.isRoshHaShanah = HebrewDate.prototype.isRoshHashanah
 HebrewDate.prototype.isYomTob = HebrewDate.prototype.isYomTov
