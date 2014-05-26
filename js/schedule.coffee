@@ -15,8 +15,8 @@ shaharit_is_fixed_at = (day, hour, minute) ->
   $(".#{day} .amidah").html('')
 
 write_schedule = (day_iterator) ->
-  day_iterator.day('Sunday')
-  for day in moment.weekdays()
+  day_iterator.day('Saturday')
+  for day in moment.weekdays().reverse()
     $(".#{day} .selihot").addClass('hidden').html('')
     $(".#{day} .placeholder").addClass('hidden')
     $(".#{day} .date").html(day_iterator.format("D MMM"))
@@ -39,7 +39,7 @@ write_schedule = (day_iterator) ->
       if hebrew_date.isElul() && !hebrew_date.isRoshChodesh()
         $(".#{day} .selihot").removeClass('hidden').html(time_format(sunrise.subtract('minutes', 50)))
     $(".#{day} .mincha").html(mincha(zmanim, hebrew_date))
-    day_iterator.add('days', 1)
+    day_iterator.subtract('days', 1)
   $(".header .event")[show_if($('.one_day .event').not('.hidden').length > 0)]('hidden')
   ($(".#{day} .placeholder")[show_if(has_no_event(day))]('hidden') for day in moment.weekdays()) unless $(".header .event").hasClass('hidden')
   $(".header .selihot")[show_if($('.one_day .selihot').not('.hidden').length > 0)]('hidden')

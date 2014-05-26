@@ -1,7 +1,10 @@
 round_down_to_5_minutes = (time) -> time.subtract('minutes', time.minute() % 5)
+recent_hadlakat_nerot = null;
 
 mincha_time = (zmanim, hebrew_date) ->
   sunset = moment(zmanim.sunset)
+  if hebrew_date.isErebShabbat() || hebrew_date.isErebYomTob() || hebrew_date.isErebYomKippur()
+    recent_hadlakat_nerot = moment(sunset).subtract('minute', 19)
   if hebrew_date.isYomKippur()
     round_down_to_5_minutes(sunset.subtract('hours', 3))
   else if hebrew_date.isRoshHashana()
@@ -40,7 +43,7 @@ mincha_time = (zmanim, hebrew_date) ->
   else if hebrew_date.isErebShabbat()
     if sunset.hour() < 19 || sunset.minute() < 3 then sunset.subtract('minutes', 33) else sunset.hour(18).minute(30)
   else
-    sunset.subtract('minutes', 18)
+    recent_hadlakat_nerot
 
 window.mincha = (zmanim, hebrew_date) ->
   time = mincha_time(zmanim, hebrew_date)
