@@ -26,6 +26,12 @@ write_schedule = (day_iterator) ->
     show_event(day, event, hebrew_date) for event in events
     if hebrew_date.isYomKippur() || hebrew_date.isRoshHashana()
       shaharit_is_fixed_at(day, 7, 0)
+    else if hebrew_date.is1stDayOfShabuot()
+      sunrise = moment(zmanim.sunrise)
+      $(".#{day} .amidah").html(time_format(sunrise))
+      $(".#{day} .yishtabach").html(time_format(sunrise.subtract('minutes', 15)))
+      $(".#{day} .hodu").html(time_format(sunrise.subtract('minutes', 25)))
+      $(".#{day} .korbanot").html(time_format(sunrise.subtract('minutes', 15)))
     else if hebrew_date.isYomTov() || hebrew_date.isShabbat()
       shaharit_is_fixed_at(day, 7, 45)
     else
