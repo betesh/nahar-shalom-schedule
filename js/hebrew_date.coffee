@@ -97,6 +97,14 @@ class HebrewDate
   isLagLaomer: -> is_distance_in_range(@pesach_distance, 33, 1)
   isBeginTalUmatar: -> @begin_tal_umatar
   isShabbat: -> 6 == @day_of_week
+  isErebShabbat: -> 5 == @day_of_week
+  isEreb9Ab: -> (!@isErebShabbat() && is_distance_in_range(@pesach_distance, FAST_AB_DISTANCE - 1, 1)) || (@isShabbat() && is_distance_in_range(@pesach_distance, FAST_AB_DISTANCE, 1))
+  isErebYomKippur: -> is_distance_in_range(@pesach_distance, SUKKOT_DISTANCE - 6, 1)
+  is6thDayOfPesach: -> is_distance_in_range(@pesach_distance, 5, 1)
+  is7thDayOfPesach: -> is_distance_in_range(@pesach_distance, 6, 1)
+  isErebYomTob: -> true in (is_distance_in_range(@pesach_distance, start_range - 1, 1) for start_range in YOM_TOB_START_RANGES)
+  is1stDayOfYomTob: -> true in (is_distance_in_range(@pesach_distance, start_range, 1) for start_range in YOM_TOB_START_RANGES)
+  is1stDayOfShabuot: -> is_distance_in_range(@pesach_distance, SHAVUOT_DISTANCE, 1)
 
 HebrewDate.prototype.isRoshHaShana = HebrewDate.prototype.isRoshHashana = HebrewDate.prototype.isRoshHaShanah = HebrewDate.prototype.isRoshHashanah
 HebrewDate.prototype.isYomTob = HebrewDate.prototype.isYomTov
