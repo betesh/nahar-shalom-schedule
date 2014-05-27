@@ -7,7 +7,7 @@ yaml = YAML::load(File.open('aws.yml'))
 AWS.config(yaml['credentials'])
 bucket = AWS::S3.new.buckets[yaml['bucket']]
 
-files = (Dir['js/*.js'] + Dir['images/*'] + Dir['*.html']).collect(&:to_s)
+Dir['js/*.js'].each { |f| bucket.objects[f].write(Pathname.new(f), :acl => :public_read, :content_type => 'text/javascript' ) }
 
-files.each { |f| bucket.objects[f].write(Pathname.new(f), :acl => :public_read) }
+(Dir['images/*'] + Dir['*.html']).each { |f| bucket.objects[f].write(Pathname.new(f), :acl => :public_read) }
 
