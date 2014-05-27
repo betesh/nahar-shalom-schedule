@@ -15,6 +15,7 @@ shaharit_is_fixed_at = (day, hour, minute) ->
   $(".#{day} .amidah").html('')
 
 write_schedule = (day_iterator) ->
+  $('.one_hadlakat_nerot').addClass('hidden')
   day_iterator.day('Saturday')
   for day in moment.weekdays().reverse()
     $(".#{day} .selihot").addClass('hidden').html('')

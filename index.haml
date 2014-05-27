@@ -72,6 +72,15 @@
                 %td.event.hidden.HataratNedarim הָתַּרָת נְדָרים
                 %td.event.hidden.TuBiShvat ט"ו בִּשְׁבָט
                 %td.hidden.placeholder
+        .col-xs-3.col-xs-offset-1
+          %table.table.table-striped.table-bordered
+            %tr
+              %th.text-center{:colspan => 3} הַדְלַקָת נֵרוֹת
+            - 3.times do
+              %tr.one_hadlakat_nerot.hidden
+                %td.dow
+                %td.date
+                %td.time
       .row
         .col-xs-6.col-xs-offset-1
           .well
