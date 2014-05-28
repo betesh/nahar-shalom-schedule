@@ -15,12 +15,14 @@
     .container-fluid
       %h1
         .row.text-center
-          .col-xs-3.col-xs-offset-1
+          .col-xs-6.col-xs-offset-1
             %img{:src => "images/logo.jpg"}
           .col-xs-3
-            Schedule for the week of ________ שַׁבַּת פְּרָשָׁת
-      .row.screen-only
-        .col-xs-6.col-xs-offset-1
+            %b
+              %p Schedule for the week of
+              %p ________ שַׁבַּת פְּרָשָׁת
+      .row.text-center.screen-only
+        .col-xs-10.col-xs-offset-1
           .well
             %input.calendar{:type => :date}
       .row
@@ -97,7 +99,7 @@
                 %td רַבֵּנוּ תָּם
                 %td.rabbenu-tam
       .row.screen-only
-        .col-xs-6.col-xs-offset-1
+        .col-xs-10.col-xs-offset-1
           .well
             %p This page is an open source project, created by Isaac Betesh.
             %p
@@ -110,7 +112,7 @@
               and represent the earliest visible sunrise in an 8km radius of 26°1'13" N, 80°11'35" W (which is approximately 5km due south of 3489 Griffin Road)
             %a{:href => "https://github.com/betesh/nahar-shalom-schedule"} View Source
       .row.links.text-center
-        .col-xs-3.col-xs-offset-1
+        .col-xs-10.col-xs-offset-1
           %p View this page online @
           %p
             %img{:src => "images/live.png"}
