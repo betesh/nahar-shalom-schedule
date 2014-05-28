@@ -11,13 +11,13 @@ set_hakochabim = (hebrew_date) -> if hebrew_date.isShabbat() then 'After שַׁ�
 
 hadlakat_nerot_is_after_set_hakochabim = (date, hebrew_date) -> display_hadlakat_nerot(date).html(set_hakochabim(hebrew_date)) if hebrew_date.is1stDayOfYomTob() && !hebrew_date.isErebShabbat()
 
-plag = (zmanim) ->
+portion_of_day = (zmanim, ratio) ->
   sunrise = moment(zmanim.sunrise)
-  sunrise.add('minutes', moment(zmanim.sunset).diff(sunrise, 'minutes') * 10.75 / 12)
+  sunrise.add('minutes', moment(zmanim.sunset).diff(sunrise, 'minutes') * ratio)
 
-samuch_lemincha_ketana = (zmanim) ->
-  sunrise = moment(zmanim.sunrise)
-  sunrise.add('minutes', moment(zmanim.sunset).diff(sunrise, 'minutes') * 9 / 12)
+plag = (zmanim) -> portion_of_day(zmanim, 43.0/48.0)
+
+samuch_lemincha_ketana = (zmanim) -> portion_of_day(zmanim, 0.75)
 
 begin_seudat_shelishit_samuch_lemincha_ketana = (hebrew_date, zmanim) ->
   start_eating_at = samuch_lemincha_ketana(zmanim)
@@ -64,14 +64,14 @@ mincha_time = (zmanim, hebrew_date) ->
   else if hebrew_date.is7thDayOfPesach() || hebrew_date.is1stDayOfShabuot() || (hebrew_date.isYomTob() && hebrew_date.isErebShabbat())
     display_hadlakat_nerot(sunset).html("Before Kiddush<br><b>Eat from all cooked<br>foods before #{sunset.format('h:mm')}</b>") unless hebrew_date.isErebShabbat()
     time = round_down_to_5_minutes(plag(zmanim).subtract('minutes', 25))
-    if time.hour() < 17 || time.minute() < 45 then time.hour(17).minute(45) else time
+    if time.hour() < 17 || (17 == time.hour() && time.minute() < 45) then time.hour(17).minute(45) else time
   else if hebrew_date.isYomTob()
     hadlakat_nerot_is_after_set_hakochabim(sunset, hebrew_date)
     round_down_to_5_minutes(sunset.subtract('minutes', 25))
   else if hebrew_date.isErebYomTob()
     sunset.subtract('minutes', if hebrew_date.isErebShabbat() then 33 else 19)
   else if hebrew_date.isErebShabbat()
-    if sunset.hour() < 19 || sunset.minute() < 3 then sunset.subtract('minutes', 33) else sunset.hour(18).minute(30)
+    if sunset.hour() < 19 || (19 == sunset.hour() && sunset.minute() < 3) then sunset.subtract('minutes', 33) else sunset.hour(18).minute(30)
   else
     recent_hadlakat_nerot
 
