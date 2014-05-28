@@ -15,91 +15,113 @@
     .container-fluid
       %h1
         .row.text-center
-          .col-xs-6.col-xs-offset-1
+          .col-xs-5.col-lg-offset-1
             %img{:src => "images/logo.jpg"}
-          .col-xs-3
+          .col-xs-7.col-lg-3
             %b
               %p Schedule for the week of
               %p ________ שַׁבַּת פְּרָשָׁת
       .row.text-center.screen-only
-        .col-xs-10.col-xs-offset-1
+        .col-lg-10.col-lg-offset-1.col-xs-12
           .well
             %input.calendar{:type => :date}
       .row
-        .col-xs-6.col-xs-offset-1
-          %table.table.table-striped.table-bordered
-            %tr.header
-              %th
-              %th
-              %th.hidden.selihot סְלְיחוֹת
-              %th קָרְבָּנוֹת
-              %th הוֹדוּ
-              %th יִשְׁתַּבַּח
-              %th עֲמִידָה
-              %th מִנְחָה
-              %th.event.hidden
-            - Date::DAYNAMES.each do |day|
-              %tr.one_day{:class => day}
-                %td #{day}
-                %td.date
-                %td.hidden.selihot
-                %td.korbanot
-                %td.hodu
-                %td.yishtabach
-                %td.amidah
-                %td.mincha
-                %td.event.hidden.RoshHodesh רֹאשׁ חֹדֶשׁ
-                %td.event.hidden.Taanit תַּעֲנִית
-                %td.event.hidden.Hanuka חֲנֻכַּה
-                %td.event.hidden.Purim פּוּרִים
-                %td.event.hidden.Moed חוֹל הַמוֹעֵד
-                %td.event.hidden.LagLaomer ל"ג לָעֹמֶר
-                %td.event.hidden.PesachSheni פֶּסַח שֵׁנִי
-                %td.event.hidden.BeginTalUmatar טַל וּמָטָר
-                %td.event.hidden.YomTob יוֹם טוֹב
-                %td.event.hidden.YomKippur יוֹם הַכִּפֻּרִים
-                %td.event.hidden.TuBAb ט"ו בְּאָב
-                %td.event.hidden.MaharHodesh מָחָר חֹדֶשׁ
-                %td.event.hidden.PurimKatan פּוּרִים קָטָן
-                %td.event.hidden.ShushanPurim שׁוּשַׁן פּוּרִים
-                %td.event.hidden.ShushanPurimKatan שׁוּשַׁן פּוּרִים קָטָן
-                %td.event.hidden.ShabbatMevarechim שַׁבָּת מְבָרְכִים
-                %td.event.hidden.ShabbatSheqalim שַׁבָּת שְׁקָלִים
-                %td.event.hidden.ShabbatZachor שַׁבָּת זָכוֹר
-                %td.event.hidden.ShabbatParah שַׁבָּת פָּרָה
-                %td.event.hidden.ShabbatHaHodesh שַׁבָּת הַחֹדֶשׁ
-                %td.event.hidden.ShabbatHaGadol שַׁבָּת הַגָּדוֹל
-                %td.event.hidden.HachrazatTaanit אַחֵינוּ
-                %td.event.hidden.ErubTabshilin עֵרוּב תַּבְשִׁלִין
-                %td.event.hidden.HataratNedarim הָתַּרָת נְדָרים
-                %td.event.hidden.TuBiShvat ט"ו בִּשְׁבָט
-                %td.hidden.placeholder
-        .col-xs-3.col-xs-offset-1
-          %table.table.table-striped.table-bordered
-            %tr
-              %th.text-center{:colspan => 3} הַדְלַקָת נֵרוֹת
-            - 3.times do
-              %tr.one_hadlakat_nerot.hidden
-                %td.dow
-                %td.date
-                %td.time
-          %br
-          %table.table.table-striped.table-bordered
-            %tr
-              %th.text-center{:colspan => 3} מוֹצָאֵי שַׁבָּת
-              %tr
-                %td
-                  .ereb-9-ab.hidden Finish סְעוּדַת שְׁלִישִׁית before
-                  .not-ereb-9-ab Begin סְעוּדַת שְׁלִישִׁית before
-                %td.begin-seudat-shelishit-before
-              %tr
-                %td שַׁבָּת ends
-                %td.shabbat-ends
-              %tr
-                %td רַבֵּנוּ תָּם
-                %td.rabbenu-tam
+        .col-lg-8.col-lg-offset-1.col-xs-10
+          .row
+            .col-xs-12
+              %table.table.table-striped.table-bordered
+                %tr.header
+                  %th
+                  %th
+                  %th.hidden.selihot סְלְיחוֹת
+                  %th קָרְבָּנוֹת
+                  %th הוֹדוּ
+                  %th יִשְׁתַּבַּח
+                  %th עֲמִידָה
+                  %th מִנְחָה
+                  %th.event.hidden
+                - Date::DAYNAMES.each do |day|
+                  %tr.one_day{:class => day}
+                    %td #{day}
+                    %td.date
+                    %td.hidden.selihot
+                    %td.korbanot
+                    %td.hodu
+                    %td.yishtabach
+                    %td.amidah
+                    %td.mincha
+                    %td.event.hidden.RoshHodesh רֹאשׁ חֹדֶשׁ
+                    %td.event.hidden.Taanit תַּעֲנִית
+                    %td.event.hidden.Hanuka חֲנֻכַּה
+                    %td.event.hidden.Purim פּוּרִים
+                    %td.event.hidden.Moed חוֹל הַמוֹעֵד
+                    %td.event.hidden.LagLaomer ל"ג לָעֹמֶר
+                    %td.event.hidden.PesachSheni פֶּסַח שֵׁנִי
+                    %td.event.hidden.BeginTalUmatar טַל וּמָטָר
+                    %td.event.hidden.YomTob יוֹם טוֹב
+                    %td.event.hidden.YomKippur יוֹם הַכִּפֻּרִים
+                    %td.event.hidden.TuBAb ט"ו בְּאָב
+                    %td.event.hidden.MaharHodesh מָחָר חֹדֶשׁ
+                    %td.event.hidden.PurimKatan פּוּרִים קָטָן
+                    %td.event.hidden.ShushanPurim שׁוּשַׁן פּוּרִים
+                    %td.event.hidden.ShushanPurimKatan שׁוּשַׁן פּוּרִים קָטָן
+                    %td.event.hidden.ShabbatMevarechim שַׁבָּת מְבָרְכִים
+                    %td.event.hidden.ShabbatSheqalim שַׁבָּת שְׁקָלִים
+                    %td.event.hidden.ShabbatZachor שַׁבָּת זָכוֹר
+                    %td.event.hidden.ShabbatParah שַׁבָּת פָּרָה
+                    %td.event.hidden.ShabbatHaHodesh שַׁבָּת הַחֹדֶשׁ
+                    %td.event.hidden.ShabbatHaGadol שַׁבָּת הַגָּדוֹל
+                    %td.event.hidden.HachrazatTaanit אַחֵינוּ
+                    %td.event.hidden.ErubTabshilin עֵרוּב תַּבְשִׁלִין
+                    %td.event.hidden.HataratNedarim הָתַּרָת נְדָרים
+                    %td.event.hidden.TuBiShvat ט"ו בִּשְׁבָט
+                    %td.hidden.placeholder
+          .row
+            .col-lg-5.col-lg-offset-1.col-xs-6
+              %table.table.table-striped.table-bordered
+                %tr
+                  %th.text-center{:colspan => 3} הַדְלַקָת נֵרוֹת
+                - 3.times do
+                  %tr.one_hadlakat_nerot.hidden
+                    %td.dow
+                    %td.date
+                    %td.time
+            .col-lg-5.col-xs-6
+              %table.table.table-striped.table-bordered
+                %tr
+                  %th.text-center{:colspan => 3} מוֹצָאֵי שַׁבָּת
+                  %tr
+                    %td
+                      .ereb-9-ab.hidden Finish סְעוּדַת<br>שְׁלִישִׁית before
+                      .not-ereb-9-ab Begin סְעוּדַת<br>שְׁלִישִׁית before
+                    %td.begin-seudat-shelishit-before
+                  %tr
+                    %td שַׁבָּת ends
+                    %td.shabbat-ends
+                  %tr
+                    %td רַבֵּנוּ תָּם
+                    %td.rabbenu-tam
+        .col-lg-2.col-xs-2.links.text-center
+          .row
+            .col-xs-12
+              %p View this page online @
+              %p
+                %img{:src => "images/live.png", :height => 75, :width => 75}
+              %p http://nahar-shalom.s3-website-us-east-1.amazonaws.com/index.html
+              %br
+              %br
+              %br
+              %br
+              %br
+              %br
+          .row
+            .col-xs-12
+              %p Have an idea for how we can make this page even better? Submit your sugggestions online @
+              %p
+                %img{:src => "images/issues.png", :height => 75, :width => 75}
+              %p https://github.com/betesh/nahar-shalom-schedule/issues/new
       .row.screen-only
-        .col-xs-10.col-xs-offset-1
+        .col-xs-10.col-lg-offset-1
           .well
             %p This page is an open source project, created by Isaac Betesh.
             %p
@@ -111,17 +133,6 @@
               %a{:href => "http://chaitables.com"} Chaitables.com
               and represent the earliest visible sunrise in an 8km radius of 26°1'13" N, 80°11'35" W (which is approximately 5km due south of 3489 Griffin Road)
             %a{:href => "https://github.com/betesh/nahar-shalom-schedule"} View Source
-      .row.links.text-center
-        .col-xs-10.col-xs-offset-1
-          %p View this page online @
-          %p
-            %img{:src => "images/live.png"}
-          %p http://nahar-shalom.s3-website-us-east-1.amazonaws.com/index.html
-        .col-xs-3
-          %p Have an idea for how we can make this page even better? Submit your sugggestions online @
-          %p
-            %img{:src => "images/issues.png"}
-          %p https://github.com/betesh/nahar-shalom-schedule/issues/new
 :css
   @media print
   {
@@ -130,4 +141,10 @@
   @media screen
   {
     .links { display:none }
+  }
+  .links {
+    font-size:10px;
+  }
+  .date {
+    font-size:12px;
   }
