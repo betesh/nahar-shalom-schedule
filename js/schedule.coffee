@@ -63,3 +63,12 @@ write_schedule = (day_iterator) ->
 $ ->
   window.events = (e.className.replace(/hidden/, '').replace(/event/, '').replace(/\s*/, '') for e in $('.sunday .event'))
   $('.calendar').change(-> write_schedule(moment(this.value))).val(moment().format("YYYY-MM-DD")).change()
+
+$ ->
+  time_now = moment().startOf('day')
+  sunrise = get_sunrise(new HebrewDate(time_now.toDate()), time_now)
+  if moment().isAfter(sunrise)
+    time_now.add('days', 1)
+    sunrise = get_sunrise(new HebrewDate(time_now.toDate()), time_now)
+  time_to_sunrise = sunrise.diff(moment(), 'seconds')
+  clock = $('.countdown-to-sunrise').FlipClock time_to_sunrise, countdown:true

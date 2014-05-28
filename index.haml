@@ -5,12 +5,14 @@
     %script{:type => "text/javascript", :src => "http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"}
     %script{:type => "text/javascript", :src => "http://momentjs.com/static/js/global.js"}
     %script{:type => "text/javascript", :src => "js/suncalc.js"}
+    %script{:type => "text/javascript", :src => "js/flipclock.js"}
     %script{:type => "text/javascript", :src => "js/passover.js"}
     %script{:type => "text/javascript", :src => "js/hebrew_date.js"}
     %script{:type => "text/javascript", :src => "js/config.js"}
     %script{:type => "text/javascript", :src => "js/mincha.js"}
     %script{:type => "text/javascript", :src => "js/schedule.js"}
     %link{:rel => "stylesheet", :href => "http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"}
+    %link{:rel => "stylesheet", :href => "css/flipclock.css"}
   %body
     .container-fluid
       %h1
@@ -24,7 +26,13 @@
       .row.text-center.screen-only
         .col-lg-10.col-lg-offset-1.col-xs-12
           .well
-            %input.calendar{:type => :date}
+            .row
+              .col-xs-3
+                %input.calendar{:type => :date}
+              .col-xs-2.text-lg
+                .btn.btn-default.btn-block.btn-lg.disabled{:type => :button} Next sunrise in:
+              .col-xs-7
+                %span.countdown-to-sunrise.text-center
       .row
         .col-lg-8.col-lg-offset-1.col-xs-10
           .row
@@ -155,4 +163,11 @@
   }
   .row table.table td:first-child, .row table.table th:first-child {
     border-left: 1px dashed #555;
+  }
+  .countdown-to-sunrise {
+    font-weight:bold;
+    font-size:30px;
+  }
+  .flip-clock-label {
+    display:none;
   }
