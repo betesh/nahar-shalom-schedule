@@ -483,7 +483,7 @@ var FlipClock;
 			var t = this;
 
 			if(!doNotAddPlayClass) {
-				if (!t.factory.time.time instanceof Date) {
+				if (!(t.factory.time.time instanceof Date)) {
 					if(!t.factory.countdown) {
 						t.factory.time.time++;
 					}
