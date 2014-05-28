@@ -19,7 +19,7 @@
             %img{:src => "images/logo.jpg"}
           .col-xs-3
             Schedule for the week of ________ שַׁבַּת פְּרָשָׁת
-      .row.calendar_row
+      .row.screen-only
         .col-xs-6.col-xs-offset-1
           .well
             %input.calendar{:type => :date}
@@ -96,13 +96,18 @@
               %tr
                 %td רַבֵּנוּ תָּם
                 %td.rabbenu-tam
-      .row
+      .row.screen-only
         .col-xs-6.col-xs-offset-1
           .well
             %p This page is an open source project, created by Isaac Betesh.
             %p
               It uses Vladimir Agafonkin's
               %a{:href => "https://github.com/mourner/suncalc"} SunCalc JavaScript library
+              to calculate sunset and Plag HaMincha
+            %p
+              Sunrise times were generated for the Hollywood, FL area using
+              %a{:href => "http://chaitables.com"} Chaitables.com
+              and represent the earliest visible sunrise in an 8km radius of 26°1'13" N, 80°11'35" W (which is approximately 5km due south of 3489 Griffin Road)
             %a{:href => "https://github.com/betesh/nahar-shalom-schedule"} View Source
       .row.links.text-center
         .col-xs-3.col-xs-offset-1
@@ -118,7 +123,7 @@
 :css
   @media print
   {
-    .calendar_row { display:none }
+    .screen-only { display:none }
   }
   @media screen
   {

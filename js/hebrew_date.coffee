@@ -74,6 +74,7 @@ class HebrewDate
     @past_pesach_distance = get_distance(@pesach_date, date)
     @rosh_hodesh_distances = rosh_hodesh_distances(@year_length)
     @begin_tal_umatar = begin_tal_umatar(date)
+    @year = date.getFullYear() + 3760 + (if @pesach_distance > SUKKOT_DISTANCE - 14 then 1 else 0)
   isPesach: -> is_distance_in_range(@pesach_distance, 0, 8)
   isShavuot: -> is_distance_in_range(@pesach_distance, SHAVUOT_DISTANCE, 2)
   isElul: -> is_distance_in_range(@pesach_distance, SUKKOT_DISTANCE - 43, 29)
@@ -124,6 +125,7 @@ class HebrewDate
   isErubTabshilin: -> @day_of_week in [3,4] && @isErebYomTob()
   isHataratNedarim: -> true in ((is_distance_in_range(@pesach_distance, SUKKOT_DISTANCE - n, 1)) for n in [55,45,15,6])
   isTuBiShvat: -> is_distance_in_range(@pesach_distance, (if @year_length > 380 then -89 else -59), 1)
+  day_of_year: -> @pesach_distance - (SUKKOT_DISTANCE - 14)
 
 HebrewDate.prototype.isRoshHaShana = HebrewDate.prototype.isRoshHashana = HebrewDate.prototype.isRoshHaShanah = HebrewDate.prototype.isRoshHashanah
 HebrewDate.prototype.isYomTob = HebrewDate.prototype.isYomTov

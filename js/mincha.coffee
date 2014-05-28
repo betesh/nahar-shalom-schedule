@@ -75,6 +75,7 @@ mincha_time = (zmanim, hebrew_date) ->
   else
     recent_hadlakat_nerot
 
-window.mincha = (zmanim, hebrew_date) ->
+window.mincha = (day_iterator, hebrew_date) ->
+  zmanim = SunCalc.getTimes(moment(day_iterator).toDate().setHours(12), window.config.latitude, window.config.longitude)
   time = mincha_time(zmanim, hebrew_date)
   if time then time.format('h:mm') else ''
