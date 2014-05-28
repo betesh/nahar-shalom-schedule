@@ -25,7 +25,7 @@ begin_seudat_shelishit_samuch_lemincha_ketana = (hebrew_date, zmanim) ->
   start_eating_at
 
 mincha_time = (zmanim, hebrew_date) ->
-  sunset = moment(zmanim.sunset)
+  sunset = moment(zmanim.sunset).subtract('second', 30)
   if hebrew_date.isShabbat()
     $('.rabbenu-tam').html(moment(sunset).add('minute', 73).format('h:mm'))
     $('.begin-seudat-shelishit-before').html(sunset.format('h:mm')) unless hebrew_date.isErebYomTob() || hebrew_date.is1stDayOfYomTob()
