@@ -29,16 +29,16 @@
         .col-lg-8.col-lg-offset-1.col-xs-10
           .row
             .col-xs-12
-              %table.table.table-striped.table-bordered
+              %table.table.table-striped.table-condensed
                 %tr.header
                   %th
-                  %th
+                  %th.date
                   %th.hidden.selihot סְלְיחוֹת
-                  %th קָרְבָּנוֹת
-                  %th הוֹדוּ
-                  %th יִשְׁתַּבַּח
-                  %th עֲמִידָה
-                  %th מִנְחָה
+                  %th.korbanot קָרְבָּנוֹת
+                  %th.hodu הוֹדוּ
+                  %th.yishtabach יִשְׁתַּבַּח
+                  %th.amidah עֲמִידָה
+                  %th.mincha מִנְחָה
                   %th.event.hidden
                 - Date::DAYNAMES.each do |day|
                   %tr.one_day{:class => day}
@@ -78,7 +78,7 @@
                     %td.hidden.placeholder
           .row
             .col-lg-5.col-lg-offset-1.col-xs-6
-              %table.table.table-striped.table-bordered
+              %table.table.table-striped.table-condensed
                 %tr
                   %th.text-center{:colspan => 3} הַדְלַקָת נֵרוֹת
                 - 3.times do
@@ -87,7 +87,7 @@
                     %td.date
                     %td.time
             .col-lg-5.col-xs-6
-              %table.table.table-striped.table-bordered
+              %table.table.table-striped.table-condensed
                 %tr
                   %th.text-center{:colspan => 3} מוֹצָאֵי שַׁבָּת
                   %tr
@@ -145,6 +145,14 @@
   .links {
     font-size:10px;
   }
-  .date {
-    font-size:12px;
+  .amidah {
+    font-weight:bold;
+  }
+  .row table.table td, .row table.table th {
+    border-top: 1px dashed #555;
+    border-right: 1px dashed #555;
+    border-bottom: 1px dashed #555;
+  }
+  .row table.table td:first-child, .row table.table th:first-child {
+    border-left: 1px dashed #555;
   }
