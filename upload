@@ -9,5 +9,5 @@ bucket = AWS::S3.new.buckets[yaml['bucket']]
 
 Dir['js/*.js'].each { |f| bucket.objects[f].write(Pathname.new(f), :acl => :public_read, :content_type => 'text/javascript' ) }
 
-(Dir['images/*'] + Dir['*.html']).each { |f| bucket.objects[f].write(Pathname.new(f), :acl => :public_read) }
+(Dir['css/*'] + Dir['images/*'] + Dir['*.html']).each { |f| bucket.objects[f].write(Pathname.new(f), :acl => :public_read) }
 

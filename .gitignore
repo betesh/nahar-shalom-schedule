@@ -1,4 +1,5 @@
 *.html
 *.js
+!flipclock.js
 !suncalc.js
 aws.yml
