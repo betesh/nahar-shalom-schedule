@@ -14,11 +14,12 @@ shaharit_is_fixed_at = (day, hour, minute) ->
   $(".#{day} .yishtabach").html('')
   $(".#{day} .amidah").html('')
 
-get_sunrise = (hebrew_date, dst) ->
+get_sunrise = (hebrew_date, day_iterator) ->
+  dst = moment(day_iterator).hour(12).isDST()
   this_year_sunrises = window.sunrises["#{hebrew_date.year}"]
   doy = hebrew_date.day_of_year()
   doy += this_year_sunrises.length if doy < 0
-  moment(this_year_sunrises[doy], 'h:mm:ss').add('hours', if dst then 1 else  0)
+  moment(this_year_sunrises[doy], 'h:mm:ss').add('hours', if dst then 1 else  0).year(day_iterator.year()).month(day_iterator.month()).date(day_iterator.date())
 
 write_schedule = (day_iterator) ->
   unless $('.ereb-9-ab').hasClass('hidden')
@@ -35,7 +36,7 @@ write_schedule = (day_iterator) ->
     if hebrew_date.isYomKippur() || hebrew_date.isRoshHashana()
       shaharit_is_fixed_at(day, 7, 0)
     else if hebrew_date.is1stDayOfShabuot()
-      sunrise = get_sunrise(hebrew_date, moment(day_iterator).hour(12).isDST())
+      sunrise = get_sunrise(hebrew_date, day_iterator)
       $(".#{day} .amidah").html(time_format(sunrise))
       $(".#{day} .yishtabach").html(time_format(sunrise.subtract('minutes', 15)))
       $(".#{day} .hodu").html(time_format(sunrise.subtract('minutes', 25)))
@@ -43,7 +44,7 @@ write_schedule = (day_iterator) ->
     else if hebrew_date.isYomTov() || hebrew_date.isShabbat()
       shaharit_is_fixed_at(day, 7, 45)
     else
-      sunrise = get_sunrise(hebrew_date, moment(day_iterator).hour(12).isDST())
+      sunrise = get_sunrise(hebrew_date, day_iterator)
       $(".#{day} .amidah").html(time_format(sunrise))
       $(".#{day} .yishtabach").html(time_format(sunrise.subtract('minutes', 8)))
       $(".#{day} .hodu").html(time_format(sunrise.subtract('minutes', if hebrew_date.isMoed() then 12 else 11)))
