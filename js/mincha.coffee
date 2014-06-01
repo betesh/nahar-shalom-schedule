@@ -26,6 +26,10 @@ begin_seudat_shelishit_samuch_lemincha_ketana = (hebrew_date, zmanim) ->
   $('.begin-seudat-shelishit-before').html(start_eating_at.format('h:mm')) if (hebrew_date.isErebYomTob() || hebrew_date.is1stDayOfYomTob()) && hebrew_date.isShabbat()
   start_eating_at
 
+show_mosaei_yom_tob = (date, zmanim) ->
+  $('.mosaei-yom-tob').removeClass('hidden').find('.date').html(moment.weekdays()[date.weekday()])
+  $('.yom-tob-ends').html(set_hakochabim(zmanim))
+
 mincha_time = (zmanim, hebrew_date) ->
   sunset = moment(zmanim.sunset).subtract('second', 30)
   if hebrew_date.isShabbat()
@@ -41,7 +45,7 @@ mincha_time = (zmanim, hebrew_date) ->
   else if hebrew_date.isRoshHashana()
     hadlakat_nerot_is_after_set_hakochabim(sunset, hebrew_date, zmanim)
     mincha: (round_down_to_5_minutes(if hebrew_date.isShabbat() then begin_seudat_shelishit_samuch_lemincha_ketana(hebrew_date, zmanim).subtract('hours', 2) else sunset.subtract('hours', 1))),
-    arbit: if hebrew_date.isShabbat() then sunset else (if hebrew_date.is1stDayOfYomTob() || hebrew_date.isErebShabbat() then null else null)
+    arbit: if hebrew_date.isShabbat() then sunset else (if hebrew_date.is1stDayOfYomTob() || hebrew_date.isErebShabbat() then null else (show_mosaei_yom_tob(sunset, zmanim) && null))
     ### 2nd null is @TODO: Mosa'ei YT ###
   else if hebrew_date.is9Ab()
     mincha: moment(sunset).subtract('minutes', 40), arbit: sunset
@@ -81,7 +85,7 @@ mincha_time = (zmanim, hebrew_date) ->
       mincha: moment(earliest_arbit).subtract('minutes', 30), arbit: earliest_arbit
   else if hebrew_date.isYomTob()
     hadlakat_nerot_is_after_set_hakochabim(sunset, hebrew_date, zmanim)
-    mincha: round_down_to_5_minutes(sunset.subtract('minutes', 25)), arbit: if hebrew_date.is1stDayOfYomTob() then null else null
+    mincha: round_down_to_5_minutes(sunset.subtract('minutes', 25)), arbit: if hebrew_date.is1stDayOfYomTob() then null else (show_mosaei_yom_tob(sunset, zmanim) && null)
     ### 2nd null is @TODO: Mosa'ei YT ###
   else if hebrew_date.isErebYomTob()
     mincha: sunset.subtract('minutes', if hebrew_date.isErebShabbat() then 33 else 19)

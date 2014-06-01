@@ -22,6 +22,7 @@ get_sunrise = (hebrew_date, day_iterator) ->
   moment(this_year_sunrises[doy], 'h:mm:ss').add('hours', if dst then 1 else  0).year(day_iterator.year()).month(day_iterator.month()).date(day_iterator.date())
 
 write_schedule = (day_iterator) ->
+  $('.mosaei-yom-tob').addClass('hidden') unless $('.mosaei-yom-tob').hasClass('hidden')
   unless $('.ereb-9-ab').hasClass('hidden')
     $('.ereb-9-ab').addClass('hidden')
     $('.not-ereb-9-ab').removeClass('hidden')
