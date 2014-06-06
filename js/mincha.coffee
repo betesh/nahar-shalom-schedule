@@ -45,8 +45,7 @@ mincha_time = (zmanim, hebrew_date) ->
   else if hebrew_date.isRoshHashana()
     hadlakat_nerot_is_after_set_hakochabim(sunset, hebrew_date, zmanim)
     mincha: (round_down_to_5_minutes(if hebrew_date.isShabbat() then begin_seudat_shelishit_samuch_lemincha_ketana(hebrew_date, zmanim).subtract('hours', 2) else sunset.subtract('hours', 1))),
-    arbit: if hebrew_date.isShabbat() then sunset else (if hebrew_date.is1stDayOfYomTob() || hebrew_date.isErebShabbat() then null else (show_mosaei_yom_tob(sunset, zmanim) && null))
-    ### 2nd null is @TODO: Mosa'ei YT ###
+    arbit: if hebrew_date.isShabbat() then sunset else (if hebrew_date.is1stDayOfYomTob() || hebrew_date.isErebShabbat() then null else (show_mosaei_yom_tob(sunset, zmanim); round_down_to_5_minutes(moment(zmanim.set_hakochabim).subtract('minutes', 10))))
   else if hebrew_date.is9Ab()
     mincha: moment(sunset).subtract('minutes', 40), arbit: sunset
   else if hebrew_date.isTaanitEster()
@@ -73,7 +72,6 @@ mincha_time = (zmanim, hebrew_date) ->
     hadlakat_nerot_is_after_set_hakochabim(sunset, hebrew_date, zmanim)
     mincha: round_down_to_5_minutes(begin_seudat_shelishit_samuch_lemincha_ketana(hebrew_date, zmanim).subtract('hours', 1)),
     arbit: sunset
-    ### 2nd null is @TODO: YT on Mosa'ei Shabbat ###
   else if hebrew_date.isShabbat()
     mincha: round_down_to_5_minutes(moment(sunset).subtract('minutes', 45)), arbit: moment(zmanim.set_hakochabim).add('minutes', 10)
   else if hebrew_date.is7thDayOfPesach() || hebrew_date.is1stDayOfShabuot() || (hebrew_date.isYomTob() && hebrew_date.isErebShabbat())
@@ -85,8 +83,7 @@ mincha_time = (zmanim, hebrew_date) ->
       mincha: round_down_to_5_minutes(moment(earliest_arbit).subtract('minutes', 30)), arbit: earliest_arbit
   else if hebrew_date.isYomTob()
     hadlakat_nerot_is_after_set_hakochabim(sunset, hebrew_date, zmanim)
-    mincha: round_down_to_5_minutes(sunset.subtract('minutes', 25)), arbit: if hebrew_date.is1stDayOfYomTob() then null else (show_mosaei_yom_tob(sunset, zmanim) && null)
-    ### 2nd null is @TODO: Mosa'ei YT ###
+    mincha: round_down_to_5_minutes(sunset.subtract('minutes', 25)), arbit: if hebrew_date.is1stDayOfYomTob() then null else (show_mosaei_yom_tob(sunset, zmanim); round_down_to_5_minutes(moment(zmanim.set_hakochabim).subtract('minutes', 10)))
   else if hebrew_date.isErebYomTob()
     mincha: sunset.subtract('minutes', if hebrew_date.isErebShabbat() then 33 else 19)
   else if hebrew_date.isErebShabbat()
