@@ -78,11 +78,11 @@ mincha_time = (zmanim, hebrew_date) ->
     mincha: round_down_to_5_minutes(moment(sunset).subtract('minutes', 45)), arbit: moment(zmanim.set_hakochabim).add('minutes', 10)
   else if hebrew_date.is7thDayOfPesach() || hebrew_date.is1stDayOfShabuot() || (hebrew_date.isYomTob() && hebrew_date.isErebShabbat())
     display_hadlakat_nerot(sunset).html("Before Kiddush<br><b>Eat from all cooked<br>foods before #{sunset.format('h:mm')}</b>") unless hebrew_date.isErebShabbat()
-    earliest_arbit = round_down_to_5_minutes(plag(zmanim).add('minutes', 5))
+    earliest_arbit = plag(zmanim)
     if earliest_arbit.isBefore(moment(earliest_arbit).hour(18).minute(15))
       mincha: moment(earliest_arbit).hour(17).minute(45), arbit: earliest_arbit.hour(18).minute(15)
     else
-      mincha: moment(earliest_arbit).subtract('minutes', 30), arbit: earliest_arbit
+      mincha: round_down_to_5_minutes(moment(earliest_arbit).subtract('minutes', 30)), arbit: earliest_arbit
   else if hebrew_date.isYomTob()
     hadlakat_nerot_is_after_set_hakochabim(sunset, hebrew_date, zmanim)
     mincha: round_down_to_5_minutes(sunset.subtract('minutes', 25)), arbit: if hebrew_date.is1stDayOfYomTob() then null else (show_mosaei_yom_tob(sunset, zmanim) && null)
