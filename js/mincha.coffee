@@ -64,7 +64,7 @@ mincha_time = (zmanim, hebrew_date) ->
       $('.not-ereb-9-ab').addClass('hidden')
       mincha: round_down_to_5_minutes(moment(sunset).subtract('minutes', 100)), arbit: sunset.add('minutes', 90)
     else
-      mincha: moment(sunset).hour(18).minute(0), arbit: sunset
+      mincha: moment(sunset).subtract('minutes', 40), arbit: sunset
   else if hebrew_date.isPurim()
     {}
   else if hebrew_date.is6thDayOfPesach()
