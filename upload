@@ -5,9 +5,15 @@
 require 'aws-sdk'
 yaml = YAML::load(File.open('aws.yml'))
 AWS.config(yaml['credentials'])
-bucket = AWS::S3.new.buckets[yaml['bucket']]
+BUCKET = AWS::S3.new.buckets[yaml['bucket']]
 
-Dir['js/*.js'].each { |f| bucket.objects[f].write(Pathname.new(f), :acl => :public_read, :content_type => 'text/javascript' ) }
+def upload(f, options={})
+  puts "uploading #{f}..."
+  BUCKET.objects[f].write(Pathname.new(f), options.merge(:acl => :public_read))
+end
 
-(Dir['css/*'] + Dir['images/*'] + Dir['*.html']).each { |f| bucket.objects[f].write(Pathname.new(f), :acl => :public_read) }
 
+Dir['js/*.js'].each { |f| upload(f, :content_type => 'text/javascript' ) }
+(Dir['css/*'] + Dir['images/*'] + Dir['*.html']).each { |f| upload(f) }
+
+`git tag -f deployed`
