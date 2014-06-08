@@ -4,4 +4,8 @@ get_time_to_sunrise = ->
   sunrise = new Sunrise(time_now.add('days', 1)).get() if moment().isAfter(sunrise)
   sunrise.diff(moment(), 'seconds')
 
-$ ->  $('.countdown-to-sunrise').FlipClock get_time_to_sunrise(), countdown:true
+set_countdown_clock_repeatedly = (clock) ->
+  clock.setTime(get_time_to_sunrise())
+  setTimeout((-> set_countdown_clock_repeatedly(clock)), 3e+4)
+
+$ -> set_countdown_clock_repeatedly($('.countdown-to-sunrise').FlipClock get_time_to_sunrise(), countdown:true)
