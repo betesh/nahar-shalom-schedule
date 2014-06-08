@@ -85,7 +85,7 @@ mincha_time = (zmanim, hebrew_date) ->
     hadlakat_nerot_is_after_set_hakochabim(sunset, hebrew_date, zmanim)
     mincha: round_down_to_5_minutes(sunset.subtract('minutes', 25)), arbit: if hebrew_date.is1stDayOfYomTob() then null else (show_mosaei_yom_tob(sunset, zmanim); round_down_to_5_minutes(moment(zmanim.set_hakochabim).subtract('minutes', 10)))
   else if hebrew_date.isErebYomTob()
-    mincha: sunset.subtract('minutes', if hebrew_date.isErebShabbat() then 33 else 19)
+    mincha: if hebrew_date.isErebShabbat() then sunset.subtract('minutes', 33) else round_down_to_5_minutes(sunset.subtract('minutes', 25))
   else if hebrew_date.isErebShabbat()
     mincha: (if sunset.hour() < 19 || (19 == sunset.hour() && sunset.minute() < 3) then sunset.subtract('minutes', 33) else sunset.hour(18).minute(30))
   else
