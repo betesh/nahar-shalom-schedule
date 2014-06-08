@@ -1,6 +1,8 @@
 #! /usr/bin/env ruby
 
+puts 'Compiling...'
 `#{File.expand_path("#{__FILE__}/..")}/compile`
+puts 'Compiled!'
 
 require 'aws-sdk'
 yaml = YAML::load(File.open('aws.yml'))
