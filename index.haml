@@ -4,13 +4,8 @@
     %meta{:charset => "utf-8"}
     %script{:type => "text/javascript", :src => "http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"}
     %script{:type => "text/javascript", :src => "http://momentjs.com/static/js/global.js"}
-    %script{:type => "text/javascript", :src => "js/suncalc.js"}
-    %script{:type => "text/javascript", :src => "js/flipclock.js"}
-    %script{:type => "text/javascript", :src => "js/passover.js"}
-    %script{:type => "text/javascript", :src => "js/hebrew_date.js"}
-    %script{:type => "text/javascript", :src => "js/config.js"}
-    %script{:type => "text/javascript", :src => "js/mincha.js"}
-    %script{:type => "text/javascript", :src => "js/schedule.js"}
+    - [:suncalc, :flipclock, :passover, :hebrew_date, :config, :mincha, :schedule].each do |js_file|
+      %script{:type => "text/javascript", :src => "js/#{js_file}.js"}
     %link{:rel => "stylesheet", :href => "http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"}
     %link{:rel => "stylesheet", :href => "css/flipclock.css"}
   %body
