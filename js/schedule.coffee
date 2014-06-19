@@ -58,4 +58,4 @@ write_schedule = (day_iterator) ->
 
 $ ->
   window.events = (e.className.replace(/hidden/, '').replace(/event/, '').replace(/\s*/, '') for e in $('.sunday .event'))
-  $('.calendar').change(-> write_schedule(moment(this.value))).val(moment().format("YYYY-MM-DD")).change()
+  $('.calendar').change(-> write_schedule(moment(this.value))).val(moment().add('hours', 12).format("YYYY-MM-DD")).change()
