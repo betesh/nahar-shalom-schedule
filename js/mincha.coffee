@@ -92,6 +92,7 @@ mincha_time = (zmanim, hebrew_date) ->
     mincha: recent_hadlakat_nerot, arbit: sunset
 
 window.mincha_and_arbit = (day_iterator, hebrew_date) ->
+  return {mincha: 'See below', arbit: ''} if day_iterator.year() == 2014 && day_iterator.month() == 8 && day_iterator.date() == 1
   zmanim = SunCalc.getTimes(moment(day_iterator).toDate().setHours(12), window.config.latitude, window.config.longitude)
   times = mincha_time(zmanim, hebrew_date)
   (times[prayer] = if times[prayer] then times[prayer].format('h:mm') else '') for prayer in ['mincha', 'arbit']
