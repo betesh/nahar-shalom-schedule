@@ -28,8 +28,6 @@
                 .btn.btn-default.btn-block.btn-lg.disabled{:type => :button} Next sunrise in:
               .col-xs-7
                 %span.countdown-to-sunrise.text-center
-      .row
-        .col-lg-8.col-lg-offset-1.col-xs-10
           .row
             .col-xs-12
               %table.table.table-striped.table-condensed
@@ -82,55 +80,52 @@
                     %td.event.hidden.TuBiShvat ט"ו בִּשְׁבָט
                     %td.hidden.placeholder
           .row
-            .col-lg-5.col-lg-offset-1.col-xs-6
-              %table.table.table-striped.table-condensed
-                %tr
-                  %th.text-center{:colspan => 3} הַדְלַקָת נֵרוֹת
-                - 3.times do
-                  %tr.one_hadlakat_nerot.hidden
-                    %td.dow
-                    %td.date
-                    %td.time
-            .col-lg-5.col-xs-6
-              %table.table.table-striped.table-condensed.mosaei-yom-tob.hidden
-                %tr
-                  %tr
-                    %th יוֹם טוֹב ends
-                    %td.date
-                    %td.yom-tob-ends
-              %table.table.table-striped.table-condensed
-                %tr
-                  %th.text-center{:colspan => 3} מוֹצָאֵי שַׁבָּת
-                  %tr
-                    %td
-                      .ereb-9-ab.hidden Finish סְעוּדַת<br>שְׁלִישִׁית before
-                      .not-ereb-9-ab Begin סְעוּדַת<br>שְׁלִישִׁית before
-                    %td.begin-seudat-shelishit-before
-                  %tr
-                    %td שַׁבָּת ends
-                    %td.shabbat-ends
-                  %tr
-                    %td רַבֵּנוּ תָּם
-                    %td.rabbenu-tam
-        .col-lg-2.col-xs-2.links.text-center
-          .row
-            .col-xs-12
-              %p View this page online @
-              %p
-                %img{:src => "images/live.png", :height => 75, :width => 75}
-              %p http://times.naharshalom.com/
-              %br
-              %br
-              %br
-              %br
-              %br
-              %br
-          .row
-            .col-xs-12
-              %p Have an idea for how we can make this page even better? Submit your sugggestions online @
-              %p
-                %img{:src => "images/issues.png", :height => 75, :width => 75}
-              %p https://github.com/betesh/nahar-shalom-schedule/issues/new
+            .col-lg-9.col-xs-10
+              .row
+                .col-xs-5.col-lg-4
+                  %table.table.table-striped.table-condensed
+                    %tr
+                      %th.text-center{:colspan => 3} הַדְלַקָת נֵרוֹת
+                    - 3.times do
+                      %tr.one_hadlakat_nerot.hidden
+                        %td.dow
+                        %td.date
+                        %td.time
+                .col-lg-6.col-lg-offset-1.col-xs-7
+                  %table.table.table-striped.table-condensed.mosaei-yom-tob.hidden
+                    %tr
+                      %tr
+                        %th יוֹם טוֹב ends
+                        %td.date
+                        %td.yom-tob-ends
+                  %table.table.table-striped.table-condensed
+                    %tr
+                      %th.text-center{:colspan => 3} מוֹצָאֵי שַׁבָּת
+                      %tr
+                        %td
+                          .ereb-9-ab.hidden Finish סְעוּדַת<br>שְׁלִישִׁית before
+                          .not-ereb-9-ab Begin סְעוּדַת<br>שְׁלִישִׁית before
+                        %td.begin-seudat-shelishit-before
+                      %tr
+                        %td שַׁבָּת ends
+                        %td.shabbat-ends
+                      %tr
+                        %td רַבֵּנוּ תָּם
+                        %td.rabbenu-tam
+            .col-xs-2.col-lg-offset-1.links.text-center
+              .row
+                .col-xs-12
+                  %p View this page online @
+                  %p
+                    %img{:src => "images/live.png", :height => 75, :width => 75}
+                  %p http://times.naharshalom.com/
+                  %br
+              .row
+                .col-xs-12
+                  %p Have an idea for how we can make this page even better? Submit your sugggestions online @
+                  %p
+                    %img{:src => "images/issues.png", :height => 75, :width => 75}
+                  %p https://github.com/betesh/nahar-shalom-schedule/issues/new
       .row.screen-only
         .col-xs-10.col-lg-offset-1
           .well
