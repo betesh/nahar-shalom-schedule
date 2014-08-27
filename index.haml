@@ -18,16 +18,15 @@
             %b
               %p Schedule for the week of
               %p ________ שַׁבַּת פְּרָשָׁת
-      .row.text-center.screen-only
+      .row.text-center
         .col-lg-10.col-lg-offset-1.col-xs-12
-          .well
-            .row
-              .col-xs-3
-                %input.calendar{:type => :date}
-              .col-xs-2.text-lg
-                .btn.btn-default.btn-block.btn-lg.disabled{:type => :button} Next sunrise in:
-              .col-xs-7
-                %span.countdown-to-sunrise.text-center
+          .well.row.screen-only
+            .col-xs-3
+              %input.calendar{:type => :date}
+            .col-xs-2.text-lg
+              .btn.btn-default.btn-block.btn-lg.disabled{:type => :button} Next sunrise in:
+            .col-xs-7
+              %span.countdown-to-sunrise.text-center
           .row
             .col-xs-12
               %table.table.table-striped.table-condensed
@@ -112,23 +111,21 @@
                       %tr
                         %td רַבֵּנוּ תָּם
                         %td.rabbenu-tam
+              .row
+                .col-xs-12.jumbotron.font22 On Monday, September 1st, מִנְחָה and עַרְבִית will take place at Bnai Sephardim, 3670 Stirling Road, at 7:15 PM.  Followed by Derashot from local Sephardic Rabbis.
             .col-xs-2.col-lg-offset-1.links.text-center
               .row
                 .col-xs-12
-                  %p View this page online @
+                  %p View this page online:
                   %p
-                    %img{:src => "images/live.png", :height => 75, :width => 75}
+                    %img{:src => "images/live.png", :height => 60, :width => 60}
                   %p http://times.naharshalom.com/
-                  %br
               .row
                 .col-xs-12
-                  %p Have an idea for how we can make this page even better? Submit your sugggestions online @
+                  %p Have an idea for how we can make this page even better? Submit your sugggestions online:
                   %p
-                    %img{:src => "images/issues.png", :height => 75, :width => 75}
-                  %p https://github.com/betesh/nahar-shalom-schedule/issues/new
-          .row
-            .col-xs-12
-              .jumbotron.font24 On Monday, September 1st, מִנְחָה and עַרְבִית will take place at Bnai Sephardim, 3670 Stirling Road, at 7:15 PM.  There will be Derashot from local Sephardic Rabbis immediately following עַרְבִית.
+                    %img{:src => "images/issues.png", :height => 60, :width => 60}
+                  %p https://github.com/betesh/nahar-shalom-schedule/issues
       .row.screen-only
         .col-xs-10.col-lg-offset-1
           .well
@@ -173,6 +170,6 @@
   .flip-clock-label {
     display:none;
   }
-  .font24 {
-    font-size: 24;
+  .font22 {
+    font-size: 22;
   }
