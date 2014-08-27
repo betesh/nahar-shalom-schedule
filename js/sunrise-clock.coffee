@@ -5,7 +5,9 @@ get_time_to_sunrise = ->
   sunrise.diff(moment(), 'seconds')
 
 set_countdown_clock_repeatedly = (clock) ->
-  clock.setTime(get_time_to_sunrise())
-  setTimeout((-> set_countdown_clock_repeatedly(clock)), 3e+4)
+  time_left = get_time_to_sunrise()
+  clock.setTime(time_left)
+  console.log "Resetting sunrise clock, with #{time_left} seconds left"
+  setTimeout((-> set_countdown_clock_repeatedly(clock)), 1e4) if time_left > 10
 
 $ -> set_countdown_clock_repeatedly($('.countdown-to-sunrise').FlipClock get_time_to_sunrise(), countdown:true)
