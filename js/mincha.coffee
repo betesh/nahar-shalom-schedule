@@ -87,7 +87,7 @@ mincha_time = (zmanim, hebrew_date) ->
   else if hebrew_date.isErebYomTob()
     mincha: if hebrew_date.isErebShabbat() then sunset.subtract(33, 'minutes') else round_down_to_5_minutes(sunset.subtract(25, 'minutes'))
   else if hebrew_date.isErebShabbat()
-    mincha: (if sunset.hour() < 19 || (19 == sunset.hour() && sunset.minute() < 3) then sunset.subtract(33, 'minutes') else sunset.hour(18).minute(30))
+    mincha: moment.min(moment(sunset).subtract(33, 'minutes'), sunset.hour(18).minute(30))
   else
     mincha: recent_hadlakat_nerot, arbit: sunset
 
