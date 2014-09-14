@@ -107,6 +107,7 @@ class HebrewDate
   isErebYomKippur: -> is_distance_in_range(@pesach_distance, SUKKOT_DISTANCE - 6, 1)
   is6thDayOfPesach: -> is_distance_in_range(@pesach_distance, 5, 1)
   is7thDayOfPesach: -> is_distance_in_range(@pesach_distance, 6, 1)
+  isErebRoshHashana: -> is_distance_in_range(@pesach_distance, SUKKOT_DISTANCE - 15, 1)
   isErebYomTob: -> true in (is_distance_in_range(@pesach_distance, start_range - 1, 1) for start_range in YOM_TOB_START_RANGES)
   is1stDayOfYomTob: -> true in (is_distance_in_range(@pesach_distance, start_range, 1) for start_range in YOM_TOB_START_RANGES)
   is1stDayOfShabuot: -> is_distance_in_range(@pesach_distance, SHAVUOT_DISTANCE, 1)
