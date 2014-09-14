@@ -27,7 +27,7 @@ write_schedule = (day_iterator) ->
     $(".#{day} .date").html(day_iterator.format("D MMM"))
     hebrew_date = new HebrewDate(day_iterator.toDate())
     show_event(day, event, hebrew_date) for event in events
-    if hebrew_date.isYomKippur() || hebrew_date.isRoshHashana()
+    if hebrew_date.isYomKippur()
       shaharit_is_fixed_at(day, 7, 0)
     else if hebrew_date.is1stDayOfShabuot()
       sunrise = new Sunrise(day_iterator).get()
