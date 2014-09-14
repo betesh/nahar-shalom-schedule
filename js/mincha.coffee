@@ -43,9 +43,15 @@ mincha_time = (zmanim, hebrew_date) ->
     mincha: round_down_to_5_minutes(sunset.subtract(3, 'hours')),
     arbit: moment(zmanim.set_hakochabim).add(10, 'minutes')
   else if hebrew_date.isRoshHashana()
-    hadlakat_nerot_is_after_set_hakochabim(sunset, hebrew_date, zmanim)
-    mincha: (round_down_to_5_minutes(if hebrew_date.isShabbat() then begin_seudat_shelishit_samuch_lemincha_ketana(hebrew_date, zmanim).subtract(2, 'hours') else sunset.subtract(1, 'hours'))),
-    arbit: if hebrew_date.isShabbat() then sunset else (if hebrew_date.is1stDayOfYomTob() || hebrew_date.isErebShabbat() then null else (show_mosaei_yom_tob(sunset, zmanim); round_down_to_5_minutes(moment(zmanim.set_hakochabim).subtract(10, 'minutes'))))
+    if hebrew_date.is1stDayOfYomTob()
+      hadlakat_nerot_is_after_set_hakochabim(sunset, hebrew_date, zmanim)
+      if hebrew_date.isShabbat()
+        mincha: round_down_to_5_minutes(begin_seudat_shelishit_samuch_lemincha_ketana(hebrew_date, zmanim).subtract(2, 'hours')), arbit: sunset
+      else
+        mincha: round_down_to_5_minutes(sunset.subtract(85, 'minutes'))
+    else
+      mincha: round_down_to_5_minutes(sunset.subtract(55, 'minutes')),
+      arbit: (if hebrew_date.isErebShabbat() then null else (show_mosaei_yom_tob(sunset, zmanim); round_down_to_5_minutes(moment(zmanim.set_hakochabim).subtract(10, 'minutes'))))
   else if hebrew_date.is9Ab()
     mincha: moment(sunset).subtract(45, 'minutes'), arbit: sunset
   else if hebrew_date.isTaanitEster()
