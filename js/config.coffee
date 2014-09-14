@@ -11,5 +11,5 @@ window.config =
   longitude: -(80 + 11.0/60 + 33.0 / 3600)
 
 $ ->
-  moment.lang('en')
+  moment.locale('en')
   SunCalc.addTime(-8.5, 'small_stars_3', 'set_hakochabim')

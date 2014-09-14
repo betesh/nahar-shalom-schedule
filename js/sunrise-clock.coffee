@@ -1,7 +1,7 @@
 get_time_to_sunrise = ->
   time_now = moment().startOf('day')
   sunrise = new Sunrise(time_now).get()
-  sunrise = new Sunrise(time_now.add('days', 1)).get() if moment().isAfter(sunrise)
+  sunrise = new Sunrise(time_now.add(1, 'days')).get() if moment().isAfter(sunrise)
   sunrise.diff(moment(), 'seconds')
 
 set_countdown_clock_repeatedly = (clock) ->

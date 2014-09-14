@@ -5,7 +5,7 @@ class Sunrise
     this_year_sunrises = window.sunrises["#{hebrew_date.year}"]
     doy = hebrew_date.day_of_year()
     doy += this_year_sunrises.length if doy < 0
-    @sunrise = moment(this_year_sunrises[doy], 'h:mm:ss').add('hours', dst_offset).year(moment_instance.year()).month(moment_instance.month()).date(moment_instance.date())
+    @sunrise = moment(this_year_sunrises[doy], 'h:mm:ss').add(dst_offset, 'hours').year(moment_instance.year()).month(moment_instance.month()).date(moment_instance.date())
   get: -> @sunrise
 
 window.Sunrise = Sunrise
