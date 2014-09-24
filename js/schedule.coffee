@@ -16,6 +16,8 @@ shaharit_is_fixed_at = (day, hour, minute) ->
 
 write_schedule = (day_iterator) ->
   $('.mosaei-yom-tob').addClass('hidden') unless $('.mosaei-yom-tob').hasClass('hidden')
+  $('.mosaei-yom-kippur').addClass('hidden') unless $('.mosaei-yom-kippur').hasClass('hidden')
+  $('.mosaei-shabbat').removeClass('hidden') if $('.mosaei-shabbat').hasClass('hidden')
   unless $('.ereb-9-ab').hasClass('hidden')
     $('.ereb-9-ab').addClass('hidden')
     $('.not-ereb-9-ab').removeClass('hidden')

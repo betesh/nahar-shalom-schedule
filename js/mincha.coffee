@@ -32,7 +32,12 @@ show_mosaei_yom_tob = (date, zmanim) ->
 
 mincha_time = (zmanim, hebrew_date) ->
   sunset = moment(zmanim.sunset).subtract(30, 'second')
-  if hebrew_date.isShabbat()
+  if hebrew_date.isYomKippur()
+    $('.mosaei-yom-kippur').removeClass('hidden')
+    $('.yom-kippur-rabbenu-tam').html(moment(sunset).add(73, 'minute').format('h:mm'))
+    $('.yom-kippur-ends').html(set_hakochabim(zmanim))
+    $('.mosaei-shabbat').addClass('hidden') if hebrew_date.isShabbat()
+  else if hebrew_date.isShabbat()
     $('.rabbenu-tam').html(moment(sunset).add(73, 'minute').format('h:mm'))
     $('.shabbat-ends').html(set_hakochabim(zmanim))
     $('.begin-seudat-shelishit-before').html(sunset.format('h:mm')) unless hebrew_date.isErebYomTob() || hebrew_date.is1stDayOfYomTob()
