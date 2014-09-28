@@ -67,7 +67,7 @@ mincha_time = (zmanim, hebrew_date) ->
     else
       mincha: moment(sunset).subtract(30, 'minutes'), arbit: sunset
   else if hebrew_date.isErebYomKippur()
-    mincha: moment(sunset).hour(14).minute(30), arbit: round_down_to_5_minutes(sunset.subtract(45, 'minutes'))
+    mincha: moment(sunset).hour(15).minute(30), arbit: round_down_to_5_minutes(sunset.subtract(45, 'minutes'))
   else if hebrew_date.isEreb9Ab()
     if hebrew_date.isShabbat()
       $('.ereb-9-ab').removeClass('hidden')
