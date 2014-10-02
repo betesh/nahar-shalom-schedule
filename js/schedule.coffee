@@ -38,6 +38,7 @@ write_schedule = (day_iterator) ->
       $(".#{day} .hodu").html(time_format(sunrise.subtract(26, 'minutes')))
       $(".#{day} .korbanot").html(time_format(sunrise.subtract(15, 'minutes')))
     else if hebrew_date.isYomTov() || hebrew_date.isShabbat()
+      # TODO: Shofar 2:30 after Hodu on Rosh Hashana that isn't Shabbat
       shaharit_is_fixed_at(day, 7, 45)
     else
       sunrise = new Sunrise(day_iterator).get()
