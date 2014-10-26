@@ -28,7 +28,7 @@
             .col-xs-2.text-lg
               .btn.btn-default.btn-block.btn-lg.disabled{:type => :button} Next sunrise in:
             .col-xs-7
-              %span.countdown-to-sunrise.text-center
+              %span.countdown-to-sunrise.text-center.bold
           .row
             .col-xs-12
               %table.table.table-striped.table-condensed
@@ -51,7 +51,7 @@
                     %td.korbanot
                     %td.hodu
                     %td.yishtabach
-                    %td.amidah
+                    %td.amidah.bold
                     %td.mincha
                     %td.arbit
                     %td.event.start-hidden.RoshHodesh רֹאשׁ חֹדֶשׁ
@@ -143,17 +143,17 @@
 :css
   @media print
   {
-    .screen-only { display:none }
+    .screen-only { display: none }
   }
   @media screen
   {
-    .links { display:none }
+    .links { display: none }
   }
   .links {
-    font-size:10px;
+    font-size: 10px;
   }
-  .amidah {
-    font-weight:bold;
+  .bold {
+    font-weight: bold;
   }
   .row table.table td, .row table.table th {
     border-top: 1px dashed #555;
@@ -164,11 +164,10 @@
     border-left: 1px dashed #555;
   }
   .countdown-to-sunrise {
-    font-weight:bold;
-    font-size:30px;
+    font-size: 30px;
   }
   .flip-clock-label {
-    display:none;
+    display: none;
   }
   .font22 {
     font-size: 22;
