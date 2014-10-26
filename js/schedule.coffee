@@ -15,17 +15,11 @@ shaharit_is_fixed_at = (day, hour, minute) ->
   $(".#{day} .amidah").html('')
 
 write_schedule = (day_iterator) ->
-  $('.mosaei-yom-tob').addClass('hidden') unless $('.mosaei-yom-tob').hasClass('hidden')
-  $('.mosaei-yom-kippur').addClass('hidden') unless $('.mosaei-yom-kippur').hasClass('hidden')
-  $('.mosaei-shabbat').removeClass('hidden') if $('.mosaei-shabbat').hasClass('hidden')
-  unless $('.ereb-9-ab').hasClass('hidden')
-    $('.ereb-9-ab').addClass('hidden')
-    $('.not-ereb-9-ab').removeClass('hidden')
-  $('.one_hadlakat_nerot').addClass('hidden')
+  $('.start-hidden').addClass('hidden')
+  $('.start-shown').removeClass('hidden')
+  $(".one_day .selihot").html('')
   day_iterator.day('Saturday')
   for day in moment.weekdays().reverse()
-    $(".#{day} .selihot").addClass('hidden').html('')
-    $(".#{day} .placeholder").addClass('hidden')
     $(".#{day} .date").html(day_iterator.format("D MMM"))
     hebrew_date = new HebrewDate(day_iterator.toDate())
     show_event(day, event, hebrew_date) for event in events
@@ -60,5 +54,5 @@ write_schedule = (day_iterator) ->
   ($(".#{day} .selihot").removeClass('hidden') for day in moment.weekdays()) unless $(".header .selihot").hasClass('hidden')
 
 $ ->
-  window.events = (e.className.replace(/hidden/, '').replace(/event/, '').replace(/\s*/, '') for e in $('.sunday .event'))
+  window.events = (e.className.replace(/start-hidden/, '').replace(/event/, '').replace(/\s*/, '') for e in $('.sunday .event'))
   $('.calendar').change(-> write_schedule(moment(this.value))).val(moment().add(12, 'hours').format("YYYY-MM-DD")).change()
