@@ -44,7 +44,7 @@ write_schedule = (day_iterator) ->
         $(".#{day} .selihot").removeClass('hidden').html(time_format(sunrise.subtract(56, 'minutes')))
       if hebrew_date.isElul() && !hebrew_date.isRoshChodesh()
         $(".#{day} .selihot").removeClass('hidden').html(time_format(sunrise.subtract(50, 'minutes')))
-    afternoon = mincha_and_arbit(day_iterator, hebrew_date)
+    afternoon = mincha_and_arbit(day_iterator)
     $(".#{day} .mincha").html(afternoon.mincha)
     $(".#{day} .arbit").html(afternoon.arbit)
     day_iterator.subtract(1, 'days')

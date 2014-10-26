@@ -83,42 +83,120 @@
           .row
             .col-lg-9.col-xs-10
               .row
-                .col-xs-5.col-lg-4
+                .col-xs-5.col-lg-4.pesach-first-days.start-hidden
                   %table.table.table-striped.table-condensed
                     %tr
-                      %th.text-center{:colspan => 3} הַדְלַקָת נֵרוֹת
-                    - 3.times do
-                      %tr.one_hadlakat_nerot.start-hidden
-                        %td.dow
-                        %td.date
-                        %td.time
-                .col-lg-6.col-lg-offset-1.col-xs-7
-                  %table.table.table-striped.table-condensed.mosaei-yom-tob.start-hidden
+                      %th.text-center{:colspan => 4} יוֹם טוֹב רִאשׁוֹן שֶׁל פֶּסַח
+                    %tr.eve.hadlakat-nerot
+                      %td.dow{rowspan: 2}
+                      %td.date{rowspan: 2}
+                      %td הַדְלַקָת נֵרוֹת
+                      %td.time
+                    %tr.eve.chatzot
+                      %td חֲצוֹת
+                      %td.time
+                    %tr.first.afternoon-shiur
+                      %td.dow{rowspan: 3}
+                      %td.date{rowspan: 3}
+                      %td Afternoon Shiur
+                      %td.time
+                    %tr.first.hadlakat-nerot
+                      %td הַדְלַקָת נֵרוֹת
+                      %td.time
+                    %tr.first.chatzot
+                      %td חֲצוֹת
+                      %td.time
+                    %tr.second.afternoon-shiur
+                      %td.dow{rowspan: 2}
+                      %td.date{rowspan: 2}
+                      %td Afternoon Shiur
+                      %td.time
+                    %tr.second.ends
+                      %td יוֹם טוֹב ends
+                      %td.time
+                .col-xs-5.col-lg-4.pesach-last-days.start-hidden
+                  %table.table.table-striped.table-condensed
                     %tr
-                      %th יוֹם טוֹב ends
+                      %th.text-center{:colspan => 4} שְׁבִיעִי וְאַחֲרוֹן שֶׁל פֶּסַח
+                .col-xs-5.col-lg-4.shabuot.start-hidden
+                  %table.table.table-striped.table-condensed
+                    %tr
+                      %th.text-center{:colspan => 4} חַג הַשָׁבֻעֹת
+                .col-xs-5.col-lg-4.ab-9.start-hidden
+                  %table.table.table-striped.table-condensed
+                    %tr
+                      %th.text-center{:colspan => 4} תִּשְׁעָה בְּאָב
+                .col-xs-5.col-lg-4.rosh-hashana.start-hidden
+                  %table.table.table-striped.table-condensed
+                    %tr
+                      %th.text-center{:colspan => 4} רֹאשׁ הַשָּׁנָה
+                .col-xs-5.col-lg-4.yom-kippur.start-hidden
+                  %table.table.table-striped.table-condensed
+                    %tr
+                      %th.text-center{:colspan => 4} יוֹם הַכִּפֻּרִים
+                    %tr.eve.hadlakat-nerot
+                      %td לֵיל כִּפֻּרִים
                       %td.date
-                      %td.yom-tob-ends
-                  %table.table.table-striped.table-condensed.mosaei-yom-kippur.start-hidden
+                      %td הַדְלַקָת נֵרוֹת
+                      %td.time
+                    %tr.day.neilah
+                      %td{rowspan: 5} יוֹם הַכִּפֻּרִים
+                      %td.date{rowspan: 5}
+                      %td נְעִילָה
+                      %td.time
+                    %tr.day.sunset
+                      %td בִּרְכַּת כֹּהֲנִים before
+                      %td.time
+                    %tr.day.ends
+                      %td שׁוֹפַר
+                      %td.time
                     %tr
-                      %th מוֹצָאֵי יוֹם הַכִּפֻּרִים
-                      %th רַבֵּנוּ תָּם
+                      %td.bold{colspan: 2} No eating before הַבְדָלָה
+                    %tr.day.rabbenu-tam
+                      %td רַבֵּנוּ תָּם
+                      %td.time
+                .col-xs-5.col-lg-4.sukkot-first-days.start-hidden
+                  %table.table.table-striped.table-condensed
                     %tr
-                      %td.yom-kippur-ends
-                      %td.yom-kippur-rabbenu-tam
-                  %table.table.table-striped.table-condensed.mosaei-shabbat.start-shown
+                      %th.text-center{:colspan => 4} חַג הַסֻּכּוֹת
+                .col-xs-5.col-lg-4.sukkot-last-days.start-hidden
+                  %table.table.table-striped.table-condensed
                     %tr
-                      %th.text-center{:colspan => 3} מוֹצָאֵי שַׁבָּת
+                      %th.text-center{:colspan => 4} שְּׁמִינִי עֲצֶרֶת וְשִׂמְחַת תּוֹרָה
+                .col-xs-5.col-lg-4.purim.start-hidden
+                  %table.table.table-striped.table-condensed
                     %tr
+                      %th.text-center{:colspan => 4} פּוּרִים
+                .col-lg-6.col-lg-offset-1.col-xs-7.shabbat.start-hidden
+                  %table.table.table-striped.table-condensed
+                    %tr
+                      %th.text-center{:colspan => 4} שַׁבָּת
+                    %tr.eve.hadlakat-nerot
+                      %td לֵיל שַׁבָּת
+                      %td.date
+                      %td הַדְלַקָת נֵרוֹת
+                      %td.time
+                    %tr.day.shema.start-hidden
+                      %td{rowspan: 5} יוֹם שַׁבָּת
+                      %td.date{rowspan: 5}
+                      %td.bold Say שְׁמַע יִשְׂרָאֵל before
+                      %td.time.bold
+                    %tr.day.afternoon-shiur
+                      %td.start-shown{rowspan: 4} יוֹם שַׁבָּת
+                      %td.date.start-shown{rowspan: 4}
+                      %td Afternoon Shiur
+                      %td.time
+                    %tr.day.seudat-shelishit
                       %td
                         .ereb-9-ab.start-hidden Finish סְעוּדַת<br>שְׁלִישִׁית before
                         .not-ereb-9-ab.start-shown Begin סְעוּדַת<br>שְׁלִישִׁית before
-                      %td.begin-seudat-shelishit-before
-                    %tr
+                      %td.time
+                    %tr.day.ends
                       %td שַׁבָּת ends
-                      %td.shabbat-ends
-                    %tr
+                      %td.time
+                    %tr.day.rabbenu-tam
                       %td רַבֵּנוּ תָּם
-                      %td.rabbenu-tam
+                      %td.time
             .col-xs-2.col-lg-offset-1.links.text-center
               .row
                 .col-xs-12

@@ -18,3 +18,4 @@ window.config =
 $ ->
   moment.locale('en')
   SunCalc.addTime(-8.5, 'small_stars_3', 'set_hakochabim')
+  SunCalc.addTime(-16.1, 'magen_abraham_dawn', 'magen_abraham_dusk')
