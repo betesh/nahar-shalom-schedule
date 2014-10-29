@@ -119,7 +119,7 @@ class Schedule
     when @hebrew_date.isErebShabbat() || ((@hebrew_date.isErebYomTob() || @hebrew_date.is1stDayOfYomTob()) && !@hebrew_date.isShabbat()) then null
     when @hebrew_date.isShabbat() && !@hebrew_date.isErebYomTob() && !@hebrew_date.is1stDayOfYomTob() then @arbit_on_mosaei_shabbat()
     when @hebrew_date.is7thDayOfPesach() || @hebrew_date.is1stDayOfShabuot() then @plag()
-    when @hebrew_date.is2ndDayOfYomTob() && !@hebrew_date.isErebShabbat() then minutes_before_event(zmanim.set_hakochabim(), 10)
+    when @hebrew_date.is2ndDayOfYomTob() && !@hebrew_date.isErebShabbat() then minutes_before_event(@zmanim.set_hakochabim, 10)
     else @sunset
   hadlakat_nerot: -> if @has_hadlakat_nerot_after_set_hakochabim() then @zmanim.set_hakochabim else minutes_before_event(@sunset, 19)
   has_hadlakat_nerot_after_set_hakochabim: -> (@hebrew_date.isErebYomTob() && @hebrew_date.isShabbat()) || (@hebrew_date.is1stDayOfYomTob() && !@hebrew_date.isErebShabbat())
