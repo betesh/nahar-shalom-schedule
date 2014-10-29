@@ -88,6 +88,9 @@ class Schedule
       $(".#{@chag()} .ereb-9-ab").removeClass('hidden')
       $(".#{@chag()} .not-ereb-9-ab").addClass('hidden')
     @rabbenu_tam_schedule()
+    if @hebrew_date.isShabbatMevarechim()
+      nextMonth = new NextMonth(@hebrew_date)
+      $(".#{@chag()}.molad").removeClass('hidden').find('td').html("#{nextMonth.announcement()}<br>#{nextMonth.moladAnnouncement()}")
   yom_kippur_schedule: ->
     @set_date()
     $(".#{@chag()}.sunset .time").html(time_format(@sunset))

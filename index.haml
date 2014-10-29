@@ -4,7 +4,7 @@
     %meta{:charset => "utf-8"}
     %script{:type => "text/javascript", :src => "http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"}
     %script{:type => "text/javascript", :src => "http://momentjs.com/static/js/global.js"}
-    - [:suncalc, :flipclock, :hebrewDate, :config, :mincha, :sunrise, :schedule, :'sunrise-clock'].each do |js_file|
+    - [:suncalc, :flipclock, :hebrewDate, :config, :mincha, :sunrise, :schedule, :'sunrise-clock', :nextMonth].each do |js_file|
       %script{:type => "text/javascript", :src => "js/#{js_file}.js"}
     %link{:rel => "stylesheet", :href => "http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"}
     %link{:rel => "stylesheet", :href => "css/flipclock.css"}
@@ -197,6 +197,8 @@
                     %tr.day.rabbenu-tam
                       %td רַבֵּנוּ תָּם
                       %td.time
+                    %tr.day.molad.start-hidden
+                      %td.bold.text-center{colspan: 4}
             .col-xs-2.col-lg-offset-1.links.text-center
               .row
                 .col-xs-12
