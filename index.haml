@@ -10,16 +10,12 @@
     %link{:rel => "stylesheet", :href => "css/flipclock.css"}
   %body
     .container-fluid
-      .print.text-center
-        %b http://times.naharshalom.com/
-      %h1
-        .row.text-center
-          .col-xs-5.col-lg-offset-1
-            %img{:src => "images/logo.jpg"}
-          .col-xs-7.col-lg-3
-            %b
-              %p Schedule for the week of
-              %p.sedra
+      .row.text-center
+        .col-xs-5.col-lg-offset-1
+          %img{:src => "images/logo.jpg"}
+        .col-xs-7.col-lg-3.bold
+          .links http://times.naharshalom.com/
+          .sedra.font48
       .row.text-center
         .col-lg-10.col-lg-offset-1.col-xs-12
           .well.row.screen-only
@@ -195,7 +191,7 @@
                     %tr.day.rabbenu-tam
                       %td רַבֵּנוּ תָּם
                       %td.time
-                    %tr.day.molad.start-hidden
+                    %tr.day.molad.font13.start-hidden
                       %td.bold.text-center{colspan: 4}
             .col-xs-2.col-lg-offset-1.links.text-center
               .row
@@ -249,4 +245,10 @@
   }
   .font22 {
     font-size: 22;
+  }
+  .font13 {
+    font-size: 13;
+  }
+  .font48 {
+    font-size: 48;
   }
