@@ -599,9 +599,9 @@
     this.HALAKIM_PER_WEEK = this.HALAKIM_PER_DAY * 7;
     this.LUNAR_CYCLE = 29 * this.HALAKIM_PER_DAY + 12 * this.HALAKIM_PER_HOUR + 793;
     this.EPOCH = {
-      molad: new Molad(-10 * this.HALAKIM_PER_HOUR),
-      year: 2,
-      gregorianDate: new Date(-3759, 7, 27)
+      molad: new Molad(9 * this.HALAKIM_PER_HOUR + 975),
+      year: 5320,
+      gregorianDate: new Date(1559, 8, 12)
     };
     this.leapMonthsSinceEpoch = function(hebrewYear) {
       return leapMonthsInHistory(hebrewYear) - leapMonthsInHistory(this.EPOCH.year);
@@ -692,18 +692,18 @@
       }
       switch (yearBeginsOn) {
         case 6:
-          this.sedrot.splice(0, 0, 'רֹאשׁ הַשָּׁנָה', 'הַאֲזִינוּ', 'סֻּכּוֹת', 'שְּׁמִינִי עֲצֶרֶת');
+          this.sedrot.splice(0, 0, 'רֹאשׁ הַשָּׁנָה', 'הַאֲזִינוּ', 'חַג הַסֻּכּוֹת', 'שְּׁמִינִי עֲצֶרֶת');
           break;
         case 4:
-          this.sedrot.splice(0, 0, '', 'הַאֲזִינוּ', 'יוֹם הַכִּפֻּרִים', 'סֻּכּוֹת');
+          this.sedrot.splice(0, 0, '', 'הַאֲזִינוּ', 'יוֹם הַכִּפֻּרִים', 'חַג הַסֻּכּוֹת');
           break;
         default:
-          this.sedrot.splice(0, 0, '', 'וַיֵּלֶךְ', 'הַאֲזִינוּ', 'סֻּכּוֹת');
+          this.sedrot.splice(0, 0, '', 'וַיֵּלֶךְ', 'הַאֲזִינוּ', 'חַג הַסֻּכּוֹת');
       }
       switch (yearEndsOn) {
         case 6:
           this.sedrot.splice(this.sedrot.indexOf('חֻקַּת'), 2, 'חֻקַּת-בָּלָק');
-          this.sedrot.splice(this.sedrot.indexOf('נָשֹׂא'), 0, 'שָׁבֻעוֹת');
+          this.sedrot.splice(this.sedrot.indexOf('נָשֹׂא'), 0, 'חַג הַשָׁבֻעוֹת');
           this.sedrot.splice(this.sedrot.length - 4, 4, 'נִצָּבִים-וַיֵּלֶךְ', 'רֹאשׁ הַשָּׁנָה');
           break;
         case 4:
@@ -718,7 +718,7 @@
       if (4 !== yearEndsOn || !isLeapYear) {
         this.sedrot.splice(this.sedrot.indexOf('מַּטּוֹת'), 2, 'מַּטּוֹת-מַסְעֵי');
       }
-      this.sedrot.splice(this.sedrot.length - 23, 0, 'פֶּסַח');
+      this.sedrot.splice(this.sedrot.length - 23, 0, 'חַג הַפֶּסַח');
       if (1 === yearEndsOn) {
         this.sedrot.splice(this.sedrot.length - 23, 0, 'אַחֲרוֹן שֶׁל פֶּסַח');
       }
