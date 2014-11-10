@@ -130,7 +130,7 @@ class Schedule
     else if @has_hadlakat_nerot_after_set_hakochabim()
       "After #{if @hebrew_date.isShabbat() then 'שַׁבָּת ends' else time_format(@hadlakat_nerot())}"
     else time_format(@hadlakat_nerot())
-  sedra: -> "#{if @hebrew_date.isRegel() || @hebrew_date.isYomKippur() || @hebrew_date.isYomTob() then "" else "שַׁבַּת פְּרָשָׁת"} #{@hebrew_date.sedra()}"
+  sedra: -> "#{if @hebrew_date.isRegel() || @hebrew_date.isYomKippur() || @hebrew_date.isYomTob() then "" else "שַׁבַּת פְּרָשָׁת"} #{@hebrew_date.sedra().replace(/-/g, ' - ')}"
 
 window.mincha_and_arbit = (day_iterator) ->
   schedule = new Schedule(day_iterator)

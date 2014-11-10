@@ -2,8 +2,8 @@ time_format = (t) -> t.format("h:mm:ss")
 
 show_event = (day, event, hebrew_date) -> $(".#{day} .#{event}")[show_if(hebrew_date["is#{event}"]())]('hidden')
 
-event_array = (day) -> $(".#{day} .#{event}").hasClass('hidden') for event in events
-has_no_event = (day) -> event_array(day).indexOf(false) < 0
+event_array = (day) -> ($(".one_day.#{day} .#{event}").not(".hidden").length > 0) for event in events
+has_no_event = (day) -> true not in event_array(day)
 
 show_if = (condition) -> if condition then 'removeClass' else 'addClass'
 
@@ -54,5 +54,5 @@ write_schedule = (day_iterator) ->
   ($(".#{day} .selihot").removeClass('hidden') for day in moment.weekdays()) unless $(".header .selihot").hasClass('hidden')
 
 $ ->
-  window.events = (e.className.replace(/start-hidden/, '').replace(/event/, '').replace(/\s*/, '') for e in $('.sunday .event'))
+  window.events = (e.className.replace(/start-hidden/, '').replace(/event/, '').replace(/\s*/, '') for e in $('.Saturday .event'))
   $('.calendar').change(-> write_schedule(moment(this.value))).val(moment().add(12, 'hours').format("YYYY-MM-DD")).change()
