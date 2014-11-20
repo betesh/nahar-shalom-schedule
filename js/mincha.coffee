@@ -78,6 +78,8 @@ class Schedule
   rabbenu_tam_schedule: ->
     $(".#{@chag()}.ends .time").html(@set_hakochabim())
     $(".#{@chag()}.rabbenu-tam .time").html(@rabbenu_tam())
+    half_hour_after_rabbenu_tam = round_down_to_5_minutes(moment(@sunset).add(101, 'minute'))
+    $(".#{@chag()}.abot-ubanim").removeClass('hidden').find(".time").html(time_format(half_hour_after_rabbenu_tam)) if half_hour_after_rabbenu_tam.isBefore(@today().hour(20).minute(16))
   shabbat_schedule: ->
     @set_date()
     if @shema_is_before_9_am()
