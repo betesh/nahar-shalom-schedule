@@ -42,9 +42,9 @@ class Schedule
     when @hebrew_date.is9Ab() || @hebrew_date.isErebShabbat() then 45
     when @hebrew_date.isTaanitEster() then 35
     else 30
-  arbit_minutes_after_sunset_on_mosaei_shabbat: -> if @hebrew_date.isEreb9Ab() then 90 else 10
+  arbit_minutes_after_set_hakochabim_on_mosaei_shabbat: -> if @hebrew_date.isEreb9Ab() then 55 else 10
   mincha_on_shabbat: -> minutes_before_event(@sunset, @mincha_minutes_before_sunset_on_shabbat())
-  arbit_on_mosaei_shabbat: -> moment(@sunset).add(@arbit_minutes_after_sunset_on_mosaei_shabbat(), 'minutes')
+  arbit_on_mosaei_shabbat: -> moment(@zmanim.set_hakochabim).add(@arbit_minutes_after_set_hakochabim_on_mosaei_shabbat(), 'minutes')
   afternoon_shiur: -> $(".#{@chag()}.afternoon-shiur .time").html(time_format(moment(@mincha()).subtract(1, 'hour')))
   samuch_lemincha_ketana: -> portion_of_day(@zmanim, 0.75)
   plag: -> moment(@_plag ?= portion_of_day(@zmanim, 43.0/48.0))
