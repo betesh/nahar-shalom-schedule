@@ -116,9 +116,8 @@ class Schedule
     else recent_hadlakat_nerot
   arbit: -> @_arbit ?= switch
     when @hebrew_date.isErebYomKippur() then minutes_before_event(@sunset, 55)
-    when @hebrew_date.isYomKippur() then @arbit_on_mosaei_shabbat()
     when @hebrew_date.isErebShabbat() || ((@hebrew_date.isErebYomTob() || @hebrew_date.is1stDayOfYomTob()) && !@hebrew_date.isShabbat()) then null
-    when @hebrew_date.isShabbat() && !@hebrew_date.isErebYomTob() && !@hebrew_date.is1stDayOfYomTob() then @arbit_on_mosaei_shabbat()
+    when @hebrew_date.isYomKippur() || (@hebrew_date.isShabbat() && !@hebrew_date.isErebYomTob() && !@hebrew_date.is1stDayOfYomTob()) then @arbit_on_mosaei_shabbat()
     when @hebrew_date.is7thDayOfPesach() || @hebrew_date.is1stDayOfShabuot() then @plag()
     when @hebrew_date.is2ndDayOfYomTob() && !@hebrew_date.isErebShabbat() then minutes_before_event(@zmanim.set_hakochabim, 10)
     else @sunset
