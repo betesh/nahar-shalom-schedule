@@ -61,12 +61,14 @@ class Schedule
       when @hebrew_date.isHoshanaRaba() || @hebrew_date.isSheminiAseret() then 'sukkot-last-days'
       when @hebrew_date.isErebYomKippur() || @hebrew_date.isYomKippur() then 'yom-kippur'
       when @hebrew_date.isErebShabbat() || @hebrew_date.isShabbat() then 'shabbat'
+      when @hebrew_date.isTaanit() && !@hebrew_date.is9Ab() then 'taanit'
+      when (@hebrew_date.is9Ab() || @hebrew_date.isEreb9Ab()) && !@hebrew_date.isShabbat() then 'chabob'
       else console.warn "This should never happen!"
     rishon_or_sheni = switch
-      when @hebrew_date.isErebYomTob() || @hebrew_date.isErebYomKippur() || @hebrew_date.isErebShabbat() then '.eve'
+      when @hebrew_date.isErebYomTob() || @hebrew_date.isErebYomKippur() || @hebrew_date.isErebShabbat() || (@hebrew_date.isEreb9Ab() && !@hebrew_date.isShabbat()) then '.eve'
       when @hebrew_date.is1stDayOfYomTob() then '.first'
       when @hebrew_date.is2ndDayOfYomTob() then '.second'
-      when @hebrew_date.isShabbat() || @hebrew_date.isYomKippur() then '.day'
+      when @hebrew_date.isShabbat() || @hebrew_date.isYomKippur() || @hebrew_date.isTaanit() then '.day'
       else console.warn "This should never happen!"
     "#{name_of_chag} #{rishon_or_sheni}")
   set_date: ->
@@ -81,6 +83,17 @@ class Schedule
     $(".#{@chag()}.rabbenu-tam .time").html(@rabbenu_tam())
     half_hour_after_rabbenu_tam = round_down_to_5_minutes(moment(@sunset).add(101, 'minute'))
     $(".#{@chag()}.abot-ubanim").removeClass('hidden').find(".time").html(time_format(half_hour_after_rabbenu_tam)) if half_hour_after_rabbenu_tam.isBefore(@today().hour(20).minute(16))
+  chatzot: -> time_format(moment(@zmanim.solarNoon))
+  taanit_schedule: ->
+    @set_date()
+    if @hebrew_date.isEreb9Ab()
+      $(".#{@chag()}.fast-begins").removeClass('hidden').find(".time").html(@sunset.format('h:mm A'))
+    else if @hebrew_date.is9Ab()
+      $(".#{@chag()}.chatzot .time").html(@chatzot())
+    else
+      $(".#{@chag()}.fast-begins").removeClass('hidden').find(".time").html(moment(@zmanim.magen_abraham_dawn).format('h:mm A'))
+    fast_ends = moment(@sunset).add(parseInt((@zmanim.magen_abraham_dusk - @zmanim.magen_abraham_dawn) * 3 / 160000 + 60), 'seconds') # 13.5 dakot zemaniyot after sunset, rounded to end of minute
+    $(".#{@chag()}.fast-ends .time").html(fast_ends.format('h:mm A'))
   shabbat_schedule: ->
     @set_date()
     if @shema_is_before_9_am()
@@ -141,6 +154,7 @@ window.mincha_and_arbit = (day_iterator) ->
     schedule.yom_kippur_schedule()
   else
     schedule.shabbat_schedule() if schedule.hebrew_date.isShabbat()
+    schedule.taanit_schedule() if schedule.hebrew_date.isTaanit() || schedule.hebrew_date.isEreb9Ab()
     schedule.afternoon_shiur() if schedule.hebrew_date.isShabbat() || schedule.hebrew_date.isYomTob()
   $('.sedra').html(schedule.sedra()) if schedule.hebrew_date.isShabbat()
   mincha: time_format(schedule.mincha()), arbit: time_format(schedule.arbit())

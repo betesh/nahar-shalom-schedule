@@ -80,6 +80,18 @@
           .row
             .col-lg-9.col-xs-10
               .row
+                .col-xs-5.col-lg-4.taanit.start-hidden
+                  %table.table.table-striped.table-condensed
+                    %tr
+                      %th.text-center{:colspan => 4} תַּעֲנִית
+                    %tr.day.fast-begins
+                      %td.dow{rowspan: 2}
+                      %td.date{rowspan: 2}
+                      %td Fast begins
+                      %td.time
+                    %tr.day.fast-ends
+                      %td Fast ends
+                      %td.time
                 .col-xs-5.col-lg-4.pesach-first-days.start-hidden
                   %table.table.table-striped.table-condensed
                     %tr
@@ -119,10 +131,23 @@
                   %table.table.table-striped.table-condensed
                     %tr
                       %th.text-center{:colspan => 4} חַג הַשָׁבֻעֹת
-                .col-xs-5.col-lg-4.ab-9.start-hidden
+                .col-xs-5.col-lg-4.chabob.start-hidden
                   %table.table.table-striped.table-condensed
                     %tr
                       %th.text-center{:colspan => 4} תִּשְׁעָה בְּאָב
+                    %tr.eve.fast-begins.start-hidden
+                      %td.dow
+                      %td.date
+                      %td Fast begins
+                      %td.time
+                    %tr.day.chatzot
+                      %td.dow{rowspan: 2}
+                      %td.date{rowspan: 2}
+                      %td חֲצוֹת
+                      %td.time
+                    %tr.day.fast-ends
+                      %td Fast ends
+                      %td.time
                 .col-xs-5.col-lg-4.rosh-hashana.start-hidden
                   %table.table.table-striped.table-condensed
                     %tr
