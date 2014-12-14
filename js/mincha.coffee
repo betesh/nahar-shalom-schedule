@@ -106,7 +106,7 @@ class Schedule
     @rabbenu_tam_schedule()
     if @hebrew_date.isShabbatMevarechim()
       nextMonth = new HachrazatRoshChodesh(@hebrew_date)
-      $(".#{@chag()}.molad").removeClass('hidden').find('td').html("#{nextMonth.sephardicAnnouncement()}<br>#{nextMonth.moladAnnouncement()}")
+      $(".#{@chag()}.molad").removeClass('hidden').find('td').html("#{nextMonth.moladAnnouncement()}<br>#{nextMonth.sephardicAnnouncement()}")
     $(".#{@chag()}.molad").removeClass('hidden').find('td').html("#{(new HachrazatTaanit(@hebrew_date)).announcement()}") if @hebrew_date.isHachrazatTaanit()
   yom_kippur_schedule: ->
     @set_date()
