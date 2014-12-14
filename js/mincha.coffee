@@ -70,8 +70,9 @@ class Schedule
       else console.warn "This should never happen!"
     "#{name_of_chag} #{rishon_or_sheni}")
   set_date: ->
-    $(".#{@chag().split('.')[0]}").removeClass('hidden')
+    $(".#{@chag().split('.')[0]}").not('.event').removeClass('hidden')
     $(".#{@chag()} .date").html(@sunset.format('D MMM'))
+    $(".#{@chag()} .dow").html(if @hebrew_date.isShabbat() then "שַׁבָּת" else @sunset.format('dddd'))
   hadlakat_nerot_schedule: ->
     @set_date()
     $(".#{@chag()}.hadlakat-nerot .time").html(@hadlakat_nerot_text())
