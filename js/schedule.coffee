@@ -22,6 +22,7 @@ write_schedule = (day_iterator) ->
   for day in moment.weekdays().reverse()
     $(".#{day} .date").html(day_iterator.format("D MMM"))
     hebrew_date = new HebrewDate(day_iterator.toDate())
+    $(".#{day} .hebrew_date").html("#{hebrew_date.staticHebrewMonth.name} #{hebrew_date.dayOfMonth}")
     show_event(day, event, hebrew_date) for event in events
     if hebrew_date.isYomKippur()
       shaharit_is_fixed_at(day, 7, 0)
