@@ -1,5 +1,3 @@
-time_format = (t) -> t.format("h:mm:ss")
-
 show_event = (day, event, hebrew_date) -> $(".#{day} .#{event}")[show_if(hebrew_date["is#{event}"]())]('hidden')
 
 event_array = (day) -> ($(".one_day.#{day} .#{event}").not(".hidden").length > 0) for event in events
@@ -27,24 +25,12 @@ write_schedule = (day_iterator) ->
     if hebrew_date.isYomKippur()
       shaharit_is_fixed_at(day, 7, 0)
     else if hebrew_date.is1stDayOfShabuot()
-      sunrise = new Sunrise(day_iterator).get()
-      $(".#{day} .amidah").html(time_format(sunrise))
-      $(".#{day} .yishtabach").html(time_format(sunrise.subtract(17, 'minutes')))
-      $(".#{day} .hodu").html(time_format(sunrise.subtract(26, 'minutes')))
-      $(".#{day} .korbanot").html(time_format(sunrise.subtract(15, 'minutes')))
+      new Vatikin(day_iterator, hebrew_date).updateDOM()
     else if hebrew_date.isYomTov() || hebrew_date.isShabbat()
       # TODO: Shofar 2:30 after Hodu on Rosh Hashana that isn't Shabbat
       shaharit_is_fixed_at(day, 7, 45)
     else
-      sunrise = new Sunrise(day_iterator).get()
-      $(".#{day} .amidah").html(time_format(sunrise))
-      $(".#{day} .yishtabach").html(time_format(sunrise.subtract(8, 'minutes')))
-      $(".#{day} .hodu").html(time_format(sunrise.subtract((if hebrew_date.isMoed() then 12 else 11), 'minutes')))
-      $(".#{day} .korbanot").html(time_format(sunrise.subtract(16, 'minutes')))
-      if hebrew_date.is10DaysOfTeshuba()
-        $(".#{day} .selihot").removeClass('hidden').html(time_format(sunrise.subtract(56, 'minutes')))
-      if hebrew_date.inElul() && !hebrew_date.isRoshChodesh()
-        $(".#{day} .selihot").removeClass('hidden').html(time_format(sunrise.subtract(50, 'minutes')))
+      new Vatikin(day_iterator, hebrew_date).updateDOM()
     afternoon = mincha_and_arbit(day_iterator)
     $(".#{day} .mincha").html(afternoon.mincha)
     $(".#{day} .arbit").html(afternoon.arbit)
