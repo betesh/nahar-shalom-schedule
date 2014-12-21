@@ -18,22 +18,28 @@ write_schedule = (day_iterator) ->
   $(".one_day .selihot").html('')
   day_iterator.day('Saturday')
   for day in moment.weekdays().reverse()
-    $(".#{day} .date").html(day_iterator.format("D MMM"))
-    hebrew_date = new HebrewDate(day_iterator.toDate())
-    $(".#{day} .hebrew_date").html("#{hebrew_date.staticHebrewMonth.name} #{hebrew_date.dayOfMonth}")
-    show_event(day, event, hebrew_date) for event in events
-    if hebrew_date.isYomKippur()
-      shaharit_is_fixed_at(day, 7, 0)
-    else if hebrew_date.is1stDayOfShabuot()
-      new Vatikin(day_iterator, hebrew_date).updateDOM()
-    else if hebrew_date.isYomTov() || hebrew_date.isShabbat()
-      # TODO: Shofar 2:30 after Hodu on Rosh Hashana that isn't Shabbat
-      shaharit_is_fixed_at(day, 7, 45)
-    else
-      new Vatikin(day_iterator, hebrew_date).updateDOM()
-    afternoon = mincha_and_arbit(day_iterator)
-    $(".#{day} .mincha").html(afternoon.mincha)
-    $(".#{day} .arbit").html(afternoon.arbit)
+    try
+      $(".#{day} .date").html(day_iterator.format("D MMM"))
+      hebrew_date = new HebrewDate(day_iterator.toDate())
+      $(".#{day} .hebrew_date").html("#{hebrew_date.staticHebrewMonth.name} #{hebrew_date.dayOfMonth}")
+      show_event(day, event, hebrew_date) for event in events
+      if hebrew_date.isYomKippur()
+        shaharit_is_fixed_at(day, 7, 0)
+      else if hebrew_date.is1stDayOfShabuot()
+        new Vatikin(day_iterator, hebrew_date).updateDOM()
+      else if hebrew_date.isYomTov() || hebrew_date.isShabbat()
+        # TODO: Shofar 2:30 after Hodu on Rosh Hashana that isn't Shabbat
+        shaharit_is_fixed_at(day, 7, 45)
+      else
+        new Vatikin(day_iterator, hebrew_date).updateDOM()
+    catch e
+      Raven.captureException(e, tags: { date: day_iterator.toDate(), topic: 'Morning' })
+    try
+      afternoon = mincha_and_arbit(day_iterator)
+      $(".#{day} .mincha").html(afternoon.mincha)
+      $(".#{day} .arbit").html(afternoon.arbit)
+    catch e
+      Raven.captureException(e, tags: { date: day_iterator.toDate(), topic: 'Afternoon' })
     day_iterator.subtract(1, 'days')
   $(".header .event")[show_if($('.one_day .event').not('.hidden').length > 0)]('hidden')
   ($(".#{day} .placeholder")[show_if(has_no_event(day))]('hidden') for day in moment.weekdays()) unless $(".header .event").hasClass('hidden')
