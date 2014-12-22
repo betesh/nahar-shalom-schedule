@@ -16,6 +16,7 @@ end
 
 
 Dir['js/*.js'].each { |f| upload(f, :content_type => 'text/javascript' ) }
-(Dir['css/*'] + Dir['images/*'] + Dir['*.html']).each { |f| upload(f) }
+Dir['css/*'].each { |f| upload(f, content_type: 'text/css') }
+(Dir['images/*'] + Dir['*.html']).each { |f| upload(f) }
 
 `git tag -f deployed`
