@@ -16,6 +16,7 @@ write_schedule = (day_iterator) ->
   $('.start-hidden').addClass('hidden')
   $('.start-shown').removeClass('hidden')
   $(".one_day .selihot").html('')
+  $(".one_day .omer").html('')
   day_iterator.day('Saturday')
   for day in moment.weekdays().reverse()
     try
@@ -40,11 +41,13 @@ write_schedule = (day_iterator) ->
       $(".#{day} .arbit").html(afternoon.arbit)
     catch e
       Raven.captureException(e, tags: { date: day_iterator.toDate(), topic: 'Afternoon' })
+    $(".#{day} .omer").removeClass('hidden').html("#{day_iterator.format('ddd')}. night: <b>#{hebrew_date.omer().tonight}</b>") if hebrew_date.omer()? and hebrew_date.omer().tonight
     day_iterator.subtract(1, 'days')
   $(".header .event")[show_if($('.one_day .event').not('.hidden').length > 0)]('hidden')
   ($(".#{day} .placeholder")[show_if(has_no_event(day))]('hidden') for day in moment.weekdays()) unless $(".header .event").hasClass('hidden')
-  $(".header .selihot")[show_if($('.one_day .selihot').not('.hidden').length > 0)]('hidden')
-  ($(".#{day} .selihot").removeClass('hidden') for day in moment.weekdays()) unless $(".header .selihot").hasClass('hidden')
+  for column in ['selihot', 'omer']
+    $(".header .#{column}")[show_if($(".one_day .#{column}").not('.hidden').length > 0)]('hidden')
+    ($(".#{day} .#{column}").removeClass('hidden') for day in moment.weekdays()) unless $(".header .#{column}").hasClass('hidden')
 
 $ ->
   window.events = (e.className.replace(/start-hidden/, '').replace(/event/, '').replace(/\s*/, '') for e in $('.Saturday .event'))
