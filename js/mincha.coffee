@@ -145,6 +145,10 @@ class Schedule
       "After #{if @hebrew_date.isShabbat() then 'שַׁבָּת ends' else time_format(@hadlakat_nerot())}"
     else time_format(@hadlakat_nerot())
   sedra: -> "#{if @hebrew_date.isRegel() || @hebrew_date.isYomKippur() || @hebrew_date.isYomTob() then "" else "שַׁבַּת פְּרָשָׁת"} #{@hebrew_date.sedra().replace(/-/g, ' - ')}"
+  announcement: -> @_announcement ?= (
+    a = window.announcements[@hebrew_date.getHebrewYear().getYearFromCreation()]
+    a = a[@hebrew_date.weekOfYear()] if a?
+    )
 
 window.mincha_and_arbit = (day_iterator) ->
   schedule = new Schedule(day_iterator)
@@ -156,5 +160,7 @@ window.mincha_and_arbit = (day_iterator) ->
     schedule.shabbat_schedule() if schedule.hebrew_date.isShabbat()
     schedule.taanit_schedule() if schedule.hebrew_date.isTaanit() || schedule.hebrew_date.isEreb9Ab()
     schedule.afternoon_shiur() if schedule.hebrew_date.isShabbat() || schedule.hebrew_date.isYomTob()
-  $('.sedra').html(schedule.sedra()) if schedule.hebrew_date.isShabbat()
+  if schedule.hebrew_date.isShabbat()
+    $('.sedra').html(schedule.sedra())
+    $(".announcement.jumbotron").removeClass('hidden').html(schedule.announcement()) if schedule.announcement()?
   mincha: time_format(schedule.mincha()), arbit: time_format(schedule.arbit())

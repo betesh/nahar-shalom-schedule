@@ -5,7 +5,7 @@
     %script{:type => "text/javascript", :src => "http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"}
     %script{:type => "text/javascript", :src => "http://momentjs.com/static/js/global.js"}
     %script{src: "http://cdn.ravenjs.com/1.1.15/jquery,native/raven.min.js"}
-    - [:suncalc, :flipclock, :hebrewDate, :config, :mincha, :sunrise, :schedule, :'sunrise-clock', :hachrazatTaanit, :vatikin].each do |js_file|
+    - [:announcements, :suncalc, :flipclock, :hebrewDate, :config, :mincha, :sunrise, :schedule, :'sunrise-clock', :hachrazatTaanit, :vatikin].each do |js_file|
       %script{:type => "text/javascript", :src => "js/#{js_file}.js?20141221"}
     %link{:rel => "stylesheet", :href => "http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"}
     %link{:rel => "stylesheet", :href => "css/flipclock.css"}
@@ -228,6 +228,7 @@
                       %td{colspan: 2} מוֹצָאֵי שַׁבָּת
                       %td אָבוֹת וּבָּנִים
                       %td.time
+                .col-lg-4.col-lg-offset-1.col-xs-5.announcement.jumbotron.font22.start-hidden
       .row.screen-only
         .col-xs-10.col-lg-offset-1
           .well
