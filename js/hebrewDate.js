@@ -335,6 +335,47 @@
       return this.hebrewYear.sedrot().sedra(this);
     };
 
+    HebrewDate.prototype.omer = function() {
+      var _ref;
+      return (_ref = this._omer) != null ? _ref : this._omer = ((function() {
+        switch (this.staticHebrewMonth) {
+          case HebrewMonth.NISAN:
+            if (this.dayOfMonth > 15) {
+              return {
+                today: this.dayOfMonth - 15,
+                tonight: this.dayOfMonth - 14
+              };
+            } else if (15 === this.dayOfMonth) {
+              return {
+                tonight: this.dayOfMonth - 14
+              };
+            } else {
+              return null;
+            }
+          case HebrewMonth.IYAR:
+            return {
+              today: 15 + this.dayOfMonth,
+              tonight: 16 + this.dayOfMonth
+            };
+          case HebrewMonth.SIVAN:
+            if (this.dayOfMonth < 5) {
+              return {
+                today: this.dayOfMonth + 44,
+                tonight: this.dayOfMonth + 45
+              };
+            } else if (5 === this.dayOfMonth) {
+              return {
+                today: this.dayOfMonth + 44
+              };
+            } else {
+              return null;
+            }
+          default:
+            return null;
+        }
+      }).call(this));
+    };
+
     return HebrewDate;
 
   })();
