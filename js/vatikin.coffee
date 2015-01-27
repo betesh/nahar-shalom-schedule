@@ -16,7 +16,7 @@ class Vatikin
   updateDOM: ->
     $(".#{@day} .amidah").html(if @sunrise? then show_hours_minutes_seconds(@sunrise) else "??")
     for step in ['yishtabach', 'hodu', 'korbanot', 'selihot']
-      $(".#{@day} .#{step}").html(if @sunrise? && @schedule[step] then show_hours_minutes_seconds(@sunrise.subtract(@schedule[step], 'minutes')) else "??")
+      $(".#{@day} .#{step}").html(if @sunrise? && @schedule[step] then show_hours_minutes_seconds(@sunrise.subtract(@schedule[step], 'minutes')) else "")
     $(".#{@day} .selihot").removeClass('hidden') if @schedule.selihot
 
 (->
