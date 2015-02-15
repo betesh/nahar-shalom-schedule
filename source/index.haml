@@ -71,17 +71,34 @@
       .row
         .col-lg-10.col-xs-12
           .row
-            .col-xs-5.col-lg-4.taanit.start-hidden
+            .col-xs-5.col-lg-4.taanit.purim-table.start-hidden
               %table.table.table-striped.table-condensed
                 %tr
-                  %th.text-center{:colspan => 4} תַּעֲנִית
-                %tr.day.fast-begins
+                  %th.text-center{:colspan => 4}
+                    .start-hidden.Tamuz17.start-hidden שִׁבְעָה עֲשָׂר בְּתַּמוּזִ
+                    .start-hidden.FastOfGedaliah צוֹם גְּדַלְיָה
+                    .start-hidden.Tebet10 עֲשָׂרָה בְּטֵבֵת
+                    .start-hidden.TaanitEster תַּעֲנִית אֶסְתֵּר
+                    .start-hidden.TaanitEsterAndPurim תַּעֲנִית אֶסְתֵּר / פּוּרִים
+                    .start-hidden.PurimOnly פּוּרִים
+                %tr.day.start-hidden.fast-begins
                   %td.dow{rowspan: 2}
                   %td.date{rowspan: 2}
                   %td Fast begins
                   %td.time
-                %tr.day.fast-ends
+                %tr.day.start-hidden.fast-ends
                   %td Fast ends
+                  %td.time
+                %tr.day.start-hidden.megilla
+                  %td קְרִיאַת הַמְגִּילִָה
+                  %td.time
+                %tr.purim-row.start-hidden.megilla
+                  %td.dow{rowspan: 1}
+                  %td.date{rowspan: 1}
+                  %td קְרִיאַת הַמְגִּילִָה
+                  %td.time
+                %tr.purim-row.start-hidden.hadlakat-nerot
+                  %td הַדְלַקָת נֵרוֹת
                   %td.time
             .col-xs-5.col-lg-4.pesach-first-days.start-hidden
               %table.table.table-striped.table-condensed
@@ -176,15 +193,11 @@
               %table.table.table-striped.table-condensed
                 %tr
                   %th.text-center{:colspan => 4} שְּׁמִינִי עֲצֶרֶת וְשִׂמְחַת תּוֹרָה
-            .col-xs-5.col-lg-4.purim.start-hidden
-              %table.table.table-striped.table-condensed
-                %tr
-                  %th.text-center{:colspan => 4} פּוּרִים
             .col-lg-6.col-lg-offset-1.col-xs-7.shabbat.start-hidden
               %table.table.table-striped.table-condensed
                 %tr
                   %th.text-center{:colspan => 4} שַׁבָּת
-                %tr.eve.hadlakat-nerot
+                %tr.eve.hadlakat-nerot.start-hidden
                   %td.dow
                   %td.date
                   %td הַדְלַקָת נֵרוֹת
