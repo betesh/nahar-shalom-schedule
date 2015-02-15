@@ -1,0 +1,51 @@
+@charset "utf-8";
+@import "flipclock";
+
+@media print
+{
+  .screen-only { display: none }
+}
+
+.links {
+  font-size: 10px;
+
+  @media screen {
+    display: none
+  }
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.row table.table {
+  td, th {
+    border-top: 1px dashed #555;
+    border-right: 1px dashed #555;
+    border-bottom: 1px dashed #555;
+  }
+
+  td:first-child,  th:first-child {
+    border-left: 1px dashed #555;
+  }
+}
+
+.countdown-to-sunrise {
+  font-size: 30px;
+}
+
+.flip-clock-label {
+  display: none;
+}
+
+.font22 {
+  font-size: 22px;
+}
+
+.font13 {
+  font-size: 13px;
+}
+
+.font48 {
+  font-size: 48px;
+}
