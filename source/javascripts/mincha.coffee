@@ -117,6 +117,10 @@ class Schedule
         $(".#{@chag()}.megilla").removeClass('hidden').find(".time").html(minutes_before_event(fast_ends, -7).format('h:mm A'))
   shabbat_schedule: ->
     @set_date()
+    if @hebrew_date.isShabbatZachor()
+      $(".#{@chag()}.mi-chamocha").removeClass('hidden').find('.time').html(time_format(@today().hour(7).minute(25)))
+      $(".#{@chag()}.zachor").removeClass('hidden').find('.time').html("#{@today().hour(9).minute(45).format('h:mm A')} <strong>and</strong> #{@today().hour(14).minute(30).format('h:mm A')}")
+      $(".#{@chag()}.afternoon-shiur td[rowspan=4]").addClass('hidden')
     if @shema_is_before_9_am()
       $(".#{@chag()}.shema").removeClass('hidden').find('.time').html(time_format(@last_time_for_shema()))
       $(".#{@chag()}.afternoon-shiur td[rowspan=4]").addClass('hidden')
