@@ -102,7 +102,7 @@ class Schedule
       $(".#{@chag()}.megilla").find(".dow, .date").attr("rowspan", if @hebrew_date.isErebShabbat() then 2 else 1)
       return
     fast_begins_row = $(".#{@chag()}.fast-begins").removeClass('hidden')
-    fast_begins_row.find(".dow, .date").attr("rowspan", if (@hebrew_date.isTaanitEster() && 13 == @hebrew_date.dayOfMonth) then 3 else 2)
+    fast_begins_row.find(".dow, .date").attr("rowspan", if @hebrew_date.isTaanitEster() then (if 13 == @hebrew_date.dayOfMonth then 4 else 3) else 2)
     if @hebrew_date.isEreb9Ab()
       fast_begins_row.find(".time").html(@sunset.format('h:mm A'))
     else if @hebrew_date.is9Ab()
@@ -111,8 +111,10 @@ class Schedule
       fast_begins_row.find(".time").html(moment(@zmanim.magen_abraham_dawn).format('h:mm A'))
     fast_ends = moment(@sunset).add(parseInt((@zmanim.magen_abraham_dusk - @zmanim.magen_abraham_dawn) * 3 / 160000 + 60), 'seconds') # 13.5 dakot zemaniyot after sunset, rounded to end of minute
     $(".#{@chag()}.fast-ends").removeClass('hidden').find(".time").html(fast_ends.format('h:mm A'))
-    if @hebrew_date.isTaanitEster() && 13 == @hebrew_date.dayOfMonth
-      $(".#{@chag()}.megilla").removeClass('hidden').find(".time").html(minutes_before_event(fast_ends, -7).format('h:mm A'))
+    if @hebrew_date.isTaanitEster()
+      $(".#{@chag()}.mahasit-hashekel").removeClass('hidden')
+      if 13 == @hebrew_date.dayOfMonth
+        $(".#{@chag()}.megilla").removeClass('hidden').find(".time").html(minutes_before_event(fast_ends, -7).format('h:mm A'))
   shabbat_schedule: ->
     @set_date()
     if @shema_is_before_9_am()
