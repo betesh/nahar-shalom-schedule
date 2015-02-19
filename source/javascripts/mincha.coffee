@@ -98,7 +98,7 @@ class Schedule
       else console.warn "This should never happen!"
     $(".taanit th .#{name}").removeClass("hidden") if name?
     if @hebrew_date.isPurim()
-      $(".#{@chag()}.megilla").removeClass('hidden').find(".time").html("#{minutes_before_event(@zmanim.sunrise, -20).format('h:mm A')} <strong>and</strong> #{@today().hour(10).minute(0).format('h A')}")
+      $(".#{@chag()}.megilla").removeClass('hidden').find(".time").html("#{minutes_before_event(@zmanim.sunrise, -20).format('h:mm A')} <strong>and</strong> #{@today().hour(9).minute(30).format('h:mm A')}")
       $(".#{@chag()}.megilla").find(".dow, .date").attr("rowspan", if @hebrew_date.isErebShabbat() then 2 else 1)
       return
     fast_begins_row = $(".#{@chag()}.fast-begins").removeClass('hidden')
