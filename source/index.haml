@@ -106,31 +106,50 @@
               %table.table.table-striped.table-condensed
                 %tr
                   %th.text-center{:colspan => 4} יוֹם טוֹב רִאשׁוֹן שֶׁל פֶּסַח
-                %tr.eve.hadlakat-nerot
+                %tr.eve.hadlakat-nerot.start-hidden
                   %td.dow{rowspan: 2}
                   %td.date{rowspan: 2}
                   %td הַדְלַקָת נֵרוֹת
                   %td.time
-                %tr.eve.chatzot
+                %tr.eve.chatzot.start-hidden
                   %td חֲצוֹת
                   %td.time
-                %tr.first.afternoon-shiur
+                %tr.first.shema.start-hidden
+                  %td.dow{rowspan: 4}
+                  %td.date{rowspan: 4}
+                  %td.bold Say שְׁמַע יִשְׂרָאֵל before
+                  %td.time.bold
+                %tr.first.afternoon-shiur.start-hidden
                   %td.dow{rowspan: 3}
                   %td.date{rowspan: 3}
                   %td Afternoon Shiur
                   %td.time
-                %tr.first.hadlakat-nerot
+                %tr.first.seudat-shelishit.start-hidden
+                  %td.font13 Begin סְעוּדַת שְׁלִישִׁית at home before
+                  %td.time
+                %tr.first.ends.start-hidden
+                  %td שַׁבָּת ends
+                  %td.time
+                %tr.first.rabbenu-tam.start-hidden
+                  %td רַבֵּנוּ תָּם
+                  %td.time
+                %tr.first.hadlakat-nerot.start-hidden
                   %td הַדְלַקָת נֵרוֹת
                   %td.time
-                %tr.first.chatzot
+                %tr.first.chatzot.start-hidden
                   %td חֲצוֹת
                   %td.time
-                %tr.second.afternoon-shiur
+                %tr.second.shema.start-hidden
+                  %td.dow{rowspan: 3}
+                  %td.date{rowspan: 3}
+                  %td.bold Say שְׁמַע יִשְׂרָאֵל before
+                  %td.time.bold
+                %tr.second.afternoon-shiur.start-hidden
                   %td.dow{rowspan: 2}
                   %td.date{rowspan: 2}
                   %td Afternoon Shiur
                   %td.time
-                %tr.second.ends
+                %tr.second.ends.start-hidden
                   %td יוֹם טוֹב ends
                   %td.time
             .col-xs-5.col-lg-4.pesach-last-days.start-hidden
