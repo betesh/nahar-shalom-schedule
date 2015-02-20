@@ -38,6 +38,8 @@ write_schedule = (day_iterator) ->
         shaharit_is_fixed_at(day, 7, 0)
       else if hebrew_date.is1stDayOfShabuot()
         new Vatikin(day_iterator, hebrew_date).updateDOM()
+      else if hebrew_date.is1stDayOfPesach() || hebrew_date.is2ndDayOfPesach()
+        shaharit_is_fixed_at(day, 8, 45)
       else if hebrew_date.isYomTov() || hebrew_date.isShabbat()
         # TODO: Shofar 2:30 after Hodu on Rosh Hashana that isn't Shabbat
         shaharit_is_fixed_at(day, 7, 45)
