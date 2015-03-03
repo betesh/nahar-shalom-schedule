@@ -1,5 +1,3 @@
-show_hours_minutes_seconds = (t) -> t.format("h:mm:ss")
-
 class Vatikin
   constructor: (gregorianDate, hebrewDate) ->
     @today = moment(gregorianDate)
@@ -14,9 +12,9 @@ class Vatikin
       when hebrewDate.inElul() && !hebrewDate.isRoshChodesh() then Vatikin.ELUL
       else Vatikin.WEEKDAY
   updateDOM: ->
-    $(".#{@day} .amidah").html(if @sunrise? then show_hours_minutes_seconds(@sunrise) else "??")
+    $(".#{@day} .amidah").html(if @sunrise? then @sunrise.format("h:mm:ss") else "??")
     for step in ['yishtabach', 'hodu', 'korbanot', 'selihot']
-      $(".#{@day} .#{step}").html(if @sunrise? && @schedule[step] then show_hours_minutes_seconds(@sunrise.subtract(@schedule[step], 'minutes')) else "")
+      $(".#{@day} .#{step}").html(if @sunrise? && @schedule[step] then @sunrise.subtract(@schedule[step], 'minutes').format("h:mm") else "")
     $(".#{@day} .selihot").removeClass('hidden') if @schedule.selihot
 
 (->
