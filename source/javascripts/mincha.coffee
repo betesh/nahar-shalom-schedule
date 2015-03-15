@@ -55,9 +55,9 @@ class Schedule
   rabbenu_tam: -> time_format(moment(@sunset).add(73, 'minute'))
   chag: -> @_chag ?= (
     name_of_chag = switch
-      when @hebrew_date.isErebPesach() || @hebrew_date.is1stDayOfPesach() || @hebrew_date.is2ndDayOfPesach() then 'pesach-first-days'
+      when (@hebrew_date.isErebPesach() && !@hebrew_date.isShabbat()) || @hebrew_date.is1stDayOfPesach() || @hebrew_date.is2ndDayOfPesach() then 'pesach-first-days'
       when @hebrew_date.is6thDayOfPesach() || @hebrew_date.is7thDayOfPesach() || @hebrew_date.is8thDayOfPesach() then 'pesach-last-days'
-      when @hebrew_date.isErebShabuot() || @hebrew_date.isShabuot() then 'shabuot'
+      when (@hebrew_date.isErebShabuot() && !@hebrew_date.isShabbat()) || @hebrew_date.isShabuot() then 'shabuot'
       when @hebrew_date.isErebRoshHashana() || @hebrew_date.isRoshHashana() then 'rosh-hashana'
       when @hebrew_date.isErebSukkot() || (@hebrew_date.isSukkot() && !@hebrew_date.isHoshanaRaba() && !@hebrew_date.isSheminiAseret()) then 'sukkot-first-days'
       when @hebrew_date.isHoshanaRaba() || @hebrew_date.isSheminiAseret() then 'sukkot-last-days'
@@ -68,7 +68,7 @@ class Schedule
       when (@hebrew_date.is9Ab() || @hebrew_date.isEreb9Ab()) && !@hebrew_date.isShabbat() then 'chabob'
       else console.warn "This should never happen!"
     rishon_or_sheni = switch
-      when @hebrew_date.isErebYomTob() || @hebrew_date.isErebYomKippur() || (@hebrew_date.isErebShabbat() && !@hebrew_date.isPurim() && !@hebrew_date.isYomTob()) || (@hebrew_date.isEreb9Ab() && !@hebrew_date.isShabbat()) then '.eve'
+      when ((@hebrew_date.isErebYomTob() || @hebrew_date.isEreb9Ab()) && !@hebrew_date.isShabbat()) || @hebrew_date.isErebYomKippur() || (@hebrew_date.isErebShabbat() && !@hebrew_date.isPurim() && !@hebrew_date.isYomTob()) then '.eve'
       when @hebrew_date.is1stDayOfYomTob() then '.first'
       when @hebrew_date.is2ndDayOfYomTob() then '.second'
       when @hebrew_date.isShabbat() || @hebrew_date.isYomKippur() || @hebrew_date.isTaanit() then '.day'
