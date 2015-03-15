@@ -8,7 +8,7 @@ HebrewDate.prototype.isErebRoshHashana = -> @monthAndRangeAre('ELUL', [29])
 HebrewDate.prototype.isErebSukkot = -> @monthAndRangeAre('TISHRI', [14])
 HebrewDate.prototype.isHoshanaRaba = -> @monthAndRangeAre('TISHRI', [21])
 HebrewDate.prototype.isSheminiAseret = -> @monthAndRangeAre('TISHRI', [22..23])
-HebrewDate.prototype.is2ndDayOfYomTob = -> @is2ndDayOfPesach() || @monthAndRangeAre('SIVAN', [7]) || @monthAndRangeAre('TISHRI', [2,16,23])
+HebrewDate.prototype.is2ndDayOfYomTob = -> @is2ndDayOfPesach() || @is8thDayOfPesach() || @monthAndRangeAre('SIVAN', [7]) || @monthAndRangeAre('TISHRI', [2,16,23])
 
 time_format = (time) -> time.format('h:mm') if time?
 round_down_to_5_minutes = (time) -> time.subtract(time.minute() % 5, 'minutes')
