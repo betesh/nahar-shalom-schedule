@@ -62,7 +62,7 @@ class Schedule
       when @hebrew_date.isErebSukkot() || (@hebrew_date.isSukkot() && !@hebrew_date.isHoshanaRaba() && !@hebrew_date.isSheminiAseret()) then 'sukkot-first-days'
       when @hebrew_date.isHoshanaRaba() || @hebrew_date.isSheminiAseret() then 'sukkot-last-days'
       when @hebrew_date.isErebYomKippur() || @hebrew_date.isYomKippur() then 'yom-kippur'
-      when (@hebrew_date.isErebShabbat() && !@hebrew_date.isPurim())|| @hebrew_date.isShabbat() then 'shabbat'
+      when (@hebrew_date.isErebShabbat() && !@hebrew_date.isPurim()) || @hebrew_date.isShabbat() then 'shabbat'
       when @hebrew_date.isTaanit() && !@hebrew_date.is9Ab() then 'taanit'
       when @hebrew_date.isPurim() then 'purim-table'
       when (@hebrew_date.is9Ab() || @hebrew_date.isEreb9Ab()) && !@hebrew_date.isShabbat() then 'chabob'
