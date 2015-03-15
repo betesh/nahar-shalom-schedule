@@ -29,7 +29,10 @@ class Schedule
     @zmanim = SunCalc.getTimes(moment(day_iterator).toDate().setHours(12), window.config.latitude, window.config.longitude)
     @sunset = moment(@zmanim.sunset).subtract(30, 'second')
   today: -> moment(@sunset)
-  last_time_for_shema: -> @_last_time_for_shema ?= moment(@zmanim.magen_abraham_dawn).add((@zmanim.magen_abraham_dusk - @zmanim.magen_abraham_dawn) / 4000 - 120, 'seconds')
+  last_time_for_shema: -> @_last_time_for_shema ?= moment.min(
+      moment(@zmanim.magen_abraham_dawn).add((@zmanim.magen_abraham_dusk - @zmanim.magen_abraham_dawn) / 4000, 'seconds'),
+      moment(@zmanim.sunrise).subtract(36, 'minutes').add((@zmanim.sunset - @zmanim.sunrise) / 4000, 'seconds'),
+    )
   shema_is_before_9_am: -> @last_time_for_shema().isBefore(@today().hour(if (@hebrew_date.is1stDayOfPesach() || @hebrew_date.is2ndDayOfPesach()) then 10 else 9).minute(0))
   mincha_minutes_before_sunset_on_shabbat: -> if @hebrew_date.isEreb9Ab() then 100 else 45
   mincha_minutes_before_sunset_on_rosh_hashana: -> if @hebrew_date.is1stDayOfYomTob() || @hebrew_date.isErebShabbat() then 60 else 40
