@@ -135,6 +135,13 @@ class Schedule
         $(".#{@chag()}.seudat-shelishit").find(".dow, .date").removeClass('hidden').attr("rowspan", 6)
       else
         $(".#{@chag()}.afternoon-shiur").find(".dow, .date").removeClass('hidden').attr("rowspan", 3)
+    if @hebrew_date.is7thDayOfPesach()
+      if @hebrew_date.isShabbat()
+        $(".#{@chag()}.seudat-shelishit").find(".dow, .date").removeClass('hidden').attr("rowspan", 5)
+      else
+        $(".#{@chag()}.afternoon-shiur").find(".dow, .date").removeClass('hidden').attr("rowspan", 2)
+    if @hebrew_date.is8thDayOfPesach()
+      $(".#{@chag()}.afternoon-shiur").find(".dow, .date").attr("rowspan", if @hebrew_date.isShabbat() then 4 else 2)
     @afternoon_shiur()
     @rabbenu_tam_schedule() if @hebrew_date.isShabbat() || (@hebrew_date.is2ndDayOfYomTob() && !@hebrew_date.isErebShabbat())
     if @hebrew_date.isShabbat()
