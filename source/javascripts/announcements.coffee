@@ -7,3 +7,4 @@ window.announcements =
     '22': "Mazal Tov to the Harari family on Marc's Bar Mitzva!"
     '25': "Sunday, March 22nd @ 3PM:<br>הַכְנָסַת סֵפֶר תּוֹרָה"
     '26': "Sunday, March 22nd @ 3PM:<br>הַכְנָסַת סֵפֶר תּוֹרָה"
+    '28': "Stop eating חָמֵץ before 10:55 AM<br>Burn חָמֵץ before 12:09 PM"
