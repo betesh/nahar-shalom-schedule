@@ -65,7 +65,7 @@ class Schedule
       when (@hebrew_date.is9Ab() || @hebrew_date.isEreb9Ab()) && !@hebrew_date.isShabbat() then 'chabob'
       else console.warn "This should never happen!"
     rishon_or_sheni = switch
-      when @hebrew_date.isErebYomTob() || @hebrew_date.isErebYomKippur() || (@hebrew_date.isErebShabbat() && !@hebrew_date.isPurim()) || (@hebrew_date.isEreb9Ab() && !@hebrew_date.isShabbat()) then '.eve'
+      when @hebrew_date.isErebYomTob() || @hebrew_date.isErebYomKippur() || (@hebrew_date.isErebShabbat() && !@hebrew_date.isPurim() && !@hebrew_date.isYomTob()) || (@hebrew_date.isEreb9Ab() && !@hebrew_date.isShabbat()) then '.eve'
       when @hebrew_date.is1stDayOfYomTob() then '.first'
       when @hebrew_date.is2ndDayOfYomTob() then '.second'
       when @hebrew_date.isShabbat() || @hebrew_date.isYomKippur() || @hebrew_date.isTaanit() then '.day'
