@@ -169,8 +169,8 @@ class Schedule
     when @tonight_is_yom_tob() && @hebrew_date.isShabbat() then minutes_before_event(@sunset, 23)
     when @hebrew_date.is6thDayOfPesach() then @today().hour(18).minute(30)
     when @hebrew_date.isShabbat() then @mincha_on_shabbat()
-    when @yom_tob_that_we_can_pray_at_plag() then minutes_before_event(@plag(), 30)
-    when @hebrew_date.isYomTob() then minutes_before_event(@sunset, if @hebrew_date.isErebShabbat() then 40 else 25)
+    when @yom_tob_that_we_can_pray_at_plag() && !@hebrew_date.isErebShabbat() then minutes_before_event(@plag(), 30)
+    when @hebrew_date.isYomTob() && !@yom_tob_that_we_can_pray_at_plag() then minutes_before_event(@sunset, if @hebrew_date.isErebShabbat() then 40 else 25)
     when @hebrew_date.isErebYomTob() then minutes_before_event(@sunset, if @hebrew_date.isErebShabbat() then 33 else  25)
     when @hebrew_date.isErebShabbat() then moment.min(moment(@sunset).subtract(33, 'minutes'), @today().hour(18).minute(30))
     else recent_hadlakat_nerot
