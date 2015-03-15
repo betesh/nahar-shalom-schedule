@@ -47,8 +47,8 @@ write_schedule = (day_iterator) ->
         new Vatikin(day_iterator, hebrew_date).updateDOM()
     catching_errors 'Afternoon', ->
       afternoon = mincha_and_arbit(day_iterator)
-      $(".#{day} .mincha").html(afternoon.mincha)
-      $(".#{day} .arbit").html(afternoon.arbit)
+      $(".#{day} .mincha").html(afternoon.mincha || "")
+      $(".#{day} .arbit").html(afternoon.arbit || "")
     $(".#{day} .omer").removeClass('hidden').html("#{day_iterator.format('ddd')}. night: <b>#{hebrew_date.omer().tonight}</b>") if hebrew_date.omer()? and hebrew_date.omer().tonight
     day_iterator.subtract(1, 'days')
   $(".header .event")[show_if($('.one_day .event').not('.hidden').length > 0)]('hidden')
