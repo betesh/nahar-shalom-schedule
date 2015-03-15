@@ -83,10 +83,10 @@ class Schedule
   hadlakat_nerot_schedule: ->
     @set_date()
     $(".#{@chag()}.hadlakat-nerot").removeClass("hidden").find(".time").html(@hadlakat_nerot_text())
-    @show_chatzot()
+    @show_chatzot() if @hebrew_date.isErebPesach() || @hebrew_date.is1stDayOfPesach()
   rabbenu_tam_schedule: ->
     $(".#{@chag()}.ends").removeClass("hidden").find(".time").html(@set_hakochabim())
-    $(".#{@chag()}.rabbenu-tam").removeClass("hidden").find(".time").html(@rabbenu_tam())
+    $(".#{@chag()}.rabbenu-tam").removeClass("hidden").find(".time").html(@rabbenu_tam()) if @hebrew_date.isShabbat()
     half_hour_after_rabbenu_tam = round_down_to_5_minutes(moment(@sunset).add(101, 'minute'))
     $(".#{@chag()}.abot-ubanim").removeClass('hidden').find(".time").html(time_format(half_hour_after_rabbenu_tam)) if half_hour_after_rabbenu_tam.isBefore(@today().hour(20).minute(16))
   chatzot: -> time_format(moment(@zmanim.solarNoon))
@@ -123,7 +123,8 @@ class Schedule
   shabbat_schedule: ->
     [add, remove] = if @hebrew_date.isShabbat() && (@hebrew_date.is1stDayOfPesach() || @hebrew_date.isShabuot() || @hebrew_date.isRoshHashana() || @hebrew_date.isSheminiAseret()) then [6,7] else [7,6]
     $(".#{@chag().split(" ")[0]}").removeClass("col-xs-#{add}").addClass("col-xs-#{remove}")
-    @hadlakat_nerot_schedule()
+    @set_date()
+    @hadlakat_nerot_schedule() if @tonight_is_yom_tob()
     if @hebrew_date.isShabbatZachor()
       $(".#{@chag()}.mi-chamocha").removeClass('hidden').find('.time').html(time_format(@today().hour(7).minute(25)))
       $(".#{@chag()}.zachor").removeClass('hidden').find('.time').html("#{@today().hour(9).minute(45).format('h:mm A')} <strong>and</strong> #{@today().hour(14).minute(30).format('h:mm A')}")
