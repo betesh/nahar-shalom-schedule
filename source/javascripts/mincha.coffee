@@ -118,6 +118,8 @@ class Schedule
         $(".#{@chag()}.megilla").removeClass('hidden').find(".time").html(minutes_before_event(fast_ends, -7).format('h:mm A'))
   seudat_shelishit_time: -> if @tonight_is_yom_tob() then @samuch_lemincha_ketana() else @sunset
   shabbat_schedule: ->
+    [add, remove] = if @hebrew_date.isShabbat() && (@hebrew_date.is1stDayOfPesach() || @hebrew_date.isShabuot() || @hebrew_date.isRoshHashana() || @hebrew_date.isSheminiAseret()) then [6,7] else [7,6]
+    $(".#{@chag().split(" ")[0]}").removeClass("col-xs-#{add}").addClass("col-xs-#{remove}")
     @hadlakat_nerot_schedule()
     if @hebrew_date.isShabbatZachor()
       $(".#{@chag()}.mi-chamocha").removeClass('hidden').find('.time').html(time_format(@today().hour(7).minute(25)))
