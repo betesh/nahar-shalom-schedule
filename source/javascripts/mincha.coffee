@@ -8,6 +8,7 @@ HebrewDate.prototype.isErebRoshHashana = -> @monthAndRangeAre('ELUL', [29])
 HebrewDate.prototype.isErebSukkot = -> @monthAndRangeAre('TISHRI', [14])
 HebrewDate.prototype.isHoshanaRaba = -> @monthAndRangeAre('TISHRI', [21])
 HebrewDate.prototype.isSheminiAseret = -> @monthAndRangeAre('TISHRI', [22..23])
+HebrewDate.prototype.isBirkatHaIlanot = -> !@isShabbat() && @monthAndRangeAre('NISAN', if 0 == @gregorianDate.getDay() then [1..2] else [1])
 HebrewDate.prototype.is2ndDayOfYomTob = -> @is2ndDayOfPesach() || @is8thDayOfPesach() || @monthAndRangeAre('SIVAN', [7]) || @monthAndRangeAre('TISHRI', [2,16,23])
 
 time_format = (time) -> time.format('h:mm') if time?
