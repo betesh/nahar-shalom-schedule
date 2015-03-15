@@ -30,6 +30,7 @@ class Schedule
     @sunset = moment(@zmanim.sunset).subtract(30, 'second')
   today: -> moment(@sunset)
   tonight_is_yom_tob: -> @hebrew_date.isErebYomTob() || @hebrew_date.is1stDayOfYomTob()
+  yom_tob_that_we_can_pray_at_plag: -> @hebrew_date.is7thDayOfPesach() || @hebrew_date.is1stDayOfShabuot()
   last_time_for_shema: -> @_last_time_for_shema ?= moment.min(
       moment(@zmanim.magen_abraham_dawn).add((@zmanim.magen_abraham_dusk - @zmanim.magen_abraham_dawn) / 4000, 'seconds'),
       moment(@zmanim.sunrise).subtract(36, 'minutes').add((@zmanim.sunset - @zmanim.sunrise) / 4000, 'seconds'),
@@ -168,7 +169,7 @@ class Schedule
     when @tonight_is_yom_tob() && @hebrew_date.isShabbat() then minutes_before_event(@sunset, 23)
     when @hebrew_date.is6thDayOfPesach() then @today().hour(18).minute(30)
     when @hebrew_date.isShabbat() then @mincha_on_shabbat()
-    when @hebrew_date.is7thDayOfPesach() || @hebrew_date.is1stDayOfShabuot() then minutes_before_event(@plag(), 30)
+    when @yom_tob_that_we_can_pray_at_plag() then minutes_before_event(@plag(), 30)
     when @hebrew_date.isYomTob() then minutes_before_event(@sunset, if @hebrew_date.isErebShabbat() then 40 else 25)
     when @hebrew_date.isErebYomTob() then minutes_before_event(@sunset, if @hebrew_date.isErebShabbat() then 33 else  25)
     when @hebrew_date.isErebShabbat() then moment.min(moment(@sunset).subtract(33, 'minutes'), @today().hour(18).minute(30))
@@ -177,14 +178,14 @@ class Schedule
     when @hebrew_date.isErebYomKippur() then minutes_before_event(@sunset, 55)
     when @hebrew_date.isErebShabbat() || (@tonight_is_yom_tob() && !@hebrew_date.isShabbat()) then null
     when @hebrew_date.isYomKippur() || (@hebrew_date.isShabbat() && !@tonight_is_yom_tob()) then @arbit_on_mosaei_shabbat()
-    when @hebrew_date.is7thDayOfPesach() || @hebrew_date.is1stDayOfShabuot() then @plag()
+    when @yom_tob_that_we_can_pray_at_plag() then @plag()
     when @hebrew_date.is2ndDayOfYomTob() && !@hebrew_date.isErebShabbat() then minutes_before_event(@zmanim.set_hakochabim, 10)
     else @sunset
   hadlakat_nerot: -> if @has_hadlakat_nerot_after_set_hakochabim() then moment(@zmanim.set_hakochabim) else moment(@sunset).subtract(19, 'minutes')
   has_hadlakat_nerot_after_set_hakochabim: -> (@hebrew_date.isErebYomTob() && @hebrew_date.isShabbat()) || (@hebrew_date.is1stDayOfYomTob() && !@hebrew_date.isErebShabbat())
   has_hadlakat_nerot_before_sunset: -> @hebrew_date.isErebShabbat() || @hebrew_date.isErebYomKippur() || @hebrew_date.isErebYomTob()
   hadlakat_nerot_text: ->
-    if (@hebrew_date.is7thDayOfPesach() || @hebrew_date.is1stDayOfShabuot()) && !@hebrew_date.isErebShabbat() && !@hebrew_date.isShabbat()
+    if @yom_tob_that_we_can_pray_at_plag() && !@hebrew_date.isErebShabbat() && !@hebrew_date.isShabbat()
       "Before Kiddush<br><b>Eat from all cooked<br>foods before #{time_format(@sunset)}</b>"
     else if @has_hadlakat_nerot_after_set_hakochabim()
       "After #{if @hebrew_date.isShabbat() then 'שַׁבָּת ends' else time_format(@hadlakat_nerot())}"
