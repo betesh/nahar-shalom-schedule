@@ -153,6 +153,7 @@ class Schedule
     @rabbenu_tam_schedule() if @hebrew_date.isShabbat() || (@hebrew_date.is2ndDayOfYomTob() && !@hebrew_date.isErebShabbat())
     if @hebrew_date.isShabbat()
       $(".#{@chag()}.seudat-shelishit").removeClass('hidden').find(".time").html(time_format(@seudat_shelishit_time()))
+      $(".#{@chag()}.seudat-shelishit .at_home").removeClass('hidden') if @tonight_is_yom_tob()
       if @hebrew_date.isEreb9Ab()
         $(".#{@chag()} .ereb-9-ab").removeClass('hidden')
         $(".#{@chag()} .not-ereb-9-ab").addClass('hidden')
