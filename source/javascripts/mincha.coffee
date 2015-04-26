@@ -84,7 +84,7 @@ class Schedule
     @set_date()
     $(".#{@chag()}.hadlakat-nerot").removeClass("hidden").find(".time").html(@hadlakat_nerot_text())
     @show_chatzot() if @hebrew_date.isErebPesach() || @hebrew_date.is1stDayOfPesach()
-    $(".#{@chag()}.tiqun").removeClass('hidden').find('.time').html(@today().hour(23).minute(0).format('h:mm A')) if @hebrew_date.isErebShabuot()
+    $(".#{@chag()}.tiqun").removeClass('hidden').find('.time').html(@today().hour(0).minute(0).format('h:mm A')) if @hebrew_date.isErebShabuot()
   rabbenu_tam_schedule: ->
     $(".#{@chag()}.ends").removeClass("hidden").find(".time").html(@set_hakochabim())
     $(".#{@chag()}.rabbenu-tam").removeClass("hidden").find(".time").html(@rabbenu_tam()) if @hebrew_date.isShabbat()
