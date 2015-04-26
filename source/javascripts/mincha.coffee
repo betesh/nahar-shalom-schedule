@@ -165,6 +165,7 @@ class Schedule
     $(".#{@chag()}.sunset .time").html(time_format(@sunset))
     $(".#{@chag()}.neilah .time").html(time_format(minutes_before_event(@sunset, 55)))
     @rabbenu_tam_schedule()
+  mincha_on_ereb_shabbat: -> moment.min(moment(@sunset).subtract(33, 'minutes'), @today().hour(18).minute(30))
   mincha: -> @_mincha ?= switch
     when @hebrew_date.isErebRoshHashana() then minutes_before_event(@sunset, if @hebrew_date.isErebShabbat() then 55 else 45)
     when @hebrew_date.isRoshHashana() then minutes_before_event(@sunset, @mincha_minutes_before_sunset_on_rosh_hashana())
@@ -178,7 +179,7 @@ class Schedule
     when @yom_tob_that_we_can_pray_at_plag() && !@hebrew_date.isErebShabbat() then minutes_before_event(@plag(), 30)
     when @hebrew_date.isYomTob() && !@yom_tob_that_we_can_pray_at_plag() then minutes_before_event(@sunset, if @hebrew_date.isErebShabbat() then 40 else 25)
     when @hebrew_date.isErebYomTob() then minutes_before_event(@sunset, if @hebrew_date.isErebShabbat() then 33 else  25)
-    when @hebrew_date.isErebShabbat() then moment.min(moment(@sunset).subtract(33, 'minutes'), @today().hour(18).minute(30))
+    when @hebrew_date.isErebShabbat() then @mincha_on_ereb_shabbat()
     else recent_hadlakat_nerot
   arbit: -> @_arbit ?= switch
     when @hebrew_date.isErebYomKippur() then minutes_before_event(@sunset, 55)
