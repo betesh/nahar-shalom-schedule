@@ -54,7 +54,7 @@ class Schedule
   set_hakochabim: -> time_format(moment(@zmanim.set_hakochabim))
   rabbenu_tam: -> time_format(moment(@sunset).add(73, 'minute'))
   set_hakochabim_geonim: -> # 13.5 dakot zemaniyot after sunset, rounded to end of minute
-    moment(@sunset).add(parseInt((@zmanim.magen_abraham_dusk - @zmanim.magen_abraham_dawn) * 3 / 160000 + 60), 'seconds')
+    moment(@sunset).add(parseInt((@zmanim.sunset - @zmanim.sunrise) * 3 / 160000 + 60), 'seconds')
   chag: -> @_chag ?= (
     name_of_chag = switch
       when (@hebrew_date.isErebPesach() && !@hebrew_date.isShabbat()) || @hebrew_date.is1stDayOfPesach() || @hebrew_date.is2ndDayOfPesach() then 'pesach-first-days'
