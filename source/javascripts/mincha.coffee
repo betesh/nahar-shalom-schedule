@@ -53,6 +53,8 @@ class Schedule
   plag_is_before_615: -> @plag().isBefore(@today().hour(18).minute(15))
   set_hakochabim: -> time_format(moment(@zmanim.set_hakochabim))
   rabbenu_tam: -> time_format(moment(@sunset).add(73, 'minute'))
+  set_hakochabim_geonim: -> # 13.5 dakot zemaniyot after sunset, rounded to end of minute
+    moment(@sunset).add(parseInt((@zmanim.magen_abraham_dusk - @zmanim.magen_abraham_dawn) * 3 / 160000 + 60), 'seconds')
   chag: -> @_chag ?= (
     name_of_chag = switch
       when (@hebrew_date.isErebPesach() && !@hebrew_date.isShabbat()) || @hebrew_date.is1stDayOfPesach() || @hebrew_date.is2ndDayOfPesach() then 'pesach-first-days'
@@ -114,7 +116,7 @@ class Schedule
       $(".#{@chag()}.chatzot .time").html(@chatzot())
     else
       fast_begins_row.find(".time").html(moment(@zmanim.magen_abraham_dawn).format('h:mm A'))
-    fast_ends = moment(@sunset).add(parseInt((@zmanim.magen_abraham_dusk - @zmanim.magen_abraham_dawn) * 3 / 160000 + 60), 'seconds') # 13.5 dakot zemaniyot after sunset, rounded to end of minute
+    fast_ends = @set_hakochabim_geonim()
     $(".#{@chag()}.fast-ends").removeClass('hidden').find(".time").html(fast_ends.format('h:mm A'))
     if @hebrew_date.isTaanitEster()
       $(".#{@chag()}.mahasit-hashekel").removeClass('hidden')
