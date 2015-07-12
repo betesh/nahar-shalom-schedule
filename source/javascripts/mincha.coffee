@@ -109,12 +109,12 @@ class Schedule
       $(".#{@chag()}.megilla").find(".dow, .date").attr("rowspan", if @hebrew_date.isErebShabbat() then 2 else 1)
       return
     fast_begins_row = $(".#{@chag()}.fast-begins").removeClass('hidden')
-    fast_begins_row.find(".dow, .date").attr("rowspan", if @hebrew_date.isTaanitEster() then (if 13 == @hebrew_date.dayOfMonth then 4 else 3) else 2)
     if @hebrew_date.isEreb9Ab()
       fast_begins_row.find(".time").html(@sunset.format('h:mm A'))
     else if @hebrew_date.is9Ab()
       $(".#{@chag()}.chatzot .time").html(@chatzot())
     else
+      fast_begins_row.find(".dow, .date").attr("rowspan", if @hebrew_date.isTaanitEster() then (if 13 == @hebrew_date.dayOfMonth then 4 else 3) else 2)
       fast_begins_row.find(".time").html(moment(@zmanim.magen_abraham_dawn).format('h:mm A'))
     fast_ends = @set_hakochabim_geonim()
     $(".#{@chag()}.fast-ends").removeClass('hidden').find(".time").html(fast_ends.format('h:mm A'))
