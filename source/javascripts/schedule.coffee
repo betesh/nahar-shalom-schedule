@@ -60,3 +60,4 @@ write_schedule = (day_iterator) ->
 $ ->
   window.events = (e.className.replace(/start-hidden/, '').replace(/event/, '').replace(/\s*/, '') for e in $('.Saturday .event'))
   $('.calendar').change(-> write_schedule(moment(this.value))).val(moment().add(12, 'hours').format("YYYY-MM-DD")).change()
+  $(".Saturday.one_day td:nth-child(1)").html("שַׁבָּת")
