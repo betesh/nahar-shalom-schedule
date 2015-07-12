@@ -44,7 +44,7 @@ class Schedule
     when @hebrew_date.is9Ab() || @hebrew_date.isErebShabbat() then 45
     when @hebrew_date.isTaanitEster() then 35
     else 30
-  arbit_minutes_after_set_hakochabim_on_mosaei_shabbat: -> if @hebrew_date.isEreb9Ab() then 55 else 10
+  arbit_minutes_after_set_hakochabim_on_mosaei_shabbat: -> if @hebrew_date.isEreb9Ab() then 0 else 10
   mincha_on_shabbat: -> minutes_before_event(@sunset, @mincha_minutes_before_sunset_on_shabbat())
   arbit_on_mosaei_shabbat: -> moment(@zmanim.set_hakochabim).add(@arbit_minutes_after_set_hakochabim_on_mosaei_shabbat(), 'minutes')
   afternoon_shiur: -> $(".#{@chag()}.afternoon-shiur").removeClass("hidden").find(".time").html(time_format(moment(@mincha()).subtract(1, 'hour')))
@@ -113,6 +113,8 @@ class Schedule
       fast_begins_row.find(".time").html(@sunset.format('h:mm A'))
     else if @hebrew_date.is9Ab()
       $(".#{@chag()}.chatzot .time").html(@chatzot())
+      $(".#{@chag()}.chatzot").find(".dow, .date").attr("rowspan", if 0 == @hebrew_date.gregorianDate.getDay() then 3 else 2)
+      $(".#{@chag()}.habdala").removeClass("hidden") if 0 == @hebrew_date.gregorianDate.getDay()
     else
       fast_begins_row.find(".dow, .date").attr("rowspan", if @hebrew_date.isTaanitEster() then (if 13 == @hebrew_date.dayOfMonth then 4 else 3) else 2)
       fast_begins_row.find(".time").html(moment(@zmanim.magen_abraham_dawn).format('h:mm A'))
