@@ -3,7 +3,7 @@ window.catching_errors = function(topic, date, fn) {
     fn();
   } catch(e) {
     <% unless development? %>
-      Raven.captureException(e, tags: { date: date.toDate(), topic: topic });
+      Raven.captureException(e, { tags: { date: date.toDate(), topic: topic }});
     <% end %>
   }
 };
