@@ -142,6 +142,13 @@ class Schedule
       else
         $(".#{@chag()}.afternoon-shiur").find(".dow, .date").addClass('hidden')
         $(".#{@chag()}.shema").find(".dow, .date").removeClass('hidden')
+    if @hebrew_date.isRoshHashana()
+      if @hebrew_date.isShabbat()
+        $(".#{@chag()}").find(".ends, .rabbenu-tam").removeClass("hidden")
+        $(".#{@chag()}.afternoon-shiur").find(".dow, .date").removeClass("hidden")
+      else
+        $(".#{@chag()}.shofar").removeClass("hidden").find(".time").html(time_format(@today().hour(10).minute(30)))
+        $(".#{@chag()}.tashlich").removeClass("hidden").find(".time").html("After מִנְחָה")
     if @hebrew_date.is1stDayOfPesach()
       if @shema_is_before_9_am()
         $(".#{@chag()}.shema").find(".dow, .date").attr("rowspan", if @hebrew_date.isShabbat() then 7 else 4)
