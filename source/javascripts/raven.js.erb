@@ -1,0 +1,15 @@
+window.catching_errors = function(topic, date, fn) {
+  try {
+    fn();
+  } catch(e) {
+    <% unless development? %>
+      Raven.captureException(e, tags: { date: date.toDate(), topic: topic });
+    <% end %>
+  }
+};
+
+<% unless development? %>
+  $(function(){
+    Raven.config('http://a34a3e95df804743806e892f74eda2e8@app.getsentry.com/35052').install();
+  });
+<% end %>

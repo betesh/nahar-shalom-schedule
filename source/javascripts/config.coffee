@@ -19,4 +19,3 @@ $ ->
   moment.locale('en')
   SunCalc.addTime(-8.5, 'small_stars_3', 'set_hakochabim')
   SunCalc.addTime(-16.1, 'magen_abraham_dawn', 'magen_abraham_dusk')
-  Raven.config('http://a34a3e95df804743806e892f74eda2e8@app.getsentry.com/35052').install() if "localhost" != window.location.hostname

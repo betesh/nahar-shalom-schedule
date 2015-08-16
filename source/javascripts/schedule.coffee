@@ -12,15 +12,6 @@ shaharit_is_fixed_at = (day, hour, minute) ->
   $(".#{day} .yishtabach").html('')
   $(".#{day} .amidah").html('')
 
-catching_errors = (topic, fn) ->
-  if "localhost" == window.location.hostname
-    fn()
-  else
-    try
-      fn()
-    catch e
-      Raven.captureException(e, tags: { date: day_iterator.toDate(), topic: topic })
-
 write_schedule = (day_iterator) ->
   $('.start-hidden').addClass('hidden')
   $('.start-shown').removeClass('hidden')
@@ -29,7 +20,7 @@ write_schedule = (day_iterator) ->
   day_iterator.day('Saturday')
   hebrew_date = null
   for day in moment.weekdays().reverse()
-    catching_errors 'Morning', ->
+    window.catching_errors 'Morning', day_iterator, ->
       $(".#{day} .date").html(day_iterator.format("D MMM"))
       hebrew_date = new HebrewDate(day_iterator.toDate())
       $(".#{day} .hebrew_date").html("#{hebrew_date.staticHebrewMonth.name} #{hebrew_date.dayOfMonth}")
@@ -45,7 +36,7 @@ write_schedule = (day_iterator) ->
         shaharit_is_fixed_at(day, 7, 45)
       else
         new Vatikin(day_iterator, hebrew_date).updateDOM()
-    catching_errors 'Afternoon', ->
+    window.catching_errors 'Afternoon', day_iterator, ->
       afternoon = mincha_and_arbit(day_iterator)
       $(".#{day} .mincha").html(afternoon.mincha || "")
       $(".#{day} .arbit").html(afternoon.arbit || "")
