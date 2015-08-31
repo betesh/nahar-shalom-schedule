@@ -2,6 +2,7 @@
 
 rm -rf build
 middleman build
-middleman s3_sync
-git tag -f deployed
-git push -f --tags
+if (middleman s3_sync); then
+  git tag -f deployed
+  git push -f --tags
+fi
