@@ -144,7 +144,6 @@ class Schedule
         $(".#{@chag()}.shema").find(".dow, .date").removeClass('hidden')
     if @hebrew_date.isRoshHashana()
       if @hebrew_date.isShabbat()
-        $(".#{@chag()}").find(".ends, .rabbenu-tam").removeClass("hidden")
         $(".#{@chag()}.afternoon-shiur").find(".dow, .date").removeClass("hidden")
       else
         $(".#{@chag()}.shofar").removeClass("hidden").find(".time").html(time_format(@today().hour(10).minute(30)))
