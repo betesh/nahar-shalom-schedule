@@ -61,7 +61,7 @@ class Schedule
       when @hebrew_date.is6thDayOfPesach() || @hebrew_date.is7thDayOfPesach() || @hebrew_date.is8thDayOfPesach() then 'pesach-last-days'
       when (@hebrew_date.isErebShabuot() && !@hebrew_date.isShabbat()) || @hebrew_date.isShabuot() then 'shabuot'
       when @hebrew_date.isErebRoshHashana() || @hebrew_date.isRoshHashana() then 'rosh-hashana'
-      when @hebrew_date.isErebSukkot() || (@hebrew_date.isSukkot() && !@hebrew_date.isHoshanaRaba() && !@hebrew_date.isSheminiAseret()) then 'sukkot-first-days'
+      when @hebrew_date.isErebSukkot() || (@hebrew_date.isSukkot() && @hebrew_date.isYomTob() && !@hebrew_date.isSheminiAseret()) then 'sukkot-first-days'
       when @hebrew_date.isHoshanaRaba() || @hebrew_date.isSheminiAseret() then 'sukkot-last-days'
       when @hebrew_date.isErebYomKippur() || @hebrew_date.isYomKippur() then 'yom-kippur'
       when (@hebrew_date.isErebShabbat() && !@hebrew_date.isPurim()) || @hebrew_date.isShabbat() then 'shabbat'
@@ -126,7 +126,7 @@ class Schedule
         $(".#{@chag()}.megilla").removeClass('hidden').find(".time").html(minutes_before_event(fast_ends, -7).format('h:mm A'))
   seudat_shelishit_time: -> if @tonight_is_yom_tob() then @samuch_lemincha_ketana() else @sunset
   shabbat_schedule: ->
-    [add, remove] = if @hebrew_date.isShabbat() && (@hebrew_date.is1stDayOfPesach() || @hebrew_date.isShabuot() || @hebrew_date.isRoshHashana() || @hebrew_date.isSheminiAseret()) then [6,7] else [7,6]
+    [add, remove] = if @hebrew_date.isShabbat() && (@hebrew_date.is1stDayOfPesach() || @hebrew_date.isShabuot() || @hebrew_date.isRoshHashana()) then [6,7] else [7,6]
     $(".#{@chag().split(" ")[0]}").removeClass("col-xs-#{add}").addClass("col-xs-#{remove}")
     @set_date()
     @hadlakat_nerot_schedule() if @tonight_is_yom_tob()
@@ -148,6 +148,9 @@ class Schedule
       else
         $(".#{@chag()}.shofar").removeClass("hidden").find(".time").html(time_format(@today().hour(10).minute(30)))
         $(".#{@chag()}.tashlich").removeClass("hidden").find(".time").html("After מִנְחָה")
+    if @hebrew_date.isSukkot() && @hebrew_date.is1stDayOfYomTob()
+      $(".#{@chag()}.afternoon-shiur").find(".dow, .date").attr("rowspan", if @hebrew_date.isShabbat() then 4 else 2)
+      $(".#{@chag()}").find(".hadlakat-nerot").removeClass("hidden")
     if @hebrew_date.is1stDayOfPesach()
       if @shema_is_before_9_am()
         $(".#{@chag()}.shema").find(".dow, .date").attr("rowspan", if @hebrew_date.isShabbat() then 7 else 4)
