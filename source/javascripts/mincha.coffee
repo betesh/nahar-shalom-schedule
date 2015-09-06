@@ -11,6 +11,7 @@ HebrewDate.prototype.isSheminiAseret = -> @monthAndRangeAre('TISHRI', [22..23])
 HebrewDate.prototype.isBirkatHaIlanot = -> !@isShabbat() && @monthAndRangeAre('NISAN', if 0 == @gregorianDate.getDay() then [1..2] else [1])
 HebrewDate.prototype.isTefilatHaShelah = -> @monthAndRangeAre('IYAR', [29])
 HebrewDate.prototype.is2ndDayOfYomTob = -> @is2ndDayOfPesach() || @is8thDayOfPesach() || @monthAndRangeAre('SIVAN', [7]) || @monthAndRangeAre('TISHRI', [2,16,23])
+HebrewDate.prototype.isErebHoshanaRaba = -> @monthAndRangeAre('TISHRI', [20])
 
 time_format = (time) -> time.format('h:mm') if time?
 round_down_to_5_minutes = (time) -> time.subtract(time.minute() % 5, 'minutes')
@@ -62,7 +63,7 @@ class Schedule
       when (@hebrew_date.isErebShabuot() && !@hebrew_date.isShabbat()) || @hebrew_date.isShabuot() then 'shabuot'
       when @hebrew_date.isErebRoshHashana() || @hebrew_date.isRoshHashana() then 'rosh-hashana'
       when @hebrew_date.isErebSukkot() || (@hebrew_date.isSukkot() && @hebrew_date.isYomTob() && !@hebrew_date.isSheminiAseret()) then 'sukkot-first-days'
-      when @hebrew_date.isHoshanaRaba() || @hebrew_date.isSheminiAseret() then 'sukkot-last-days'
+      when @hebrew_date.isHoshanaRaba() || @hebrew_date.isSheminiAseret() || (@hebrew_date.isErebHoshanaRaba() && !@hebrew_date.isShabbat()) then 'sukkot-last-days'
       when @hebrew_date.isErebYomKippur() || @hebrew_date.isYomKippur() then 'yom-kippur'
       when (@hebrew_date.isErebShabbat() && !@hebrew_date.isPurim()) || @hebrew_date.isShabbat() then 'shabbat'
       when @hebrew_date.isTaanit() && !@hebrew_date.is9Ab() then 'taanit'
@@ -75,6 +76,7 @@ class Schedule
       when @hebrew_date.is2ndDayOfYomTob() then '.second'
       when @hebrew_date.isShabbat() || @hebrew_date.isYomKippur() || @hebrew_date.isTaanit() then '.day'
       when @hebrew_date.isPurim() then  '.purim-row'
+      when @hebrew_date.isErebHoshanaRaba() then '.tiqun-leil-hoshana-raba'
       else console.warn "This should never happen!"
     "#{name_of_chag} #{rishon_or_sheni}")
   show_chatzot: -> $(".#{@chag()}.chatzot").removeClass('hidden').find('.time').html(@chatzot())
@@ -154,6 +156,8 @@ class Schedule
     if @hebrew_date.isSukkot() && @hebrew_date.is1stDayOfYomTob()
       $(".#{@chag()}.afternoon-shiur").find(".dow, .date").attr("rowspan", if @hebrew_date.isShabbat() then 4 else 2)
       $(".#{@chag()}").find(".hadlakat-nerot").removeClass("hidden")
+    if @hebrew_date.isErebHoshanaRaba()
+      $(".#{@chag()}.tiqun-leil-hoshana-raba").removeClass('hidden').find('.time').html(@today().hour(0).minute(0).format('h:mm A'))
     if @hebrew_date.is1stDayOfPesach()
       if @shema_is_before_9_am()
         $(".#{@chag()}.shema").find(".dow, .date").attr("rowspan", if @hebrew_date.isShabbat() then 7 else 4)
@@ -218,6 +222,9 @@ class Schedule
       "After #{if @hebrew_date.isShabbat() then 'שַׁבָּת ends' else time_format(@hadlakat_nerot())}"
     else time_format(@hadlakat_nerot())
   sedra: -> "#{if @hebrew_date.isRegel() || @hebrew_date.isYomKippur() || @hebrew_date.isYomTob() then "" else "שַׁבַּת פְּרָשָׁת"} #{@hebrew_date.sedra().replace(/-/g, ' - ')}"
+  tiqun_leil_hoshana_raba_schedule: ->
+    $(".#{@chag()}").removeClass("hidden").find('.time').html(@today().hour(0).minute(0).format('h:mm A'))
+    @set_date()
   announcement: -> @_announcement ?= (
     a = window.announcements[@hebrew_date.getHebrewYear().getYearFromCreation()]
     a = a[@hebrew_date.weekOfYear()] if a?
@@ -237,4 +244,6 @@ window.mincha_and_arbit = (day_iterator) ->
   if schedule.hebrew_date.isShabbat()
     $('.sedra').html(schedule.sedra())
     $(".announcement.jumbotron").removeClass('hidden').html(schedule.announcement()) if schedule.announcement()?
+  else if schedule.hebrew_date.isErebHoshanaRaba()
+    schedule.tiqun_leil_hoshana_raba_schedule()
   mincha: time_format(schedule.mincha()), arbit: time_format(schedule.arbit())
