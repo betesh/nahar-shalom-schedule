@@ -48,6 +48,7 @@ write_schedule = (day_iterator) ->
     ($(".#{day} .#{column}").removeClass('hidden') for day in moment.weekdays()) unless $(".header .#{column}").hasClass('hidden')
 
 $ ->
+  initial_date = moment(window.location.search.replace("?", ""), "YYYYMMDD").toDate()
   window.events = (e.className.replace(/start-hidden/, '').replace(/event/, '').replace(/\s*/, '') for e in $('.Saturday .event'))
-  $('.calendar').change(-> write_schedule(moment(this.value))).val(moment().add(12, 'hours').format("YYYY-MM-DD")).change()
+  $('.calendar').change(-> write_schedule(moment(this.value))).val(moment(initial_date).add(12, 'hours').format("YYYY-MM-DD")).change()
   $(".Saturday.one_day td:nth-child(1)").html("שַׁבָּת")
