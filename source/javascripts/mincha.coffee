@@ -91,7 +91,7 @@ class Schedule
     $(".#{@chag()}.tiqun").removeClass('hidden').find('.time').html(@today().hour(0).minute(0).format('h:mm A')) if @hebrew_date.isErebShabuot()
   rabbenu_tam_schedule: ->
     $(".#{@chag()}.ends").removeClass("hidden").find(".time").html(@set_hakochabim())
-    $(".#{@chag()}.rabbenu-tam").removeClass("hidden").find(".time").html(@rabbenu_tam()) if @hebrew_date.isShabbat()
+    $(".#{@chag()}.rabbenu-tam").removeClass("hidden").find(".time").html(@rabbenu_tam()) if @hebrew_date.isShabbat() || @hebrew_date.isYomKippur()
     half_hour_after_rabbenu_tam = round_down_to_5_minutes(moment(@sunset).add(101, 'minute'))
     unless @hebrew_date.isShabbatZachor() && 13 == @hebrew_date.dayOfMonth
       if half_hour_after_rabbenu_tam.isBefore(@today().hour(20).minute(16))
