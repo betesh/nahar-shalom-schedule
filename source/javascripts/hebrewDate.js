@@ -187,8 +187,7 @@
     };
 
     HebrewDate.prototype.isRoshHodesh = function() {
-      var ref;
-      return ((ref = this.dayOfMonth) === 1 || ref === 30) && this.staticHebrewMonth !== HebrewMonth.TISHRI;
+      return (1 === this.dayOfMonth && this.staticHebrewMonth !== HebrewMonth.TISHRI) || 30 === this.dayOfMonth;
     };
 
     HebrewDate.prototype.isBeginTalUmatar = function() {
@@ -451,7 +450,7 @@
   (function() {
     var month;
     this.TISHRI = this.TISHREI = {
-      name: "תִּשׁרִי",
+      name: "תִּשְׁרִי",
       length: function(year) {
         return 30;
       }
