@@ -9,3 +9,5 @@ window.announcements =
     '26': "Sunday, March 22nd @ 3PM:<br>הַכְנָסַת סֵפֶר תּוֹרָה"
     '28': "Stop eating חָמֵץ before 10:55 AM<br>Burn חָמֵץ before 12:09 PM"
     '44': "Bring your תִּשְׁעָה בְּאָב shoes to shul before שַׁבָּת"
+  '5776':
+    '6': "Mazal Tov to the Botton and Laniado families on the marriage of Mazalle & Eliezer"
