@@ -17,7 +17,7 @@
     <% unless development? %>
       <%= javascript_include_tag  "http://cdn.ravenjs.com/1.1.15/jquery,native/raven.min.js" %>
     <% end %>
-    <%= javascript_include_tag  "all" %>
+    <%= javascript_include_tag  current_page.path.gsub(".html", "") %>
 
   </head>
 
