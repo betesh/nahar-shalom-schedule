@@ -36,12 +36,16 @@ update_table = ->
     hebrewDate = new HebrewDate(gregorianDate)
 
 $ ->
+  validYears = []
+  initialDate = window.location.search.replace("?", "")
   for year, sunrises of window.sunrises
+    validYears.push(year)
     if parseInt(year) >= 5776
       $("select.year_select").append($("<option>", { text: year }))
   $("select.year_select").change update_table
-  new HebrewDate(new Date()).getYearFromCreation()
-  initialDate = new Date()
-  initialDate.setDate(initialDate.getDate() + 2)
-  $("select.year_select").val(new HebrewDate(initialDate).getYearFromCreation())
+  unless  initialDate in validYears
+    initialDate = new Date()
+    initialDate.setDate(initialDate.getDate() + 2)
+    initialDate = new HebrewDate(initialDate).getYearFromCreation()
+  $("select.year_select").val(initialDate)
   $("select.year_select").change()
