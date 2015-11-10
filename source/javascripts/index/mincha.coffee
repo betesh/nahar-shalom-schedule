@@ -1,18 +1,3 @@
-HebrewDate.prototype.isErebPesach = -> @monthAndRangeAre('NISAN', [14])
-HebrewDate.prototype.is1stDayOfPesach = -> @monthAndRangeAre('NISAN', [15])
-HebrewDate.prototype.is2ndDayOfPesach = -> @monthAndRangeAre('NISAN', [16])
-HebrewDate.prototype.is8thDayOfPesach = -> @monthAndRangeAre('NISAN', [22])
-HebrewDate.prototype.isErebShabuot = -> @monthAndRangeAre('SIVAN', [5])
-HebrewDate.prototype.isEreb9Ab = HebrewDate.prototype.isEreb9Av
-HebrewDate.prototype.isErebRoshHashana = -> @monthAndRangeAre('ELUL', [29])
-HebrewDate.prototype.isErebSukkot = -> @monthAndRangeAre('TISHRI', [14])
-HebrewDate.prototype.isHoshanaRaba = -> @monthAndRangeAre('TISHRI', [21])
-HebrewDate.prototype.isSheminiAseret = -> @monthAndRangeAre('TISHRI', [22..23])
-HebrewDate.prototype.isBirkatHaIlanot = -> !@isShabbat() && @monthAndRangeAre('NISAN', if 0 == @gregorianDate.getDay() then [1..2] else [1])
-HebrewDate.prototype.isTefilatHaShelah = -> @monthAndRangeAre('IYAR', [29])
-HebrewDate.prototype.is2ndDayOfYomTob = -> @is2ndDayOfPesach() || @is8thDayOfPesach() || @monthAndRangeAre('SIVAN', [7]) || @monthAndRangeAre('TISHRI', [2,16,23])
-HebrewDate.prototype.isErebHoshanaRaba = -> @monthAndRangeAre('TISHRI', [20])
-
 time_format = (time) -> time.format('h:mm') if time?
 round_down_to_5_minutes = (time) -> time.subtract(time.minute() % 5, 'minutes')
 minutes_before_event = (event, minutes)-> round_down_to_5_minutes(moment(event).subtract(minutes, 'minutes'))
