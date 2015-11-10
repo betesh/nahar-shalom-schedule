@@ -1,7 +1,19 @@
 sedra = (hebrewDate) ->
-  if hebrewDate.isYomKippur() then "יוֹם הַכִּפֻּרִים"
-  else if hebrewDate.isYomTob() then ""
-  else if hebrewDate.isMoed() then ""
+  if hebrewDate.isMoed() then ("שַׁבָּת חוֹל הַמוֹעֵד " + if hebrewDate.isSukkot() then "סֻּכּוֹת" else "פֶּסַח")
+  else if hebrewDate.isYomTob()
+    alef_or_bet = (if hebrewDate.is1stDayOfYomTob() then "א" else "ב") + "׳ שֶׁל "
+    if hebrewDate.isPesach() then (
+      if hebrewDate.is8thDayOfPesach() then "אַחֲרוֹן שֶׁל פֶּסַח"
+      else if hebrewDate.is7thDayOfPesach() then "שְׁבִיעִי שֶׁל פֶּסַח"
+      else "#{alef_or_bet}פֶּסַח"
+      )
+    else if hebrewDate.isShabuot() then "#{alef_or_bet}שָׁבֻעֹת"
+    else if hebrewDate.isRoshHashana() then "#{alef_or_bet}רֹאשׁ הַשָּׁנָה"
+    else if hebrewDate.isSukkot() then (
+      if hebrewDate.isSheminiAseret() then (if hebrewDate.is1stDayOfYomTob() then "שְּׁמִינִי עֲצֶרֶת" else"שִׂמְחַת תּוֹרָה")
+      else"#{alef_or_bet}סֻּכּוֹת"
+    )
+  else if hebrewDate.isYomKippur() then "יוֹם הַכִּפֻּרִים"
   else hebrewDate.sedra()
 tableRow = (momentInstance, hebrewDate) ->
   vatikin = new Vatikin(momentInstance, hebrewDate)
