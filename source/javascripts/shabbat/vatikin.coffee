@@ -35,8 +35,12 @@ tableRow = (momentInstance, hebrewDate) ->
   """
 
 update_table = ->
+  value = this.value
+  window.catching_errors 'Shabbat', value, -> update_table_in_try_catch(value)
+
+update_table_in_try_catch = (value) ->
   $("table.vatikin-schedule tr").not(":nth-child(1)").remove()
-  year = parseInt(this.value)
+  year = parseInt(value)
   $("table.vatikin-schedule tr:nth-child(1) th:nth-child(1)").html(year)
   hebrewDate =  new HebrewDate(new RoshHashana(year).getGregorianDate())
   while hebrewDate.getYearFromCreation() == year
