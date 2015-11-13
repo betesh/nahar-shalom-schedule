@@ -46,7 +46,7 @@ update_table_in_try_catch = (value) ->
   while hebrewDate.getYearFromCreation() == year
     gregorianDate = hebrewDate.gregorianDate
     momentInstance = moment(gregorianDate)
-    if momentInstance.isAfter(moment(new Date("11-8-2015"))) && (hebrewDate.isShabbat() || hebrewDate.isYomTob() || hebrewDate.isYomKippur())
+    if momentInstance.isAfter(moment("2015-11-08", "YYYY-MM-DD")) && (hebrewDate.isShabbat() || hebrewDate.isYomTob() || hebrewDate.isYomKippur())
       $("table.vatikin-schedule").append(tableRow(momentInstance, hebrewDate))
     gregorianDate.setDate(gregorianDate.getDate() + 1)
     hebrewDate = new HebrewDate(gregorianDate)
