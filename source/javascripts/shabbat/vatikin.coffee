@@ -28,6 +28,7 @@ tableRow = (momentInstance, hebrewDate) ->
       <td>#{momentInstance.format("MMMM D#{if (hebrewDate.isRoshHashana() && hebrewDate.is1stDayOfYomTob()) || (0 == momentInstance.month() && momentInstance.date() <= 7) then " YYYY" else ""}")}</td>
       <td>#{sedra(hebrewDate)}</td>
       <td>#{korbanot}</td>
+      <td>#{moment(SunCalc.getTimes(hebrewDate.gregorianDate, window.config.latitude, window.config.longitude).earliest_tallit).format("h:mm:ss")}</td>
       <td>#{hodu}</td>
       <td>#{yishabach}</td>
       <td>#{sunrise}</td>
