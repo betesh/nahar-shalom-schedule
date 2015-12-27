@@ -1,20 +1,21 @@
 sedra = (hebrewDate) ->
   if hebrewDate.isMoed() then ("שַׁבָּת חוֹל הַמוֹעֵד " + if hebrewDate.isSukkot() then "סֻּכּוֹת" else "פֶּסַח")
   else if hebrewDate.isYomTob()
-    alef_or_bet = (if hebrewDate.is1stDayOfYomTob() then "א" else "ב") + "׳ שֶׁל "
+    alefOrBet = (if hebrewDate.is1stDayOfYomTob() then "א" else "ב") + "׳ שֶׁל "
     if hebrewDate.isPesach() then (
       if hebrewDate.is8thDayOfPesach() then "אַחֲרוֹן שֶׁל פֶּסַח"
       else if hebrewDate.is7thDayOfPesach() then "שְׁבִיעִי שֶׁל פֶּסַח"
-      else "#{alef_or_bet}פֶּסַח"
+      else "#{alefOrBet}פֶּסַח"
       )
-    else if hebrewDate.isShabuot() then "#{alef_or_bet}שָׁבֻעֹת"
-    else if hebrewDate.isRoshHashana() then "#{alef_or_bet}רֹאשׁ הַשָּׁנָה"
+    else if hebrewDate.isShabuot() then "#{alefOrBet}שָׁבֻעֹת"
+    else if hebrewDate.isRoshHashana() then "#{alefOrBet}רֹאשׁ הַשָּׁנָה"
     else if hebrewDate.isSukkot() then (
       if hebrewDate.isSheminiAseret() then (if hebrewDate.is1stDayOfYomTob() then "שְּׁמִינִי עֲצֶרֶת" else"שִׂמְחַת תּוֹרָה")
-      else"#{alef_or_bet}סֻּכּוֹת"
+      else"#{alefOrBet}סֻּכּוֹת"
     )
   else if hebrewDate.isYomKippur() then "יוֹם הַכִּפֻּרִים"
   else hebrewDate.sedra()
+
 tableRow = (momentInstance, hebrewDate) ->
   vatikin = new Vatikin(momentInstance, hebrewDate)
   firstDayOfYear = hebrewDate.isRoshHashana() && hebrewDate.is1stDayOfYomTob()
@@ -35,11 +36,11 @@ tableRow = (momentInstance, hebrewDate) ->
     </tr>
   """
 
-update_table = ->
+updateTable = ->
   value = this.value
-  window.catching_errors 'Shabbat', value, -> update_table_in_try_catch(value)
+  window.catching_errors 'Shabbat', value, -> updateTableInTryCatch(value)
 
-update_table_in_try_catch = (value) ->
+updateTableInTryCatch = (value) ->
   $("table.vatikin-schedule tr").not(":nth-child(1)").remove()
   year = parseInt(value)
   $("table.vatikin-schedule tr:nth-child(1) th:nth-child(1)").html(year)
@@ -59,7 +60,7 @@ $ ->
     validYears.push(year)
     if parseInt(year) >= 5776
       $("select.year_select").append($("<option>", { text: year }))
-  $("select.year_select").change update_table
+  $("select.year_select").change updateTable
   unless  initialDate in validYears
     initialDate = new Date()
     initialDate.setDate(initialDate.getDate() + 2)

@@ -5,9 +5,11 @@ has_no_event = (day) -> true not in event_array(day)
 
 show_if = (condition) -> if condition then 'removeClass' else 'addClass'
 
-shaharit_is_fixed_at = (day, hour, minute) ->
+shaharit_is_fixed_at = (day, hour, minute, hebrewDate, gregorianDate) ->
   time = moment().hour(hour).minute(minute)
-  $(".#{day} .korbanot").html(time.format("h:mm"))
+  vatikin = new Vatikin(gregorianDate, hebrewDate).schedule
+  vatikin = vatikin.korbanot + vatikin.hodu + vatikin.yishtabach
+  $(".#{day} .korbanot").html("#{time.format("h:mm")}<span class='screen-only'> and <br /><a href='shabbat.html'>#{vatikin} minutes before sunrise</a></span>")
   $(".#{day} .hodu").html(time.add(15, 'minutes').format("h:mm"))
   $(".#{day} .yishtabach").html('')
   $(".#{day} .amidah").html('')
@@ -26,13 +28,13 @@ write_schedule = (day_iterator) ->
       $(".#{day} .hebrew_date").html("#{hebrew_date.staticHebrewMonth.name} #{hebrew_date.dayOfMonth}")
       show_event(day, event, hebrew_date) for event in events
       if hebrew_date.isYomKippur()
-        shaharit_is_fixed_at(day, 7, 0)
+        shaharit_is_fixed_at(day, 7, 0, hebrew_date, day_iterator)
       else if hebrew_date.is1stDayOfShabuot()
         new Vatikin(day_iterator, hebrew_date).updateDOM()
       else if hebrew_date.is1stDayOfPesach() || hebrew_date.is2ndDayOfPesach()
-        shaharit_is_fixed_at(day, 8, 45)
+        shaharit_is_fixed_at(day, 8, 45, hebrew_date, day_iterator)
       else if hebrew_date.isYomTov() || hebrew_date.isShabbat()
-        shaharit_is_fixed_at(day, 7, 45)
+        shaharit_is_fixed_at(day, 7, 45, hebrew_date, day_iterator)
       else
         new Vatikin(day_iterator, hebrew_date).updateDOM()
     window.catching_errors 'Afternoon', day_iterator.toDate(), ->
