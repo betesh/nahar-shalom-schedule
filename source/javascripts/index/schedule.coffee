@@ -9,7 +9,7 @@ shaharit_is_fixed_at = (day, hour, minute, hebrewDate, gregorianDate) ->
   time = moment().hour(hour).minute(minute)
   vatikin = new Vatikin(gregorianDate, hebrewDate).schedule
   vatikin = vatikin.korbanot + vatikin.hodu + vatikin.yishtabach
-  $(".#{day} .korbanot").html("#{time.format("h:mm")}<span class='screen-only'> and <br /><a href='shabbat.html'>#{vatikin} minutes before sunrise</a></span>")
+  $(".#{day} .korbanot").html("#{time.format("h:mm")}<span class='screen-only'> and <br /><a href='shabbat.html'>#{vatikin} minutes<br />before sunrise</a></span>")
   $(".#{day} .hodu").html(time.add(15, 'minutes').format("h:mm"))
   $(".#{day} .yishtabach").html('')
   $(".#{day} .amidah").html('')
