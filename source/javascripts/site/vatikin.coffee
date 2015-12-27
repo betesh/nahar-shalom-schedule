@@ -19,7 +19,7 @@ class Vatikin
 
 (->
   @NULL = { }
-  @YOM_KIPPUR = { korbanot: 15, hodu: 33, yishtabach: 17 }
+  @YOM_KIPPUR = { korbanot: 15, hodu: 38, yishtabach: 17 }
   @YOM_TOB = { korbanot: 15, hodu: 23, yishtabach: 17 }
   @HOL_HAMOED = { korbanot: 16, hodu: 13, yishtabach: 8.5 }
   @ASERET_YEMEI_TESHUBA = { selihot: 56, korbanot: 16, hodu: 11.5, yishtabach: 8.5 }
