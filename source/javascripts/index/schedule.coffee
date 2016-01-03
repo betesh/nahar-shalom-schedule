@@ -1,3 +1,8 @@
+initialDate = ->
+  initialDate = window.location.search.replace("?", "")
+  initialDate = if initialDate.length > 0 then moment(initialDate, "YYYYMMDD").toDate() else (new Date())
+  moment(initialDate).add(12, 'hours').format("YYYY-MM-DD")
+
 show_event = (day, event, hebrew_date) -> $(".#{day} .#{event}")[show_if(hebrew_date["is#{event}"]())]('hidden')
 
 event_array = (day) -> ($(".one_day.#{day} .#{event}").not(".hidden").length > 0) for event in events
@@ -50,7 +55,6 @@ write_schedule = (day_iterator) ->
     ($(".#{day} .#{column}").removeClass('hidden') for day in moment.weekdays()) unless $(".header .#{column}").hasClass('hidden')
 
 $ ->
-  initial_date = moment(window.location.search.replace("?", ""), "YYYYMMDD").toDate()
   window.events = (e.className.replace(/start-hidden/, '').replace(/event/, '').replace(/\s*/, '') for e in $('.Saturday .event'))
-  $('.calendar').change(-> write_schedule(moment(this.value))).val(moment(initial_date).add(12, 'hours').format("YYYY-MM-DD")).change()
+  $('.calendar').change(-> write_schedule(moment(this.value))).val(initialDate()).change()
   $(".Saturday.one_day td:nth-child(1)").html("שַׁבָּת")
