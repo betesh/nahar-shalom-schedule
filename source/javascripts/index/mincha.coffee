@@ -120,7 +120,10 @@ class Schedule
     @set_date()
     @hadlakat_nerot_schedule() if @tonight_is_yom_tob()
     if @hebrew_date.isShabbatZachor()
-      $(".#{@chag()}.zachor").removeClass('hidden').find('.time').html("#{@today().hour(9).minute(45).format('h:mm A')} <strong>and</strong> #{@today().hour(14).minute(30).format('h:mm A')}")
+      zachor1 = minutes_before_event(@zmanim.sunrise, -35).format('h:mm A')
+      zachor2 = @today().hour(9).minute(45).format('h:mm A')
+      zachor3 = "#{@today().hour(14).minute(30).format('h:mm A')} upon request"
+      $(".#{@chag()}.zachor").removeClass('hidden').find('.time').html("#{zachor1} <strong>and</strong> #{zachor2}<br>(#{zachor3})")
       $(".#{@chag()}.afternoon-shiur").find(".dow, .date").addClass('hidden')
       $(".#{@chag()}.megilla").removeClass('hidden').find(".time").html(minutes_before_event(@sunset, -100).format('h:mm A')) if 13 == @hebrew_date.dayOfMonth
       $(".#{@chag()}.zachor").find(".dow, .date").removeClass('hidden') unless @shema_is_before_9_am()
