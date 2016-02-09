@@ -1,13 +1,13 @@
 window.catching_errors = function(topic, date, fn) {
-  <% if development? %>
+  try {
     fn();
-  <% else %>
-    try {
-      fn();
-    } catch(e) {
+  } catch(e) {
+    <% if development? %>
+      alert(e);
+    <% else %>
       Raven.captureException(e, { tags: { date: date, topic: topic }});
-    }
-  <% end %>
+    <% end %>
+  }
 };
 
 <% unless development? %>
