@@ -54,7 +54,7 @@ class Schedule
       when @hebrew_date.isTaanit() && !@hebrew_date.is9Ab() then 'taanit'
       when @hebrew_date.isPurim() then 'purim-table'
       when (@hebrew_date.is9Ab() || @hebrew_date.isEreb9Ab()) && !@hebrew_date.isShabbat() then 'chabob'
-      else console.warn "This should never happen!"
+      else throw "This should never happen!"
     rishon_or_sheni = switch
       when ((@hebrew_date.isErebYomTob() || @hebrew_date.isEreb9Ab()) && !@hebrew_date.isShabbat()) || @hebrew_date.isErebYomKippur() || (@hebrew_date.isErebShabbat() && !@hebrew_date.isPurim() && !@hebrew_date.isYomTob()) then '.eve'
       when @hebrew_date.is1stDayOfYomTob() then '.first'
@@ -62,7 +62,7 @@ class Schedule
       when @hebrew_date.isShabbat() || @hebrew_date.isYomKippur() || @hebrew_date.isTaanit() then '.day'
       when @hebrew_date.isPurim() then  '.purim-row'
       when @hebrew_date.isErebHoshanaRaba() then '.tiqun-leil-hoshana-raba'
-      else console.warn "This should never happen!"
+      else throw "This should never happen!"
     "#{name_of_chag} #{rishon_or_sheni}")
   show_chatzot: -> $(".#{@chag()}.chatzot").removeClass('hidden').find('.time').html(@chatzot())
   set_date: ->
@@ -91,7 +91,7 @@ class Schedule
       when @hebrew_date.isTaanitEster() then (if 13 == @hebrew_date.dayOfMonth then "TaanitEsterAndPurim" else "TaanitEster")
       when @hebrew_date.isPurim() then (if 0 == @hebrew_date.gregorianDate.getDay() then "PurimOnly" else null)
       when @hebrew_date.isEreb9Ab() || @hebrew_date.is9Ab() then null
-      else console.warn "This should never happen!"
+      else throw "This should never happen!"
     $(".taanit th .#{name}").removeClass("hidden") if name?
     if @hebrew_date.isPurim()
       $(".#{@chag()}.megilla").removeClass('hidden').find(".time").html("#{minutes_before_event(@zmanim.sunrise, -20).format('h:mm A')} <strong>and</strong> #{@today().hour(9).minute(30).format('h:mm A')}")
