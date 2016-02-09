@@ -54,6 +54,19 @@ write_schedule = (day_iterator) ->
   for column in ['selihot', 'omer']
     $(".header .#{column}")[show_if($(".one_day .#{column}").not('.hidden').length > 0)]('hidden')
     ($(".#{day} .#{column}").removeClass('hidden') for day in moment.weekdays()) unless $(".header .#{column}").hasClass('hidden')
+  window.catching_errors 'Resizing Chag Tables', day_iterator.toDate(), ->
+    visible_tables = $("#chagim-tables > div").not(".hidden").not(".announcement")
+    has_announcement = $("#chagim-tables > div.announcement").not(".hidden").size() > 0
+    visible_tables.removeClass("col-xs-5").removeClass("col-xs-6").removeClass("col-xs-7").removeClass("col-xs-8")
+    new_width = switch visible_tables.size()
+      when 1
+        if has_announcement then [7] else [8]
+      when 2
+        throw "There's no room for announcements when there are 2 visible chagim table" if has_announcement
+        switch
+          when $("#chagim-tables > div.shabbat .zachor").not(".hidden").size() > 0 then [5,7]
+          else [6,6]
+    visible_tables.each (i) -> $(this).addClass("col-xs-#{new_width[i]}")
 
 $ ->
   window.events = (e.className.replace(/start-hidden/, '').replace(/event/, '').replace(/\s*/, '') for e in $('.Saturday .event'))
