@@ -19,9 +19,10 @@ class Schedule
   today: -> moment(@sunset)
   tonight_is_yom_tob: -> @hebrew_date.isErebYomTob() || @hebrew_date.is1stDayOfYomTob()
   yom_tob_that_we_can_pray_at_plag: -> @hebrew_date.is7thDayOfPesach() || @hebrew_date.is1stDayOfShabuot()
-  last_time_for_shema: -> @_last_time_for_shema ?= moment.min(
-      moment(@zmanim.magen_abraham_dawn).add((@zmanim.magen_abraham_dusk - @zmanim.magen_abraham_dawn) / 4000, 'seconds'),
-      moment(@zmanim.sunrise).subtract(36, 'minutes').add((@zmanim.sunset - @zmanim.sunrise) / 4000, 'seconds'),
+  last_time_for_shema: -> @_last_time_for_shema ?= @shaa_zemani(3)
+  shaa_zemani: (hour) -> moment.min(
+      moment(@zmanim.magen_abraham_dawn).add((@zmanim.magen_abraham_dusk - @zmanim.magen_abraham_dawn) / 1000 * hour / 12, 'seconds'),
+      moment(@zmanim.sunrise).subtract(36, 'minutes').add((@zmanim.sunset - @zmanim.sunrise) / 1000 * hour / 12, 'seconds'),
     )
   shema_is_before_9_am: -> @last_time_for_shema().isBefore(@today().hour(if (@hebrew_date.is1stDayOfPesach() || @hebrew_date.is2ndDayOfPesach()) then 10 else 9).minute(0))
   mincha_minutes_before_sunset_on_shabbat: -> if @hebrew_date.isEreb9Ab() then 100 else 45
@@ -208,8 +209,13 @@ class Schedule
     $(".#{@chag()}").removeClass("hidden").find('.time').html(@today().hour(0).minute(0).format('h:mm A'))
     @set_date()
   announcement: -> @_announcement ?= (
-    a = window.announcements[@hebrew_date.getHebrewYear().getYearFromCreation()]
-    a = a[@hebrew_date.weekOfYear()] if a?
+    if @hebrew_date.isErebPesach()
+      latest_time_to_eat = @shaa_zemani(4).format('h:mm A')
+      latest_time_to_burn = @shaa_zemani(5).format('h:mm A')
+      "Stop eating חָמֵץ before #{latest_time_to_eat}#{if @hebrew_date.isShabbat() then " on Friday"  else ""}<br>Burn חָמֵץ before #{latest_time_to_burn}#{if @hebrew_date.isShabbat() then " on שַׁבָּת" else ""}"
+    else
+      a = window.announcements[@hebrew_date.getHebrewYear().getYearFromCreation()]
+      a = a[@hebrew_date.weekOfYear()] if a?
     )
 
 window.mincha_and_arbit = (day_iterator) ->
@@ -225,6 +231,7 @@ window.mincha_and_arbit = (day_iterator) ->
     schedule.taanit_schedule()
   if schedule.hebrew_date.isShabbat()
     $('.sedra').html(schedule.sedra())
+  if schedule.hebrew_date.isShabbat() || schedule.hebrew_date.isErebPesach()
     $(".announcement.jumbotron").removeClass('hidden').html(schedule.announcement()) if schedule.announcement()?
   else if schedule.hebrew_date.isErebHoshanaRaba()
     schedule.tiqun_leil_hoshana_raba_schedule()
