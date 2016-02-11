@@ -62,7 +62,6 @@ write_schedule = (day_iterator) ->
       when 1
         if has_announcement then [7] else [8]
       when 2
-        throw "There's no room for announcements when there are 2 visible chagim table" if has_announcement
         switch
           when $("#chagim-tables > div.shabbat .zachor").not(".hidden").size() > 0 then [5,7]
           else [6,6]
