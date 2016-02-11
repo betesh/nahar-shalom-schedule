@@ -13,12 +13,16 @@ show_if = (condition) -> if condition then 'removeClass' else 'addClass'
 shaharit_is_fixed_at = (day, hour, minute, hebrewDate, gregorianDate) ->
   time = moment().hour(hour).minute(minute)
   vatikin = new Vatikin(gregorianDate, hebrewDate)
-  earlyMinyanHodu = moment(vatikin.sunrise).subtract(vatikin.schedule.hodu + vatikin.schedule.yishtabach, 'minutes').format("h:mm")
-  earlyMinyanKorbanot = moment(vatikin.sunrise).subtract(vatikin.schedule.korbanot + vatikin.schedule.hodu + vatikin.schedule.yishtabach, 'minutes').format("h:mm")
-  $(".#{day} .korbanot").html("<span class='screen-only'><a href='shabbat.html'>#{earlyMinyanKorbanot}</a> and </span>#{time.format("h:mm")}")
-  $(".#{day} .hodu").html("<span class='screen-only'><a href='shabbat.html'>#{earlyMinyanHodu}</a> and </span>#{time.add(15, 'minutes').format("h:mm")}")
-  $(".#{day} .yishtabach").html('')
-  $(".#{day} .amidah").html("<span class='screen-only'><a href='shabbat.html'>#{vatikin.sunrise.format("h:mm:ss")}</a>")
+  if vatikin.sunrise?
+    earlyMinyanHodu = moment(vatikin.sunrise).subtract(vatikin.schedule.hodu + vatikin.schedule.yishtabach, 'minutes').format("h:mm")
+    earlyMinyanKorbanot = moment(vatikin.sunrise).subtract(vatikin.schedule.korbanot + vatikin.schedule.hodu + vatikin.schedule.yishtabach, 'minutes').format("h:mm")
+    $(".#{day} .korbanot").html("<span class='screen-only'><a href='shabbat.html'>#{earlyMinyanKorbanot}</a> and </span>#{time.format("h:mm")}")
+    $(".#{day} .hodu").html("<span class='screen-only'><a href='shabbat.html'>#{earlyMinyanHodu}</a> and </span>#{time.add(15, 'minutes').format("h:mm")}")
+    $(".#{day} .yishtabach").html('')
+    $(".#{day} .amidah").html("<span class='screen-only'><a href='shabbat.html'>#{vatikin.sunrise.format("h:mm:ss")}</a>")
+  else
+    $(".#{day} .korbanot").html(time.format("h:mm"))
+    $(".#{day} .hodu").html(time.add(15, 'minutes').format("h:mm"))
 
 write_schedule = (day_iterator) ->
   $('.start-hidden').addClass('hidden')
