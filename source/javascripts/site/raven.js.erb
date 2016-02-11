@@ -3,6 +3,8 @@ window.catching_errors = function(topic, date, fn) {
     fn();
   } catch(e) {
     <% if development? %>
+      console.warn(e);
+      console.warn(e.stack);
       alert(e);
     <% else %>
       Raven.captureException(e, { tags: { date: date, topic: topic }});
