@@ -53,3 +53,10 @@
 table.table {
   margin-bottom: 10px;
 }
+
+@page
+{
+  // Got this from http://stackoverflow.com/questions/1542320/margin-while-printing-html-page:
+  size: auto;
+  margin: 5mm 5mm 5mm 5mm;
+}
