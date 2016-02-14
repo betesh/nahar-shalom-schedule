@@ -212,7 +212,13 @@ class Schedule
     if @hebrew_date.isErebPesach()
       latest_time_to_eat = @shaa_zemani(4).format('h:mm A')
       latest_time_to_burn = @shaa_zemani(5).format('h:mm A')
-      "Stop eating חָמֵץ before #{latest_time_to_eat}#{if @hebrew_date.isShabbat() then " on Friday"  else ""}<br>Burn חָמֵץ before #{latest_time_to_burn}#{if @hebrew_date.isShabbat() then " on שַׁבָּת" else ""}"
+      stop_eating = "Stop eating חָמֵץ before #{latest_time_to_eat}#{if @hebrew_date.isShabbat() then " on שַׁבָּת"  else ""}"
+      burn = "Burn חָמֵץ before #{latest_time_to_burn}#{if @hebrew_date.isShabbat() then " on Friday" else ""}"
+      if @hebrew_date.isShabbat()
+        nullify = "Make sure no חָמֵץ is in your possesion and say כָּל חֲמִירָא before #{latest_time_to_burn} on שַׁבָּת"
+        "#{burn}<br>#{stop_eating}<br>#{nullify}"
+      else
+        "#{stop_eating}<br>#{burn}"
     else
       a = window.announcements[@hebrew_date.getHebrewYear().getYearFromCreation()]
       a = a[@hebrew_date.weekOfYear()] if a?
