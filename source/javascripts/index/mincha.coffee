@@ -20,8 +20,12 @@ class Schedule
   tonight_is_yom_tob: -> @hebrew_date.isErebYomTob() || @hebrew_date.is1stDayOfYomTob()
   yom_tob_that_we_can_pray_at_plag: -> @hebrew_date.is7thDayOfPesach() || @hebrew_date.is1stDayOfShabuot()
   last_time_for_shema: -> @_last_time_for_shema ?= @shaa_zemani(3)
+  shaa_zemani_magen_abraham: (hour) ->
+    moment(@zmanim.magen_abraham_dawn).add((@zmanim.magen_abraham_dusk - @zmanim.magen_abraham_dawn) / 1000 * hour / 12, 'seconds')
   shaa_zemani: (hour) -> moment.min(
-      moment(@zmanim.magen_abraham_dawn).add((@zmanim.magen_abraham_dusk - @zmanim.magen_abraham_dawn) / 1000 * hour / 12, 'seconds'),
+      @shaa_zemani_magen_abraham(hour),
+      # TODO: The following calculation is broken.  It was originall written to handle only the case where hour == 3
+      # and is no longer sufficiently generic
       moment(@zmanim.sunrise).subtract(36, 'minutes').add((@zmanim.sunset - @zmanim.sunrise) / 1000 * hour / 12, 'seconds'),
     )
   shema_is_before_9_am: -> @last_time_for_shema().isBefore(@today().hour(if (@hebrew_date.is1stDayOfPesach() || @hebrew_date.is2ndDayOfPesach()) then 10 else 9).minute(0))
@@ -210,8 +214,8 @@ class Schedule
     @set_date()
   announcement: -> @_announcement ?= (
     if @hebrew_date.isErebPesach()
-      latest_time_to_eat = @shaa_zemani(4).format('h:mm A')
-      latest_time_to_burn = @shaa_zemani(5).format('h:mm A')
+      latest_time_to_eat = @shaa_zemani_magen_abraham(4).format('h:mm A')
+      latest_time_to_burn = @shaa_zemani_magen_abraham(5).format('h:mm A')
       stop_eating = "Stop eating חָמֵץ before #{latest_time_to_eat}#{if @hebrew_date.isShabbat() then " on שַׁבָּת"  else ""}"
       burn = "Burn חָמֵץ before #{latest_time_to_burn}#{if @hebrew_date.isShabbat() then " on Friday" else ""}"
       if @hebrew_date.isShabbat()
