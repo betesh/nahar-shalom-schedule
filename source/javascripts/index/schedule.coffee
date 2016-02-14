@@ -69,6 +69,10 @@ write_schedule = (day_iterator) ->
         switch
           when $("#chagim-tables > div.shabbat .zachor").not(".hidden").size() > 0 then [5,7]
           else [6,6]
+      when 3
+        switch
+          when $("#chagim-tables > div.rosh-hashana").not(".hidden").size() > 0 then [6,6,6]
+          else throw "This should never happen!"
     visible_tables.each (i) -> $(this).addClass("col-xs-#{new_width[i]}")
 
 $ ->
