@@ -304,6 +304,58 @@
       return this.monthAndRangeAre('AB', [19, 29]) || this.monthAndRangeAre('ELUL', [29]) || this.monthAndRangeAre('TISHRI', [9]);
     };
 
+    HebrewDate.prototype.isErebPesach = function() {
+      return this.monthAndRangeAre('NISAN', [14]);
+    };
+
+    HebrewDate.prototype.is1stDayOfPesach = function() {
+      return this.monthAndRangeAre('NISAN', [15]);
+    };
+
+    HebrewDate.prototype.is2ndDayOfPesach = function() {
+      return this.monthAndRangeAre('NISAN', [16]);
+    };
+
+    HebrewDate.prototype.is8thDayOfPesach = function() {
+      return this.monthAndRangeAre('NISAN', [22]);
+    };
+
+    HebrewDate.prototype.isErebShabuot = function() {
+      return this.monthAndRangeAre('SIVAN', [5]);
+    };
+
+    HebrewDate.prototype.isErebRoshHashana = function() {
+      return this.monthAndRangeAre('ELUL', [29]);
+    };
+
+    HebrewDate.prototype.isErebSukkot = function() {
+      return this.monthAndRangeAre('TISHRI', [14]);
+    };
+
+    HebrewDate.prototype.isHoshanaRaba = function() {
+      return this.monthAndRangeAre('TISHRI', [21]);
+    };
+
+    HebrewDate.prototype.isSheminiAseret = function() {
+      return this.monthAndRangeAre('TISHRI', [22, 23]);
+    };
+
+    HebrewDate.prototype.isBirkatHaIlanot = function() {
+      return !this.isShabbat() && this.monthAndRangeAre('NISAN', 0 === this.gregorianDate.getDay() ? [1, 2] : [1]);
+    };
+
+    HebrewDate.prototype.isTefilatHaShelah = function() {
+      return this.monthAndRangeAre('IYAR', [29]);
+    };
+
+    HebrewDate.prototype.is2ndDayOfYomTob = function() {
+      return this.is2ndDayOfPesach() || this.is8thDayOfPesach() || this.monthAndRangeAre('SIVAN', [7]) || this.monthAndRangeAre('TISHRI', [2, 16, 23]);
+    };
+
+    HebrewDate.prototype.isErebHoshanaRaba = function() {
+      return this.monthAndRangeAre('TISHRI', [20]);
+    };
+
     HebrewDate.prototype.weekOfYear = function() {
       return parseInt((this.dayOfYear + 4 - this.gregorianDate.getDay()) / 7) + 1;
     };
@@ -407,6 +459,8 @@
   HebrewDate.prototype.isTzomGedalia = HebrewDate.prototype.isTzomGedaliah = HebrewDate.prototype.isFastOfGedalia = HebrewDate.prototype.isFastOfGedaliah;
 
   HebrewDate.prototype.isTaanitEsther = HebrewDate.prototype.isTaanitEster;
+
+  HebrewDate.prototype.isEreb9Ab = HebrewDate.prototype.isEreb9Av;
 
   (typeof exports !== "undefined" && exports !== null ? exports : this).HebrewDate = HebrewDate;
 
