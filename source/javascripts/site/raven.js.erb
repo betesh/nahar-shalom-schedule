@@ -1,19 +1,19 @@
 window.catching_errors = function(topic, date, fn) {
-  try {
-    fn();
-  } catch(e) {
-    <% if development? %>
+  <% if development? %>
+    try {
+      fn();
+    } catch(e) {
       console.warn(e);
       console.warn(e.stack);
       alert(e);
-    <% else %>
-      Raven.captureException(e, { tags: { date: date, topic: topic }});
-    <% end %>
   }
+  <% else %>
+    Raven.wrap({ tags: { date: date, topic: topic }}, fn)();
+  <% end %>
 };
 
 <% unless development? %>
   $(function(){
-    Raven.config('http://a34a3e95df804743806e892f74eda2e8@app.getsentry.com/35052').install();
+    Raven.config('https://a34a3e95df804743806e892f74eda2e8@app.getsentry.com/35052').install();
   });
 <% end %>
