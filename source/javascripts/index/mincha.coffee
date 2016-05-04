@@ -1,3 +1,5 @@
+//= require ../site/zmanim
+
 time_format = (time) -> time.format('h:mm') if time?
 round_down_to_5_minutes = (time) -> time.subtract(time.minute() % 5, 'minutes')
 minutes_before_event = (event, minutes)-> round_down_to_5_minutes(moment(event).subtract(minutes, 'minutes'))
@@ -14,20 +16,12 @@ show_mosaei_yom_tob = (date, zmanim) -> # This code is no longer called from any
 class Schedule
   constructor: (day_iterator) ->
     @hebrew_date = new HebrewDate(day_iterator.toDate())
-    @zmanim = SunCalc.getTimes(moment(day_iterator).toDate().setHours(12), window.config.latitude, window.config.longitude)
-    @sunset = moment(@zmanim.sunset).subtract(30, 'second')
+    @zmanim = new Zmanim(day_iterator, window.config)
+    @sunset = @zmanim.sunset().subtract(30, 'second')
   today: -> moment(@sunset)
   tonight_is_yom_tob: -> @hebrew_date.isErebYomTob() || @hebrew_date.is1stDayOfYomTob()
   yom_tob_that_we_can_pray_at_plag: -> @hebrew_date.is7thDayOfPesach() || @hebrew_date.is1stDayOfShabuot()
-  last_time_for_shema: -> @_last_time_for_shema ?= @shaa_zemani(3)
-  shaa_zemani_magen_abraham: (hour) ->
-    moment(@zmanim.magen_abraham_dawn).add((@zmanim.magen_abraham_dusk - @zmanim.magen_abraham_dawn) / 1000 * hour / 12, 'seconds')
-  shaa_zemani: (hour) -> moment.min(
-      @shaa_zemani_magen_abraham(hour),
-      # TODO: The following calculation is broken.  It was originall written to handle only the case where hour == 3
-      # and is no longer sufficiently generic
-      moment(@zmanim.sunrise).subtract(36, 'minutes').add((@zmanim.sunset - @zmanim.sunrise) / 1000 * hour / 12, 'seconds'),
-    )
+  last_time_for_shema: -> @_last_time_for_shema ?= @zmanim.shaaZemaniMagenAbraham(3)
   shema_is_before_9_am: -> @last_time_for_shema().isBefore(@today().hour(if (@hebrew_date.is1stDayOfPesach() || @hebrew_date.is2ndDayOfPesach()) then 10 else 9).minute(0))
   mincha_minutes_before_sunset_on_shabbat: -> if @hebrew_date.isEreb9Ab() then 100 else 45
   mincha_minutes_before_sunset_on_rosh_hashana: -> if @hebrew_date.is1stDayOfYomTob() || @hebrew_date.isErebShabbat() then 60 else 40
@@ -37,15 +31,12 @@ class Schedule
     else 30
   arbit_minutes_after_set_hakochabim_on_mosaei_shabbat: -> if @hebrew_date.isEreb9Ab() then 0 else 10
   mincha_on_shabbat: -> minutes_before_event(@sunset, @mincha_minutes_before_sunset_on_shabbat())
-  arbit_on_mosaei_shabbat: -> moment(@zmanim.set_hakochabim).add(@arbit_minutes_after_set_hakochabim_on_mosaei_shabbat(), 'minutes')
+  arbit_on_mosaei_shabbat: -> moment(@zmanim.setHaKochabim3Stars()).add(@arbit_minutes_after_set_hakochabim_on_mosaei_shabbat(), 'minutes')
   afternoon_shiur: -> $(".#{@chag()}.afternoon-shiur").removeClass("hidden").find(".time").html(time_format(moment(@mincha()).subtract(1, 'hour')))
-  samuch_lemincha_ketana: -> portion_of_day(@zmanim, 0.75)
-  plag: -> moment(@_plag ?= portion_of_day(@zmanim, 43.0/48.0))
-  plag_is_before_615: -> @plag().isBefore(@today().hour(18).minute(15))
-  set_hakochabim: -> time_format(moment(@zmanim.set_hakochabim))
+  plag_is_before_615: -> @zmanim.plag().isBefore(@today().hour(18).minute(15))
+  set_hakochabim: -> time_format(@zmanim.setHaKochabim3Stars())
   rabbenu_tam: -> time_format(moment(@sunset).add(73, 'minute'))
-  set_hakochabim_geonim: -> # 13.5 dakot zemaniyot after sunset, rounded to end of minute
-    moment(@sunset).add(parseInt((@zmanim.sunset - @zmanim.sunrise) * 3 / 160000 + 60), 'seconds')
+  set_hakochabim_geonim: -> @zmanim.setHaKochabimGeonim()
   chag: -> @_chag ?= (
     name_of_chag = switch
       when (@hebrew_date.isErebPesach() && !@hebrew_date.isShabbat()) || @hebrew_date.is1stDayOfPesach() || @hebrew_date.is2ndDayOfPesach() then 'pesach-first-days'
@@ -86,7 +77,7 @@ class Schedule
     unless @hebrew_date.isShabbatZachor() && 13 == @hebrew_date.dayOfMonth
       if half_hour_after_rabbenu_tam.isBefore(@today().hour(20).minute(16))
         $(".#{@chag()}.abot-ubanim").removeClass('hidden').find(".time").html(time_format(half_hour_after_rabbenu_tam))
-  chatzot: -> time_format(moment(@zmanim.solarNoon))
+  chatzot: -> time_format(@zmanim.chatzot())
   taanit_schedule: ->
     @set_date()
     name = switch
@@ -99,7 +90,7 @@ class Schedule
       else throw "This should never happen!"
     $(".taanit th .#{name}").removeClass("hidden") if name?
     if @hebrew_date.isPurim()
-      $(".#{@chag()}.megilla").removeClass('hidden').find(".time").html("#{minutes_before_event(@zmanim.sunrise, -20).format('h:mm A')} <strong>and</strong> #{@today().hour(9).minute(30).format('h:mm A')}")
+      $(".#{@chag()}.megilla").removeClass('hidden').find(".time").html("#{minutes_before_event(@zmanim.sunrise(), -20).format('h:mm A')} <strong>and</strong> #{@today().hour(9).minute(30).format('h:mm A')}")
       $(".#{@chag()}.megilla").find(".dow, .date").attr("rowspan", if @hebrew_date.isErebShabbat() then 2 else 1)
       return
     fast_begins_row = $(".#{@chag()}.fast-begins").removeClass('hidden')
@@ -111,19 +102,19 @@ class Schedule
       $(".#{@chag()}.habdala").removeClass("hidden") if 0 == @hebrew_date.gregorianDate.getDay()
     else
       fast_begins_row.find(".dow, .date").attr("rowspan", if @hebrew_date.isTaanitEster() then (if 13 == @hebrew_date.dayOfMonth then 4 else 3) else 2)
-      fast_begins_row.find(".time").html(moment(@zmanim.magen_abraham_dawn).format('h:mm A'))
+      fast_begins_row.find(".time").html(@zmanim.magenAbrahamDawn().format('h:mm A'))
     fast_ends = @set_hakochabim_geonim()
     $(".#{@chag()}.fast-ends").removeClass('hidden').find(".time").html(fast_ends.format('h:mm A'))
     if @hebrew_date.isTaanitEster()
       $(".#{@chag()}.mahasit-hashekel").removeClass('hidden')
       if 13 == @hebrew_date.dayOfMonth
         $(".#{@chag()}.megilla").removeClass('hidden').find(".time").html(minutes_before_event(fast_ends, -7).format('h:mm A'))
-  seudat_shelishit_time: -> if @tonight_is_yom_tob() then @samuch_lemincha_ketana() else @sunset
+  seudat_shelishit_time: -> if @tonight_is_yom_tob() then @zmanim.samuchLeminchaKetana() else @sunset
   shabbat_schedule: ->
     @set_date()
     @hadlakat_nerot_schedule() if @tonight_is_yom_tob()
     if @hebrew_date.isShabbatZachor()
-      zachor1 = minutes_before_event(@zmanim.sunrise, -35).format('h:mm A')
+      zachor1 = minutes_before_event(@zmanim.sunrise(), -35).format('h:mm A')
       zachor2 = @today().hour(9).minute(45).format('h:mm A')
       zachor3 = "#{@today().hour(14).minute(30).format('h:mm A')} upon request"
       $(".#{@chag()}.zachor").removeClass('hidden').find('.time').html("#{zachor1} <strong>and</strong> #{zachor2}<br>(#{zachor3})")
@@ -188,7 +179,7 @@ class Schedule
     when @hebrew_date.is6thDayOfPesach() then @today().hour(18).minute(30)
     when @hebrew_date.isErebPesach() then minutes_before_event(@sunset, if @hebrew_date.isErebShabbat() then 47 else 30)
     when @hebrew_date.isShabbat() then @mincha_on_shabbat()
-    when @yom_tob_that_we_can_pray_at_plag() then (if @hebrew_date.isErebShabbat() then @mincha_on_ereb_shabbat() else minutes_before_event(@plag(), 30))
+    when @yom_tob_that_we_can_pray_at_plag() then (if @hebrew_date.isErebShabbat() then @mincha_on_ereb_shabbat() else minutes_before_event(@zmanim.plag(), 30))
     when @hebrew_date.isYomTob() && !@yom_tob_that_we_can_pray_at_plag() then minutes_before_event(@sunset, if @hebrew_date.isErebShabbat() then 40 else 25)
     when @hebrew_date.isErebYomTob() then minutes_before_event(@sunset, if @hebrew_date.isErebShabbat() then 33 else  25)
     when @hebrew_date.isErebShabbat() then @mincha_on_ereb_shabbat()
@@ -197,10 +188,10 @@ class Schedule
     when @hebrew_date.isErebYomKippur() then minutes_before_event(@sunset, 55)
     when @hebrew_date.isErebShabbat() || (@hebrew_date.isErebYomTob() && !@hebrew_date.isShabbat()) then null
     when @hebrew_date.isYomKippur() || (@hebrew_date.isShabbat() && !@tonight_is_yom_tob()) then @arbit_on_mosaei_shabbat()
-    when @has_hadlakat_nerot_after_set_hakochabim() then (if (@yom_tob_that_we_can_pray_at_plag() && !@hebrew_date.isShabbat()) then @plag() else @set_hakochabim_geonim())
-    when @hebrew_date.is2ndDayOfYomTob() && !@hebrew_date.isErebShabbat() then minutes_before_event(@zmanim.set_hakochabim, 10)
+    when @has_hadlakat_nerot_after_set_hakochabim() then (if (@yom_tob_that_we_can_pray_at_plag() && !@hebrew_date.isShabbat()) then @zmanim.plag() else @set_hakochabim_geonim())
+    when @hebrew_date.is2ndDayOfYomTob() && !@hebrew_date.isErebShabbat() then minutes_before_event(@zmanim.setHaKochabim3Stars(), 10)
     else @sunset
-  hadlakat_nerot: -> if @has_hadlakat_nerot_after_set_hakochabim() then moment(@zmanim.set_hakochabim) else moment(@sunset).subtract(19, 'minutes')
+  hadlakat_nerot: -> if @has_hadlakat_nerot_after_set_hakochabim() then @zmanim.setHaKochabim3Stars() else moment(@sunset).subtract(19, 'minutes')
   has_hadlakat_nerot_after_set_hakochabim: -> (@hebrew_date.isErebYomTob() && @hebrew_date.isShabbat()) || (@hebrew_date.is1stDayOfYomTob() && !@hebrew_date.isErebShabbat())
   has_hadlakat_nerot_before_sunset: -> @hebrew_date.isErebShabbat() || @hebrew_date.isErebYomKippur() || @hebrew_date.isErebYomTob()
   hadlakat_nerot_text: ->
@@ -215,8 +206,8 @@ class Schedule
     @set_date()
   announcement: -> @_announcement ?= (
     if @hebrew_date.isErebPesach()
-      latest_time_to_eat = @shaa_zemani_magen_abraham(4).format('h:mm A')
-      latest_time_to_burn = @shaa_zemani_magen_abraham(5).format('h:mm A')
+      latest_time_to_eat = @zmanim.shaaZemaniMagenAbraham(4).format('h:mm A')
+      latest_time_to_burn = @zmanim.shaaZemaniMagenAbraham(5).format('h:mm A')
       stop_eating = "Stop eating חָמֵץ before #{latest_time_to_eat}#{if @hebrew_date.isShabbat() then " on שַׁבָּת"  else ""}"
       burn = "Burn חָמֵץ before #{latest_time_to_burn}#{if @hebrew_date.isShabbat() then " on Friday" else ""}"
       if @hebrew_date.isShabbat()

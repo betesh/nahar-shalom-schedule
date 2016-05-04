@@ -17,7 +17,3 @@ window.config =
 
 $ ->
   moment.locale('en')
-  if SunCalc?
-    SunCalc.addTime(-8.5, 'small_stars_3', 'set_hakochabim')
-    SunCalc.addTime(-16.1, 'magen_abraham_dawn', 'magen_abraham_dusk')
-    SunCalc.addTime(-10.2, 'earliest_tallit', 'dusk_10_2')
