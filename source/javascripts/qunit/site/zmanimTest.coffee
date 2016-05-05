@@ -1,9 +1,8 @@
 //= require site/zmanim
-
-assertTimeEqual = (assert, actual, expected) ->
-  assert.equal actual.format("YYYY-MM-DD hh:mm:ss A"), expected.format("YYYY-MM-DD hh:mm:ss A")
+//= require qunit/helpers
 
 zmanimTest = ->
+  assertTimeEqual = QunitHelpers.assertTimeEqual
   date = new Date(2016,4,3)
   boston = { latitude: 42.3601, longitude: -71.0589}
   QUnit.test "Zmanim test for #{date} in Boston", (assert) ->
