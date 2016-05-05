@@ -26,6 +26,7 @@ class Zmanim
   magenAbrahamDawn: -> @_magenAbrahamDawn ||= moment(@zmanim.magenAbrahamDawn)
   earliestTallit: -> @_earliestTallit ||= moment(@zmanim.earliestTallit)
   sunrise: -> @_sunrise ||= moment(@zmanim.sunrise)
+  sofZmanKeriatShema: -> @_sofZmanKeriatShema ||= @shaaZemaniMagenAbraham(3)
   chatzot: -> @_chatzot ||= moment(@zmanim.solarNoon)
   samuchLeminchaKetana: -> @_samuchLeminchaKetana ||= @shaaZemaniMagenAbraham(9)
   plag: -> @_plag ||= @shaaZemaniGra(10.75)

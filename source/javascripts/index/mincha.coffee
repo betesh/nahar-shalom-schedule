@@ -21,8 +21,7 @@ class Schedule
   today: -> moment(@sunset)
   tonight_is_yom_tob: -> @hebrew_date.isErebYomTob() || @hebrew_date.is1stDayOfYomTob()
   yom_tob_that_we_can_pray_at_plag: -> @hebrew_date.is7thDayOfPesach() || @hebrew_date.is1stDayOfShabuot()
-  last_time_for_shema: -> @_last_time_for_shema ?= @zmanim.shaaZemaniMagenAbraham(3)
-  shema_is_before_9_am: -> @last_time_for_shema().isBefore(@today().hour(if (@hebrew_date.is1stDayOfPesach() || @hebrew_date.is2ndDayOfPesach()) then 10 else 9).minute(0))
+  shema_is_before_9_am: -> @zmanim.sofZmanKeriatShema().isBefore(@today().hour(if (@hebrew_date.is1stDayOfPesach() || @hebrew_date.is2ndDayOfPesach()) then 10 else 9).minute(0))
   mincha_minutes_before_sunset_on_shabbat: -> if @hebrew_date.isEreb9Ab() then 100 else 45
   mincha_minutes_before_sunset_on_rosh_hashana: -> if @hebrew_date.is1stDayOfYomTob() || @hebrew_date.isErebShabbat() then 60 else 40
   mincha_minutes_before_sunset_on_taanit: -> switch
@@ -122,7 +121,7 @@ class Schedule
       $(".#{@chag()}.megilla").removeClass('hidden').find(".time").html(minutes_before_event(@sunset, -100).format('h:mm A')) if 13 == @hebrew_date.dayOfMonth
       $(".#{@chag()}.zachor").find(".dow, .date").removeClass('hidden') unless @shema_is_before_9_am()
     if @shema_is_before_9_am()
-      $(".#{@chag()}.shema").removeClass('hidden').find('.time').html(time_format(@last_time_for_shema()))
+      $(".#{@chag()}.shema").removeClass('hidden').find('.time').html(time_format(@zmanim.sofZmanKeriatShema()))
       $(".#{@chag()}.shema").removeClass('hidden').find(".dow, .date").attr("rowspan", if @hebrew_date.isShabbatZachor() then 6 else 5)
       $(".#{@chag()}.afternoon-shiur").find(".dow, .date").addClass('hidden')
     if @hebrew_date.isRoshHashana()

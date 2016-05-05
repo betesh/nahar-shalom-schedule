@@ -63,6 +63,7 @@ zmanimTest = ->
     assertTimeEqual assert, actual.magenAbrahamDawn(0), moment(date).hour(4).minute(0).second(21)
     assertTimeEqual assert, actual.earliestTallit(), moment(date).hour(4).minute(40).second(7)
     assertTimeEqual assert, actual.sunrise(), moment(date).hour(5).minute(37).second(22)
+    assertTimeEqual assert, actual.sofZmanKeriatShema(), moment(date).hour(8).minute(21).second(19)
     assertTimeEqual assert, actual.chatzot(), moment(date).hour(12).minute(42).second(17)
     assertTimeEqual assert, actual.samuchLeminchaKetana(), moment(date).hour(16).minute(50).second(45)
     assertTimeEqual assert, actual.plag(), moment(date).hour(18).minute(18).second(42)
