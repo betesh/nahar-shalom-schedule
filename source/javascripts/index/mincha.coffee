@@ -5,10 +5,6 @@ round_down_to_5_minutes = (time) -> time.subtract(time.minute() % 5, 'minutes')
 minutes_before_event = (event, minutes)-> round_down_to_5_minutes(moment(event).subtract(minutes, 'minutes'))
 recent_hadlakat_nerot = null;
 
-portion_of_day = (zmanim, ratio) ->
-  sunrise = moment(zmanim.sunrise)
-  sunrise.add(moment(zmanim.sunset).diff(sunrise, 'minutes') * ratio, 'minutes')
-
 show_mosaei_yom_tob = (date, zmanim) -> # This code is no longer called from anywhere
   $('.mosaei-yom-tob').removeClass('hidden').find('.date').html(moment.weekdays()[date.weekday()])
   $('.yom-tob-ends').html(set_hakochabim(zmanim))
