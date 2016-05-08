@@ -3,6 +3,7 @@
 //= require ../site/helpers
 //= require ../site/config
 //= require ./announcements
+//= require ./mincha
 //= require ./arbit
 //= require ./hachrazatTaanit
 
@@ -21,13 +22,6 @@ class Schedule
     @sunset = @zmanim.sunset().subtract(30, 'second')
   today: -> moment(@sunset)
   shema_is_before_9_am: -> @zmanim.sofZmanKeriatShema().isBefore(@today().hour(if (@hebrew_date.is1stDayOfPesach() || @hebrew_date.is2ndDayOfPesach()) then 10 else 9).minute(0))
-  mincha_minutes_before_sunset_on_shabbat: -> if @hebrew_date.isEreb9Ab() then 100 else 45
-  mincha_minutes_before_sunset_on_rosh_hashana: -> if @hebrew_date.is1stDayOfYomTob() || @hebrew_date.isErebShabbat() then 60 else 40
-  mincha_minutes_before_sunset_on_taanit: -> switch
-    when @hebrew_date.is9Ab() || @hebrew_date.isErebShabbat() then 45
-    when @hebrew_date.isTaanitEster() then 35
-    else 30
-  mincha_on_shabbat: -> minutes_before_event(@sunset, @mincha_minutes_before_sunset_on_shabbat())
   afternoon_shiur: -> $(".#{@chag()}.afternoon-shiur").removeClass("hidden").find(".time").html(time_format(moment(@mincha()).subtract(1, 'hour')))
   plag_is_before_615: -> @zmanim.plag().isBefore(@today().hour(18).minute(15))
   set_hakochabim: -> time_format(@zmanim.setHaKochabim3Stars())
@@ -163,23 +157,9 @@ class Schedule
     $(".#{@chag()}.sunset .time").html(time_format(@sunset))
     $(".#{@chag()}.neilah .time").html(time_format(minutes_before_event(@sunset, 55)))
     @rabbenu_tam_schedule()
-  mincha_on_ereb_shabbat: -> moment.min(moment(@sunset).subtract(33, 'minutes'), @today().hour(18).minute(30))
-  mincha: -> @_mincha ?= switch
-    when @hebrew_date.isErebRoshHashana() then minutes_before_event(@sunset, if @hebrew_date.isErebShabbat() then 55 else 45)
-    when @hebrew_date.isRoshHashana() then minutes_before_event(@sunset, @mincha_minutes_before_sunset_on_rosh_hashana())
-    when @hebrew_date.isErebYomKippur() then @today().hour(15).minute(30)
-    when @hebrew_date.isYomKippur() then minutes_before_event(@sunset, 195)
-    when @hebrew_date.isTaanit() then minutes_before_event(@sunset, @mincha_minutes_before_sunset_on_taanit())
-    when @hebrew_date.isEreb9Ab() && !@hebrew_date.isShabbat() then minutes_before_event(@sunset, 55)
-    when @hebrew_date.tonightIsYomTob() && @hebrew_date.isShabbat() then minutes_before_event(@sunset, 23)
-    when @hebrew_date.is6thDayOfPesach() then @today().hour(18).minute(30)
-    when @hebrew_date.isErebPesach() then minutes_before_event(@sunset, if @hebrew_date.isErebShabbat() then 47 else 30)
-    when @hebrew_date.isShabbat() then @mincha_on_shabbat()
-    when @hebrew_date.yomYobThatWePrayAtPlag() then (if @hebrew_date.isErebShabbat() then @mincha_on_ereb_shabbat() else minutes_before_event(@zmanim.plag(), 30))
-    when @hebrew_date.isYomTob() && !@hebrew_date.yomYobThatWePrayAtPlag() then minutes_before_event(@sunset, if @hebrew_date.isErebShabbat() then 40 else 25)
-    when @hebrew_date.isErebYomTob() then minutes_before_event(@sunset, if @hebrew_date.isErebShabbat() then 33 else  25)
-    when @hebrew_date.isErebShabbat() then @mincha_on_ereb_shabbat()
-    else recent_hadlakat_nerot
+  mincha: ->
+    @_mincha ?= (new Mincha(@hebrew_date, @zmanim.plag(), @sunset)).time()
+    @_mincha ?= recent_hadlakat_nerot
   arbit: -> @_arbit ?= new Arbit(@hebrew_date, @zmanim.plag(), @sunset, @zmanim.setHaKochabimGeonim(), @zmanim.setHaKochabim3Stars()).time()
   hadlakat_nerot: -> if @hebrew_date.hasHadlakatNerotAfterSetHaKochabim() then @zmanim.setHaKochabim3Stars() else moment(@sunset).subtract(19, 'minutes')
   has_hadlakat_nerot_before_sunset: -> @hebrew_date.isErebShabbat() || @hebrew_date.isErebYomKippur() || @hebrew_date.isErebYomTob()
