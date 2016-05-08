@@ -1,13 +1,13 @@
 //= require ../site/zmanim
 //= require ../site/hebrewDateExtensions
+//= require ../site/helpers
 //= require ../site/config
 //= require ./announcements
 //= require ./arbit
 //= require ./hachrazatTaanit
 
 time_format = (time) -> time.format('h:mm') if time?
-round_down_to_5_minutes = (time) -> time.subtract(time.minute() % 5, 'minutes')
-minutes_before_event = (event, minutes)-> round_down_to_5_minutes(moment(event).subtract(minutes, 'minutes'))
+minutes_before_event = (event, minutes)-> NaharShalomScheduleHelpers.roundedToNearest5Minutes(moment(event).subtract(minutes, 'minutes'))
 recent_hadlakat_nerot = null;
 
 show_mosaei_yom_tob = (date, zmanim) -> # This code is no longer called from anywhere
@@ -69,7 +69,7 @@ class Schedule
   rabbenu_tam_schedule: ->
     $(".#{@chag()}.ends").removeClass("hidden").find(".time").html(@set_hakochabim())
     $(".#{@chag()}.rabbenu-tam").removeClass("hidden").find(".time").html(@rabbenu_tam()) if @hebrew_date.isShabbat() || @hebrew_date.isYomKippur()
-    half_hour_after_rabbenu_tam = round_down_to_5_minutes(moment(@sunset).add(101, 'minute'))
+    half_hour_after_rabbenu_tam = NaharShalomScheduleHelpers.roundedToNearest5Minutes(moment(@sunset).add(101, 'minute'))
     unless @hebrew_date.isShabbatZachor() && 13 == @hebrew_date.dayOfMonth
       if half_hour_after_rabbenu_tam.isBefore(@today().hour(20).minute(16))
         $(".#{@chag()}.abot-ubanim").removeClass('hidden').find(".time").html(time_format(half_hour_after_rabbenu_tam))
