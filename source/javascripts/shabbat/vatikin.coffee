@@ -1,3 +1,9 @@
+//= require ../vendor/hebrewDate
+//= require ../site/config
+//= require ../site/raven
+//= require ../site/vatikin
+//= require ../site/zmanim
+
 sedra = (hebrewDate) ->
   if hebrewDate.isMoed() then ("שַׁבָּת חוֹל הַמוֹעֵד " + if hebrewDate.isSukkot() then "סֻּכּוֹת" else "פֶּסַח")
   else if hebrewDate.isYomTob()

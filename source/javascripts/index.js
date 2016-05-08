@@ -1,3 +1,2 @@
-//= require_tree ./vendor
-//= require_tree ./site
-//= require_tree ./index
+//= require ./index/schedule
+//= require ./index/sunrise-clock

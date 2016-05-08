@@ -1,4 +1,9 @@
 //= require ../site/zmanim
+//= require ../site/hebrewDateExtensions
+//= require ../site/config
+//= require ./announcements
+//= require ./arbit
+//= require ./hachrazatTaanit
 
 time_format = (time) -> time.format('h:mm') if time?
 round_down_to_5_minutes = (time) -> time.subtract(time.minute() % 5, 'minutes')

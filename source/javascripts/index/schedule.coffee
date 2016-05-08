@@ -1,3 +1,7 @@
+//= require ../site/vatikin
+//= require ../site/raven
+//= require ./writeSchedule
+
 initialDate = ->
   initialDate = window.location.search.replace("?", "")
   initialDate = if initialDate.length > 0 then moment(initialDate, "YYYYMMDD").toDate() else (new Date())

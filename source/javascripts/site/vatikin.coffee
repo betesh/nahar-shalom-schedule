@@ -1,3 +1,5 @@
+//= require ./sunrise
+
 class Vatikin
   constructor: (gregorianDate, hebrewDate) ->
     @today = moment(gregorianDate)

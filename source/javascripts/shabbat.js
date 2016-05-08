@@ -1,3 +1,1 @@
-//= require ./vendor/hebrewDate
-//= require_tree ./site
-//= require_tree ./shabbat
+//= require ./shabbat/vatikin

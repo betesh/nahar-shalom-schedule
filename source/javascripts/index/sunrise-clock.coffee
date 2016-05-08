@@ -1,3 +1,6 @@
+//= require ../vendor/flipclock
+//= require ../site/sunrise
+
 get_time_to_sunrise = ->
   time_now = moment().startOf('day')
   sunrise = new Sunrise(time_now).get()
