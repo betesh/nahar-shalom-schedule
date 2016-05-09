@@ -1,5 +1,5 @@
-//= require ../site/vatikin
 //= require ../site/raven
+//= require ../site/shaharit
 //= require ./writeSchedule
 
 initialDate = ->
@@ -14,20 +14,6 @@ has_no_event = (day) -> true not in event_array(day)
 
 show_if = (condition) -> if condition then 'removeClass' else 'addClass'
 
-shaharit_is_fixed_at = (day, hour, minute, hebrewDate, gregorianDate) ->
-  time = moment().hour(hour).minute(minute)
-  vatikin = new Vatikin(gregorianDate, hebrewDate)
-  if vatikin.sunrise?
-    earlyMinyanHodu = moment(vatikin.sunrise).subtract(vatikin.schedule.hodu + vatikin.schedule.yishtabach, 'minutes').format("h:mm")
-    earlyMinyanKorbanot = moment(vatikin.sunrise).subtract(vatikin.schedule.korbanot + vatikin.schedule.hodu + vatikin.schedule.yishtabach, 'minutes').format("h:mm")
-    $(".#{day} .korbanot").html("<span class='screen-only'><a href='shabbat.html'>#{earlyMinyanKorbanot}</a> and </span>#{time.format("h:mm")}")
-    $(".#{day} .hodu").html("<span class='screen-only'><a href='shabbat.html'>#{earlyMinyanHodu}</a> and </span>#{time.add(15, 'minutes').format("h:mm")}")
-    $(".#{day} .yishtabach").html('')
-    $(".#{day} .amidah").html("<span class='screen-only'><a href='shabbat.html'>#{vatikin.sunrise.format("h:mm:ss")}</a>")
-  else
-    $(".#{day} .korbanot").html(time.format("h:mm"))
-    $(".#{day} .hodu").html(time.add(15, 'minutes').format("h:mm"))
-
 write_schedule = (day_iterator) ->
   $('.start-hidden').addClass('hidden')
   $('.start-shown').removeClass('hidden')
@@ -41,16 +27,29 @@ write_schedule = (day_iterator) ->
       hebrew_date = new HebrewDate(day_iterator.toDate())
       $(".#{day} .hebrew_date").html("#{hebrew_date.staticHebrewMonth.name} #{hebrew_date.dayOfMonth}")
       show_event(day, event, hebrew_date) for event in events
-      if hebrew_date.isYomKippur()
-        shaharit_is_fixed_at(day, 7, 0, hebrew_date, day_iterator)
-      else if hebrew_date.is1stDayOfShabuot()
-        new Vatikin(day_iterator, hebrew_date).updateDOM()
-      else if hebrew_date.is1stDayOfPesach() || hebrew_date.is2ndDayOfPesach()
-        shaharit_is_fixed_at(day, 8, 45, hebrew_date, day_iterator)
-      else if hebrew_date.isYomTov() || hebrew_date.isShabbat()
-        shaharit_is_fixed_at(day, 7, 45, hebrew_date, day_iterator)
-      else
-        new Vatikin(day_iterator, hebrew_date).updateDOM()
+      sunrise = new Sunrise(day_iterator).get()
+      sofZmanKeriatShema = new Zmanim(day_iterator, window.config).sofZmanKeriatShema()
+      shaharit = new Shaharit(hebrew_date, sunrise, sofZmanKeriatShema)
+      if shaharit.selihot()?
+        $(".#{day} .selihot").removeClass('hidden').html(shaharit.selihot().format("h:mm"))
+      korbanot = (time.format("h:mm") for time in shaharit.korbanot())
+      hodu = (time.format("h:mm") for time in shaharit.hodu())
+      switch hodu.length
+        when 2
+          korbanot = "<span class='screen-only'><a href='shabbat.html'>#{korbanot[0]}</a> and </span>#{korbanot[1]}"
+          hodu = "<span class='screen-only'><a href='shabbat.html'>#{hodu[0]}</a> and </span>#{hodu[1]}"
+          yishtabach = ""
+          amidah = "<span class='screen-only'><a href='shabbat.html'>#{shaharit.amidah().format("h:mm:ss")}</a>"
+        when 1
+          korbanot = korbanot[0]
+          hodu = hodu[0]
+          yishtabach = shaharit.yishtabach().format("h:mm")
+          amidah = shaharit.amidah().format("h:mm:ss")
+        else throw "This should never happen!"
+      $(".#{day} .korbanot").html(korbanot)
+      $(".#{day} .hodu").html(hodu)
+      $(".#{day} .yishtabach").html(yishtabach)
+      $(".#{day} .amidah").html(amidah)
     window.catching_errors 'Afternoon', day_iterator.toDate(), ->
       afternoon = mincha_and_arbit(day_iterator)
       $(".#{day} .mincha").html(afternoon.mincha || "")

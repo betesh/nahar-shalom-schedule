@@ -1,7 +1,8 @@
 //= require ../vendor/hebrewDate
 //= require ../site/config
 //= require ../site/raven
-//= require ../site/vatikin
+//= require ../site/shaharit
+//= require ../site/sunrise
 //= require ../site/zmanim
 
 sedra = (hebrewDate) ->
@@ -23,12 +24,13 @@ sedra = (hebrewDate) ->
   else hebrewDate.sedra()
 
 tableRow = (momentInstance, hebrewDate) ->
-  vatikin = new Vatikin(momentInstance, hebrewDate)
+  sunrise = new Sunrise(momentInstance).get()
+  shaharit = new Shaharit(hebrewDate, sunrise)
   firstDayOfYear = hebrewDate.isRoshHashana() && hebrewDate.is1stDayOfYomTob()
-  sunrise = vatikin.sunrise.format("h:mm:ss")
-  yishabach = vatikin.sunrise.subtract(vatikin.schedule.yishtabach, 'minutes').format("h:mm")
-  hodu = vatikin.sunrise.subtract(vatikin.schedule.hodu, 'minutes').format("h:mm")
-  korbanot = vatikin.sunrise.subtract(vatikin.schedule.korbanot, 'minutes').format("h:mm")
+  sunrise = shaharit.amidahVatikin().format("h:mm:ss")
+  nishmat = shaharit.nishmatVatikin().format("h:mm")
+  hodu = shaharit.hoduVatikin().format("h:mm")
+  korbanot = shaharit.korbanotVatikin().format("h:mm")
   """
     <tr>
       <td>#{hebrewDate.dayOfMonth} #{hebrewDate.staticHebrewMonth.name}</td>
@@ -37,7 +39,7 @@ tableRow = (momentInstance, hebrewDate) ->
       <td>#{korbanot}</td>
       <td>#{(new Zmanim(hebrewDate.gregorianDate, window.config)).earliestTallit().format("h:mm:ss")}</td>
       <td>#{hodu}</td>
-      <td>#{yishabach}</td>
+      <td>#{nishmat}</td>
       <td>#{sunrise}</td>
     </tr>
   """
