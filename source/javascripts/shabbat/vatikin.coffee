@@ -31,13 +31,16 @@ tableRow = (momentInstance, hebrewDate) ->
   nishmat = shaharit.nishmatVatikin().format("h:mm")
   hodu = shaharit.hoduVatikin().format("h:mm")
   korbanot = shaharit.korbanotVatikin().format("h:mm")
+  showGregorianYear = (hebrewDate.isRoshHashana() && hebrewDate.is1stDayOfYomTob()) || (0 == momentInstance.month() && momentInstance.date() <= 7)
+  gregorianDate = momentInstance.format("MMMM D#{if showGregorianYear then " YYYY" else ""}")
+  earliestTallit = (new Zmanim(hebrewDate.gregorianDate, window.config)).earliestTallit().format("h:mm:ss")
   """
     <tr>
       <td>#{hebrewDate.dayOfMonth} #{hebrewDate.staticHebrewMonth.name}</td>
-      <td>#{momentInstance.format("MMMM D#{if (hebrewDate.isRoshHashana() && hebrewDate.is1stDayOfYomTob()) || (0 == momentInstance.month() && momentInstance.date() <= 7) then " YYYY" else ""}")}</td>
+      <td>#{gregorianDate}</td>
       <td>#{sedra(hebrewDate)}</td>
       <td>#{korbanot}</td>
-      <td>#{(new Zmanim(hebrewDate.gregorianDate, window.config)).earliestTallit().format("h:mm:ss")}</td>
+      <td>#{earliestTallit}</td>
       <td>#{hodu}</td>
       <td>#{nishmat}</td>
       <td>#{sunrise}</td>
