@@ -26,6 +26,7 @@ sedra = (hebrewDate) ->
 tableRow = (momentInstance, hebrewDate) ->
   sunrise = new Sunrise(momentInstance).get()
   shaharit = new Shaharit(hebrewDate, sunrise)
+  return unless shaharit.hoduLate()?
   firstDayOfYear = hebrewDate.isRoshHashana() && hebrewDate.is1stDayOfYomTob()
   sunrise = shaharit.amidahVatikin().format("h:mm:ss")
   nishmat = shaharit.nishmatVatikin().format("h:mm")
