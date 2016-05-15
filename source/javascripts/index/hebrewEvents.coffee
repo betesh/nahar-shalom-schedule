@@ -1,0 +1,23 @@
+HebrewEvents =
+  RoshHodesh: "רֹאשׁ חֹדֶשׁ"
+  Taanit: "תַּעֲנִית"
+  Hanuka: "חֲנֻכַּה"
+  Purim: "פּוּרִים"
+  Moed: "חוֹל הַמוֹעֵד"
+  LagLaomer: "ל``ג לָעֹמֶר"
+  PesachSheni: "פֶּסַח שֵׁנִי"
+  BeginTalUmatar: "Begin טַל וּמָטָר at עַרְבִית"
+  YomTob: "יוֹם טוֹב"
+  YomKippur: "יוֹם הַכִּפֻּרִים"
+  TuBAb: "ט``ו בְּאָב"
+  MaharHodesh: "מָחָר חֹדֶשׁ"
+  PurimKatan: "פּוּרִים קָטָן"
+  ShushanPurim: "שׁוּשַׁן פּוּרִים"
+  ShushanPurimKatan: "שׁוּשַׁן פּוּרִים קָטָן"
+  ErubTabshilin: "עֵרוּב תַּבְשִׁלִין"
+  HataratNedarim: "הָתַּרָת נְדָרים"
+  TuBiShvat: "ט``ו בִּשְׁבָט"
+  BirkatHaIlanot: "בִּרְכַּת הָאִילָנוֹת"
+  TefilatHaShelah: "תְּפִלָּת הָשְׁלָ``ה"
+
+(exports ? this).HebrewEvents = HebrewEvents

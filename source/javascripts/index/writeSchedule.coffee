@@ -6,6 +6,7 @@
 //= require ./mincha
 //= require ./arbit
 //= require ./hachrazatTaanit
+//= require ./shabbatEvents
 
 time_format = (time) -> time.format('h:mm') if time?
 minutes_before_event = (event, minutes)-> NaharShalomScheduleHelpers.roundedToNearest5Minutes(moment(event).subtract(minutes, 'minutes'))
@@ -201,7 +202,10 @@ window.mincha_and_arbit = (day_iterator) ->
   else if schedule.hebrew_date.isTaanit() || schedule.hebrew_date.isEreb9Ab() || schedule.hebrew_date.isPurim()
     schedule.taanit_schedule()
   if schedule.hebrew_date.isShabbat()
-    $('.sedra').html(schedule.sedra())
+    sedra = schedule.sedra()
+    for event, name of window.ShabbatEvents
+      sedra = "#{sedra} &mdash; #{name}" if schedule.hebrew_date["is#{event}"]()
+    $('.sedra').html(sedra)
   if schedule.hebrew_date.isShabbat() || schedule.hebrew_date.isErebPesach()
     $(".announcement.jumbotron").removeClass('hidden').html(schedule.announcement()) if schedule.announcement()?
   else if schedule.hebrew_date.isErebHoshanaRaba()

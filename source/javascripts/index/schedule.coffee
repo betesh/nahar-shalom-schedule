@@ -1,3 +1,4 @@
+//= require ./hebrewEvents
 //= require ../site/raven
 //= require ../site/shaharit
 //= require ./writeSchedule
@@ -79,6 +80,10 @@ write_schedule = (day_iterator) ->
     visible_tables.each (i) -> $(this).addClass("col-xs-#{new_width[i]}")
 
 $ ->
-  window.events = (e.className.replace(/start-hidden/, '').replace(/event/, '').replace(/\s*/, '') for e in $('.Saturday .event'))
+  window.events = []
+  for event, name of HebrewEvents
+    $(".one_day").append("<td class='event start-hidden #{event}'>#{name}</td>")
+    window.events.push(event)
+  $(".one_day").append("<td class='start-hidden placeholder'></td>")
   $('.calendar').change(-> write_schedule(moment(this.value))).val(initialDate()).change()
   $(".Saturday.one_day td:nth-child(1)").html("שַׁבָּת")
