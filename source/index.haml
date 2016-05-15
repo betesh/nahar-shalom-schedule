@@ -14,10 +14,8 @@
       .well.row.screen-only
         .col-xs-3
           %input.calendar{:type => :date}
-        .col-xs-2.text-lg
-          .btn.btn-default.btn-block.btn-lg.disabled{:type => :button} Next sunrise in:
-        .col-xs-7
-          %span.countdown-to-sunrise.text-center.bold
+        .col-xs-9.text-lg
+          %a{:href => "countdown.html"} Click here for countdown to sunrise
       .row
         .col-xs-12
           %table.table.table-striped.table-condensed.weekly-table

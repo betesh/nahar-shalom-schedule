@@ -1,3 +1,6 @@
+//= require ./config
+//= require ../vendor/hebrewDate
+
 class Sunrise
   constructor: (moment_instance) ->
     dst_offset = if moment(moment_instance).hour(12).isDST() then 1 else 0
