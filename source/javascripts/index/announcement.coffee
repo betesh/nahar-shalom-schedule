@@ -11,6 +11,7 @@ class ErebPesachAnnouncement
   nullify: -> @_nullify ?= "Make sure no חָמֵץ is in your possesion and say כָּל חֲמִירָא before #{@latestTimeToBurn()} on שַׁבָּת"
   announcement: -> @_announcement ?=if @hebrewDate.isShabbat()
         "#{@burn()}<br>#{@stopEating()}<br>#{@nullify()}"
+        # TODO: Need to decide what to do announce about Seudat Shelishit
       else
         "#{@stopEating()}<br>#{@burn()}"
 
