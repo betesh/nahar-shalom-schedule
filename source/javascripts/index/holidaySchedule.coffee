@@ -63,6 +63,7 @@ class HolidaySchedule
       if half_hour_after_rabbenu_tam.isBefore(@today().hour(20).minute(16))
         $(".#{@chag()}.abot-ubanim").removeClass('hidden').find(".time").html(time_format(half_hour_after_rabbenu_tam))
   chatzot: -> time_format(@zmanim.chatzot())
+  isSunday: -> 0 == @gregorianDate.day()
   taanit_schedule: ->
     @set_date()
     name = switch
@@ -70,7 +71,7 @@ class HolidaySchedule
       when @hebrew_date.is10Tevet() then "Tebet10"
       when @hebrew_date.isFastOfGedaliah() then "FastOfGedaliah"
       when @hebrew_date.isTaanitEster() then (if 13 == @hebrew_date.dayOfMonth then "TaanitEsterAndPurim" else "TaanitEster")
-      when @hebrew_date.isPurim() then (if 0 == @gregorianDate.getDay() then "PurimOnly" else null)
+      when @hebrew_date.isPurim() then (if @isSunday() then "PurimOnly" else null)
       when @hebrew_date.isEreb9Ab() || @hebrew_date.is9Ab() then null
       else throw "This should never happen!"
     $(".taanit th .#{name}").removeClass("hidden") if name?
@@ -83,8 +84,8 @@ class HolidaySchedule
       fast_begins_row.find(".time").html(@sunset.format('h:mm A'))
     else if @hebrew_date.is9Ab()
       $(".#{@chag()}.chatzot .time").html(@chatzot())
-      $(".#{@chag()}.chatzot").find(".dow, .date").attr("rowspan", if 0 == @gregorianDate.getDay() then 3 else 2)
-      $(".#{@chag()}.habdala").removeClass("hidden") if 0 == @gregorianDate.getDay()
+      $(".#{@chag()}.chatzot").find(".dow, .date").attr("rowspan", if @isSunday() then 3 else 2)
+      $(".#{@chag()}.habdala").removeClass("hidden") if @isSunday()
     else
       fast_begins_row.find(".dow, .date").attr("rowspan", if @hebrew_date.isTaanitEster() then (if 13 == @hebrew_date.dayOfMonth then 4 else 3) else 2)
       fast_begins_row.find(".time").html(@zmanim.magenAbrahamDawn().format('h:mm A'))
