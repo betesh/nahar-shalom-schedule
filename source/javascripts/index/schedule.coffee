@@ -2,6 +2,7 @@
 //= require ../site/raven
 //= require ../site/shaharit
 //= require ./holidaySchedule
+//= require ./shabbatEvents
 
 initialDate = ->
   initialDate = window.location.search.replace("?", "")
@@ -14,6 +15,13 @@ write_schedule = (day_iterator) ->
   weekTableFactory = new WeekTableFactory(day_iterator)
   window.catching_errors 'Morning', day_iterator.toDate(), ->
     $(".weekly-table").html(weekTableFactory.generateTable())
+  window.catching_errors 'Sedra', day_iterator.toDate(), ->
+    for hebrewDate in weekTableFactory.hebrewWeek
+      if hebrewDate.isShabbat()
+        sedra = "#{if hebrewDate.isRegel() || hebrewDate.isYomKippur() || hebrewDate.isYomTob() then "" else "שַׁבַּת פְּרָשָׁת"} #{hebrewDate.sedra().replace(/-/g, ' - ')}"
+        for event, name of window.ShabbatEvents
+          sedra = "#{sedra} &mdash; #{name}" if hebrewDate["is#{event}"]()
+        $('.sedra').html(sedra)
   window.catching_errors 'Holiday Schedule', day_iterator.toDate(), ->
     showHolidaySchedule(date) for date in weekTableFactory.gregorianWeek
   window.catching_errors 'Resizing Chag Tables', day_iterator.toDate(), ->

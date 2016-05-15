@@ -5,7 +5,6 @@
 //= require ./announcements
 //= require ./mincha
 //= require ./hachrazatTaanit
-//= require ./shabbatEvents
 
 time_format = (time) -> time.format('h:mm') if time?
 minutes_before_event = (event, minutes)-> NaharShalomScheduleHelpers.roundedToNearest5Minutes(moment(event).subtract(minutes, 'minutes'))
@@ -161,7 +160,6 @@ class Schedule
     else if @hebrew_date.hasHadlakatNerotAfterSetHaKochabim()
       "After #{if @hebrew_date.isShabbat() then 'שַׁבָּת ends' else time_format(@hadlakat_nerot())}"
     else time_format(@hadlakat_nerot())
-  sedra: -> "#{if @hebrew_date.isRegel() || @hebrew_date.isYomKippur() || @hebrew_date.isYomTob() then "" else "שַׁבַּת פְּרָשָׁת"} #{@hebrew_date.sedra().replace(/-/g, ' - ')}"
   tiqun_leil_hoshana_raba_schedule: ->
     $(".#{@chag()}").removeClass("hidden").find('.time').html(@today().hour(0).minute(0).format('h:mm A'))
     @set_date()
@@ -193,11 +191,6 @@ window.showHolidaySchedule = (day_iterator) ->
     schedule.shabbat_schedule()
   else if schedule.hebrew_date.isTaanit() || schedule.hebrew_date.isEreb9Ab() || schedule.hebrew_date.isPurim()
     schedule.taanit_schedule()
-  if schedule.hebrew_date.isShabbat()
-    sedra = schedule.sedra()
-    for event, name of window.ShabbatEvents
-      sedra = "#{sedra} &mdash; #{name}" if schedule.hebrew_date["is#{event}"]()
-    $('.sedra').html(sedra)
   if schedule.hebrew_date.isShabbat() || schedule.hebrew_date.isErebPesach()
     $(".announcement.jumbotron").removeClass('hidden').html(schedule.announcement()) if schedule.announcement()?
   else if schedule.hebrew_date.isErebHoshanaRaba()
