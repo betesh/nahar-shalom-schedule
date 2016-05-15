@@ -4,13 +4,11 @@
 //= require ../site/config
 //= require ./announcements
 //= require ./mincha
-//= require ./arbit
 //= require ./hachrazatTaanit
 //= require ./shabbatEvents
 
 time_format = (time) -> time.format('h:mm') if time?
 minutes_before_event = (event, minutes)-> NaharShalomScheduleHelpers.roundedToNearest5Minutes(moment(event).subtract(minutes, 'minutes'))
-recent_hadlakat_nerot = null;
 
 show_mosaei_yom_tob = (date, zmanim) -> # This code is no longer called from anywhere
   $('.mosaei-yom-tob').removeClass('hidden').find('.date').html(moment.weekdays()[date.weekday()])
@@ -158,10 +156,7 @@ class Schedule
     $(".#{@chag()}.sunset .time").html(time_format(@sunset))
     $(".#{@chag()}.neilah .time").html(time_format(minutes_before_event(@sunset, 55)))
     @rabbenu_tam_schedule()
-  mincha: ->
-    @_mincha ?= (new Mincha(@hebrew_date, @zmanim.plag(), @sunset)).time()
-    @_mincha ?= recent_hadlakat_nerot
-  arbit: -> @_arbit ?= new Arbit(@hebrew_date, @zmanim.plag(), @sunset, @zmanim.setHaKochabimGeonim(), @zmanim.setHaKochabim3Stars()).time()
+  mincha: -> @_mincha ?= (new Mincha(@hebrew_date, @zmanim.plag(), @sunset)).time()
   hadlakat_nerot: -> if @hebrew_date.hasHadlakatNerotAfterSetHaKochabim() then @zmanim.setHaKochabim3Stars() else moment(@sunset).subtract(19, 'minutes')
   has_hadlakat_nerot_before_sunset: -> @hebrew_date.isErebShabbat() || @hebrew_date.isErebYomKippur() || @hebrew_date.isErebYomTob()
   hadlakat_nerot_text: ->
@@ -190,9 +185,8 @@ class Schedule
       a = a[@hebrew_date.weekOfYear()] if a?
     )
 
-window.mincha_and_arbit = (day_iterator) ->
+window.showHolidaySchedule = (day_iterator) ->
   schedule = new Schedule(day_iterator)
-  recent_hadlakat_nerot = schedule.hadlakat_nerot() if schedule.has_hadlakat_nerot_before_sunset()
   if schedule.hebrew_date.isErebShabbat() || schedule.hebrew_date.isErebYomKippur() || schedule.hebrew_date.isErebYomTob()
     schedule.hadlakat_nerot_schedule()
   if schedule.hebrew_date.isYomKippur()
@@ -210,4 +204,3 @@ window.mincha_and_arbit = (day_iterator) ->
     $(".announcement.jumbotron").removeClass('hidden').html(schedule.announcement()) if schedule.announcement()?
   else if schedule.hebrew_date.isErebHoshanaRaba()
     schedule.tiqun_leil_hoshana_raba_schedule()
-  mincha: time_format(schedule.mincha()), arbit: time_format(schedule.arbit())

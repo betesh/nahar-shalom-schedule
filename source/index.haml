@@ -20,33 +20,7 @@
           %span.countdown-to-sunrise.text-center.bold
       .row
         .col-xs-12
-          %table.table.table-striped.table-condensed
-            %tr.header
-              %th
-              %th.date
-              %th.hebrew_date
-              %th.start-hidden.selihot סְלְיחוֹת
-              %th.korbanot קָרְבָּנוֹת
-              %th.hodu הוֹדוּ
-              %th.yishtabach יִשְׁתַּבַּח
-              %th.amidah עֲמִידָה
-              %th.mincha מִנְחָה
-              %th.arbit עַרְבִית
-              %th.start-hidden.omer סְפִירַת הָעֹמֶר
-              %th.event.start-hidden
-            - Date::DAYNAMES.each do |day|
-              %tr.one_day{:class => day}
-                %td #{day}
-                %td.date
-                %td.hebrew_date
-                %td.start-hidden.selihot
-                %td.korbanot
-                %td.hodu
-                %td.yishtabach
-                %td.amidah.bold
-                %td.mincha
-                %td.arbit
-                %td.omer.start-hidden
+          %table.table.table-striped.table-condensed.weekly-table
       .row
         .col-lg-10.col-xs-12
           .row#chagim-tables
