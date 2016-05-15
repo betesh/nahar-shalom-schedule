@@ -1,1 +1,1 @@
-//= require ./countdown/sunrise-clock
+//= require ./countdown/flipclock
