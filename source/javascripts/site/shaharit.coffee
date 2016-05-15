@@ -3,6 +3,7 @@
 
 class Shaharit
   constructor: (hebrewDate, sunrise, sofZmanKeriatShema) ->
+    # TODO: sofZmanKeriatShema is not currently used
     [@hebrewDate, @sunrise, @sofZmanKeriatShema] = [hebrewDate, sunrise, sofZmanKeriatShema]
   noMelacha: -> @hebrewDate.isShabbat() || @hebrewDate.isYomTob() || @hebrewDate.isYomKippur()
   hasSelihot: -> (@hebrewDate.is10DaysOfTeshuba() || @hebrewDate.inElul()) && !@noMelacha() && !@hebrewDate.isRoshChodesh()
@@ -26,10 +27,10 @@ class Shaharit
   yishtabachVatikin: ->  @_yishtabachVatikin ?= moment(@amidahVatikin()).subtract(@yishtabachVatikinMinutes(), 'minutes') if @amidahVatikin()?
   amidahVatikin: ->  @_amidahVatikin ?= @sunrise
   korbanotLate: -> @_korbanotLate ?= moment(@hoduLate()).subtract(@korbanotMinutes(), 'minutes') if @hoduLate()?
-  hoduLateOnShabbat: -> @_hoduLateOnShabbat ?= moment.min(
-    NaharShalomScheduleHelpers.roundedToNearest15Minutes(moment(@sofZmanKeriatShema).subtract(59, 'minutes')),
-    moment(@hebrewDate.gregorianDate).hours(8).minutes(30).seconds(0)
-  )
+  hoduLateOnShabbat: -> @_hoduLateOnShabbat ?= if moment(@hebrewDate.gregorianDate).isBefore(moment("2016-03-13", "YYYY-MM-DD"))
+      moment(@hebrewDate.gregorianDate).hours(8).minutes(0).seconds(0)
+    else
+      moment(@hebrewDate.gregorianDate).hours(8).minutes(30).seconds(0)
   hoduLate: -> @_hoduLate ?= switch
     when @hebrewDate.isYomKippur() then moment(@hebrewDate.gregorianDate).hours(7).minutes(15).seconds(0)
     when @hebrewDate.is1stDayOfPesach() || @hebrewDate.is2ndDayOfPesach() then moment(@hebrewDate.gregorianDate).hours(9).minutes(0).seconds(0)

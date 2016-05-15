@@ -12,7 +12,7 @@ class HolidaySchedule
     [@gregorianDate, @hebrew_date, @zmanim] = [gregorianDate, hebrewDate, zmanim]
     @sunset = @zmanim.sunset().subtract(30, 'second')
   today: -> moment(@sunset)
-  shema_is_before_9_am: -> @zmanim.sofZmanKeriatShema().isBefore(@today().hour(if (@hebrew_date.is1stDayOfPesach() || @hebrew_date.is2ndDayOfPesach()) then 10 else 9).minute(0))
+  shema_is_before_9_am: -> @zmanim.sofZmanKeriatShema().isBefore(@today().hours(9).minutes(if (@hebrew_date.is1stDayOfPesach() || @hebrew_date.is2ndDayOfPesach()) then 60 else 30))
   afternoon_shiur_time: ->
     if @hebrew_date.isErebShabuot()
       minutes_before_event(@sunset, 45)

@@ -73,25 +73,16 @@ shaharitWeekdayTest = (date, selihot) ->
     yishtabach: moment(date).hours(5).minutes(59),
     amidah: moment(date).hours(6).minutes(8).seconds(8)
 
-shaharitShabbatTest  = (date) ->
+shaharitShabbatTest815  = (date) ->
   shaharitTest date,
     selihot: null,
     korbanot: [moment(date).hours(5).minutes(13), moment(date).hours(8).minutes(15)],
     hodu: [moment(date).hours(5).minutes(28), moment(date).hours(8).minutes(30)],
     nishmat: moment(date).hours(5).minutes(51),
     yishtabach: moment(date).hours(5).minutes(55),
-    amidah: moment(date).hours(6).minutes(8).seconds(8),
-    29
+    amidah: moment(date).hours(6).minutes(8).seconds(8)
 
-  shaharitTest date,
-    selihot: null,
-    korbanot: [moment(date).hours(5).minutes(13), moment(date).hours(8).minutes(0)],
-    hodu: [moment(date).hours(5).minutes(28), moment(date).hours(8).minutes(15)],
-    nishmat: moment(date).hours(5).minutes(51),
-    yishtabach: moment(date).hours(5).minutes(55),
-    amidah: moment(date).hours(6).minutes(8).seconds(8),
-    28
-
+shaharitShabbatTest745  = (date) ->
   shaharitTest date,
     selihot: null,
     korbanot: [moment(date).hours(5).minutes(13), moment(date).hours(7).minutes(45)],
@@ -148,11 +139,14 @@ $ ->
   # Yom Kippur
   shaharitYomKippurTest(new Date(2016,9,12))
 
-  # Shabbat (winter)
-  shaharitShabbatTest(new Date(2016,4,7))
+  # Shabbat (7:45)
+  shaharitShabbatTest745(new Date(2016,2,12))
+
+  # Shabbat (8:15)
+  shaharitShabbatTest815(new Date(2016,2,19))
 
   # Shabbat Shubah
-  shaharitShabbatTest(new Date(2016,9,8))
+  shaharitShabbatTest815(new Date(2016,9,8))
 
   # Weekday
   shaharitWeekdayTest(new Date(2016,4,9))

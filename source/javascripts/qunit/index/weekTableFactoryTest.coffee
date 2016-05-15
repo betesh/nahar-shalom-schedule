@@ -100,8 +100,8 @@ EXPECTED_2016_MAY_14 = """
     <td>שַׁבָּת</td>
     <td>21 May</td>
     <td>אִיָּר 13</td>
-    <td><span class='screen-only'><a href='shabbat.html'>5:36</a> and </span>8:00</td>
-    <td><span class='screen-only'><a href='shabbat.html'>5:51</a> and </span>8:15</td>
+    <td><span class='screen-only'><a href='shabbat.html'>5:36</a> and </span>8:15</td>
+    <td><span class='screen-only'><a href='shabbat.html'>5:51</a> and </span>8:30</td>
     <td></td>
     <td class='bold'><span class='screen-only'><a href='shabbat.html'>6:31:45</a></td>
     <td>7:15</td>
@@ -207,8 +207,8 @@ EXPECTED_2015_SEPTEMBER_16 = """
     <td>19 Sep</td>
     <td>תִּשְׁרִי 6</td>
     <td></td>
-    <td><span class='screen-only'><a href='shabbat.html'>6:12</a> and </span>8:15</td>
-    <td><span class='screen-only'><a href='shabbat.html'>6:27</a> and </span>8:30</td>
+    <td><span class='screen-only'><a href='shabbat.html'>6:12</a> and </span>7:45</td>
+    <td><span class='screen-only'><a href='shabbat.html'>6:27</a> and </span>8:00</td>
     <td></td>
     <td class='bold'><span class='screen-only'><a href='shabbat.html'>7:07:50</a></td>
     <td>6:35</td>
@@ -314,8 +314,8 @@ EXPECTED_2015_SEPTEMBER_23 = """
     <td>26 Sep</td>
     <td>תִּשְׁרִי 13</td>
     <td></td>
-    <td><span class='screen-only'><a href='shabbat.html'>6:15</a> and </span>8:15</td>
-    <td><span class='screen-only'><a href='shabbat.html'>6:30</a> and </span>8:30</td>
+    <td><span class='screen-only'><a href='shabbat.html'>6:15</a> and </span>7:45</td>
+    <td><span class='screen-only'><a href='shabbat.html'>6:30</a> and </span>8:00</td>
     <td></td>
     <td class='bold'><span class='screen-only'><a href='shabbat.html'>7:10:40</a></td>
     <td>6:25</td>
