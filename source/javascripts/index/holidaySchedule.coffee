@@ -13,7 +13,12 @@ class HolidaySchedule
     @sunset = @zmanim.sunset().subtract(30, 'second')
   today: -> moment(@sunset)
   shema_is_before_9_am: -> @zmanim.sofZmanKeriatShema().isBefore(@today().hour(if (@hebrew_date.is1stDayOfPesach() || @hebrew_date.is2ndDayOfPesach()) then 10 else 9).minute(0))
-  afternoon_shiur: -> $(".#{@chag()}.afternoon-shiur").removeClass("hidden").find(".time").html(time_format(moment(@mincha()).subtract(1, 'hour')))
+  afternoon_shiur_time: ->
+    if @hebrew_date.isErebShabuot()
+      minutes_before_event(@sunset, 45)
+    else
+      moment(@mincha()).subtract(1, 'hour')
+  afternoon_shiur: -> $(".#{@chag()}.afternoon-shiur").removeClass("hidden").find(".time").html(time_format(@afternoon_shiur_time()))
   plag_is_before_615: -> @zmanim.plag().isBefore(@today().hour(18).minute(15))
   set_hakochabim: -> time_format(@zmanim.setHaKochabim3Stars())
   rabbenu_tam: -> time_format(moment(@sunset).add(73, 'minute'))
@@ -90,7 +95,7 @@ class HolidaySchedule
       $(".#{@chag()}.mahasit-hashekel").removeClass('hidden')
       if 13 == @hebrew_date.dayOfMonth
         $(".#{@chag()}.megilla").removeClass('hidden').find(".time").html(minutes_before_event(fast_ends, -7).format('h:mm A'))
-  seudat_shelishit_time: -> if @hebrew_date.tonightIsYomTob() then @zmanim.samuchLeminchaKetana() else @sunset
+  seudat_shelishit_time: -> if @hebrew_date.is1stDayOfYomTob() then @zmanim.samuchLeminchaKetana() else @sunset
   shabbat_schedule: ->
     @set_date()
     @hadlakat_nerot_schedule() if @hebrew_date.tonightIsYomTob()
@@ -135,8 +140,7 @@ class HolidaySchedule
     @rabbenu_tam_schedule() if @hebrew_date.isShabbat() || (@hebrew_date.is2ndDayOfYomTob() && !@hebrew_date.isErebShabbat())
     if @hebrew_date.isShabbat()
       $(".#{@chag()}.seudat-shelishit").removeClass('hidden').find(".time").html(time_format(@seudat_shelishit_time()))
-      $(".#{@chag()}.seudat-shelishit .at_home").removeClass('hidden') if @hebrew_date.tonightIsYomTob()
-      if @hebrew_date.isEreb9Ab()
+      if @hebrew_date.isEreb9Ab() || @hebrew_date.isErebShabuot()
         $(".#{@chag()} .ereb-9-ab").removeClass('hidden')
         $(".#{@chag()} .not-ereb-9-ab").addClass('hidden')
       if @hebrew_date.isShabbatMevarechim()

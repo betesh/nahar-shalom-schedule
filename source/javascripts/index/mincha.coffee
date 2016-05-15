@@ -18,6 +18,7 @@ class Mincha
     when @hebrewDate.isTaanitEster() then 35
     when @hebrewDate.isTaanit() then (if @hebrewDate.isErebShabbat() then 45 else 30)
     when @hebrewDate.isEreb9Ab() then (if @hebrewDate.isShabbat() then 100 else 55)
+    when @hebrewDate.isErebShabuot() && @hebrewDate.isShabbat() then 110
     when @hebrewDate.tonightIsYomTob() && @hebrewDate.isShabbat() then 23
     when @hebrewDate.isErebPesach() then (if @hebrewDate.isErebShabbat() then 47 else 30)
     when @hebrewDate.isShabbat() then 45
