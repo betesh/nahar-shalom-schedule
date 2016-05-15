@@ -19,5 +19,6 @@ HebrewEvents =
   TuBiShvat: "ט``ו בִּשְׁבָט"
   BirkatHaIlanot: "בִּרְכַּת הָאִילָנוֹת"
   TefilatHaShelah: "תְּפִלָּת הָשְׁלָ``ה"
+  Nesiim: "נְשִׂאִים"
 
 (exports ? this).HebrewEvents = HebrewEvents
