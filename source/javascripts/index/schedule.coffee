@@ -1,7 +1,7 @@
 //= require ./weekTableFactory
 //= require ../site/raven
 //= require ../site/shaharit
-//= require ./writeSchedule
+//= require ./holidaySchedule
 
 initialDate = ->
   initialDate = window.location.search.replace("?", "")
