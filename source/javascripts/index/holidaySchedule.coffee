@@ -19,7 +19,6 @@ class HolidaySchedule
     else
       moment(@mincha()).subtract(1, 'hour')
   afternoon_shiur: -> $(".#{@chag()}.afternoon-shiur").removeClass("hidden").find(".time").html(time_format(@afternoon_shiur_time()))
-  plag_is_before_615: -> @zmanim.plag().isBefore(@today().hour(18).minute(15))
   set_hakochabim: -> time_format(@zmanim.setHaKochabim3Stars())
   rabbenu_tam: -> time_format(moment(@sunset).add(73, 'minute'))
   set_hakochabim_geonim: -> @zmanim.setHaKochabimGeonim()
