@@ -3,6 +3,7 @@
 //= require ../site/shaharit
 //= require ./holidaySchedule
 //= require ./shabbatEvents
+//= require ./announcement
 
 initialDate = ->
   initialDate = window.location.search.replace("?", "")
@@ -36,10 +37,15 @@ write_schedule = (day_iterator) ->
         schedule.shabbat_schedule()
       else if hebrewDate.isTaanit() || hebrewDate.isEreb9Ab() || hebrewDate.isPurim()
         schedule.taanit_schedule()
-      if hebrewDate.isShabbat() || hebrewDate.isErebPesach()
-        $(".announcement.jumbotron").removeClass('hidden').html(schedule.announcement()) if schedule.announcement()?
-      else if hebrewDate.isErebHoshanaRaba()
+      if hebrewDate.isErebHoshanaRaba()
         schedule.tiqun_leil_hoshana_raba_schedule()
+  window.catching_errors 'Announcements', day_iterator.toDate(), ->
+    for i in [0...(weekTableFactory.gregorianWeek.length)]
+      hebrewDate = weekTableFactory.hebrewWeek[i]
+      if hebrewDate.isShabbat() || hebrewDate.isErebPesach()
+        zmanim = weekTableFactory.zmanimWeek[i]
+        announcement = new Announcement(hebrewDate, zmanim).announcement()
+        $(".announcement.jumbotron").removeClass('hidden').html(announcement) if announcement?
   window.catching_errors 'Resizing Chag Tables', day_iterator.toDate(), ->
     visible_tables = $("#chagim-tables > div").not(".hidden").not(".announcement")
     has_announcement = $("#chagim-tables > div.announcement").not(".hidden").size() > 0

@@ -1,7 +1,6 @@
 //= require ../site/zmanim
 //= require ../site/hebrewDateExtensions
 //= require ../site/helpers
-//= require ./announcements
 //= require ./mincha
 //= require ./hachrazatTaanit
 
@@ -161,22 +160,5 @@ class HolidaySchedule
   tiqun_leil_hoshana_raba_schedule: ->
     $(".#{@chag()}").removeClass("hidden").find('.time').html(@today().hour(0).minute(0).format('h:mm A'))
     @set_date()
-  announcement: -> @_announcement ?= (
-    if @hebrew_date.isErebPesach()
-      latest_time_to_eat = @zmanim.shaaZemaniMagenAbraham(4).format('h:mm A')
-      latest_time_to_burn = @zmanim.shaaZemaniMagenAbraham(5).format('h:mm A')
-      stop_eating = "Stop eating חָמֵץ before #{latest_time_to_eat}#{if @hebrew_date.isShabbat() then " on שַׁבָּת"  else ""}"
-      burn = "Burn חָמֵץ before #{latest_time_to_burn}#{if @hebrew_date.isShabbat() then " on Friday" else ""}"
-      if @hebrew_date.isShabbat()
-        nullify = "Make sure no חָמֵץ is in your possesion and say כָּל חֲמִירָא before #{latest_time_to_burn} on שַׁבָּת"
-        "#{burn}<br>#{stop_eating}<br>#{nullify}"
-      else
-        "#{stop_eating}<br>#{burn}"
-    else if @hebrew_date.isEreb9Ab() && @hebrew_date.isShabbat()
-      "Bring your תִּשְׁעָה בְּאָב shoes to shul before שַׁבָּת"
-    else
-      a = window.announcements[@hebrew_date.getHebrewYear().getYearFromCreation()]
-      a = a[@hebrew_date.weekOfYear()] if a?
-    )
 
 (exports ? this).HolidaySchedule = HolidaySchedule
