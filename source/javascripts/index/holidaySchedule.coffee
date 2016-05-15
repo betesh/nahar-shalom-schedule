@@ -10,10 +10,6 @@
 time_format = (time) -> time.format('h:mm') if time?
 minutes_before_event = (event, minutes)-> NaharShalomScheduleHelpers.roundedToNearest5Minutes(moment(event).subtract(minutes, 'minutes'))
 
-show_mosaei_yom_tob = (date, zmanim) -> # This code is no longer called from anywhere
-  $('.mosaei-yom-tob').removeClass('hidden').find('.date').html(moment.weekdays()[date.weekday()])
-  $('.yom-tob-ends').html(set_hakochabim(zmanim))
-
 class Schedule
   constructor: (day_iterator) ->
     @hebrew_date = new HebrewDate(day_iterator.toDate())
