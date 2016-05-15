@@ -23,7 +23,23 @@ write_schedule = (day_iterator) ->
           sedra = "#{sedra} &mdash; #{name}" if hebrewDate["is#{event}"]()
         $('.sedra').html(sedra)
   window.catching_errors 'Holiday Schedule', day_iterator.toDate(), ->
-    showHolidaySchedule(date) for date in weekTableFactory.gregorianWeek
+    for i in [0...(weekTableFactory.gregorianWeek.length)]
+      gregorianDate = weekTableFactory.gregorianWeek[i]
+      hebrewDate = weekTableFactory.hebrewWeek[i]
+      zmanim = weekTableFactory.zmanimWeek[i]
+      schedule = new HolidaySchedule(gregorianDate, hebrewDate, zmanim)
+      if hebrewDate.hasHadlakatNerot()
+        schedule.hadlakat_nerot_schedule()
+      if hebrewDate.isYomKippur()
+        schedule.yom_kippur_schedule()
+      else if hebrewDate.isShabbat() || hebrewDate.isYomTob()
+        schedule.shabbat_schedule()
+      else if hebrewDate.isTaanit() || hebrewDate.isEreb9Ab() || hebrewDate.isPurim()
+        schedule.taanit_schedule()
+      if hebrewDate.isShabbat() || hebrewDate.isErebPesach()
+        $(".announcement.jumbotron").removeClass('hidden').html(schedule.announcement()) if schedule.announcement()?
+      else if hebrewDate.isErebHoshanaRaba()
+        schedule.tiqun_leil_hoshana_raba_schedule()
   window.catching_errors 'Resizing Chag Tables', day_iterator.toDate(), ->
     visible_tables = $("#chagim-tables > div").not(".hidden").not(".announcement")
     has_announcement = $("#chagim-tables > div.announcement").not(".hidden").size() > 0

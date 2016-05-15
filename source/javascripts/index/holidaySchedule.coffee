@@ -1,7 +1,6 @@
 //= require ../site/zmanim
 //= require ../site/hebrewDateExtensions
 //= require ../site/helpers
-//= require ../site/config
 //= require ./announcements
 //= require ./mincha
 //= require ./hachrazatTaanit
@@ -9,10 +8,9 @@
 time_format = (time) -> time.format('h:mm') if time?
 minutes_before_event = (event, minutes)-> NaharShalomScheduleHelpers.roundedToNearest5Minutes(moment(event).subtract(minutes, 'minutes'))
 
-class Schedule
-  constructor: (day_iterator) ->
-    @hebrew_date = new HebrewDate(day_iterator.toDate())
-    @zmanim = new Zmanim(day_iterator, window.config)
+class HolidaySchedule
+  constructor: (gregorianDate, hebrewDate, zmanim) ->
+    [@gregorianDate, @hebrew_date, @zmanim] = [gregorianDate, hebrewDate, zmanim]
     @sunset = @zmanim.sunset().subtract(30, 'second')
   today: -> moment(@sunset)
   shema_is_before_9_am: -> @zmanim.sofZmanKeriatShema().isBefore(@today().hour(if (@hebrew_date.is1stDayOfPesach() || @hebrew_date.is2ndDayOfPesach()) then 10 else 9).minute(0))
@@ -69,7 +67,7 @@ class Schedule
       when @hebrew_date.is10Tevet() then "Tebet10"
       when @hebrew_date.isFastOfGedaliah() then "FastOfGedaliah"
       when @hebrew_date.isTaanitEster() then (if 13 == @hebrew_date.dayOfMonth then "TaanitEsterAndPurim" else "TaanitEster")
-      when @hebrew_date.isPurim() then (if 0 == @hebrew_date.gregorianDate.getDay() then "PurimOnly" else null)
+      when @hebrew_date.isPurim() then (if 0 == @gregorianDate.getDay() then "PurimOnly" else null)
       when @hebrew_date.isEreb9Ab() || @hebrew_date.is9Ab() then null
       else throw "This should never happen!"
     $(".taanit th .#{name}").removeClass("hidden") if name?
@@ -82,8 +80,8 @@ class Schedule
       fast_begins_row.find(".time").html(@sunset.format('h:mm A'))
     else if @hebrew_date.is9Ab()
       $(".#{@chag()}.chatzot .time").html(@chatzot())
-      $(".#{@chag()}.chatzot").find(".dow, .date").attr("rowspan", if 0 == @hebrew_date.gregorianDate.getDay() then 3 else 2)
-      $(".#{@chag()}.habdala").removeClass("hidden") if 0 == @hebrew_date.gregorianDate.getDay()
+      $(".#{@chag()}.chatzot").find(".dow, .date").attr("rowspan", if 0 == @gregorianDate.getDay() then 3 else 2)
+      $(".#{@chag()}.habdala").removeClass("hidden") if 0 == @gregorianDate.getDay()
     else
       fast_begins_row.find(".dow, .date").attr("rowspan", if @hebrew_date.isTaanitEster() then (if 13 == @hebrew_date.dayOfMonth then 4 else 3) else 2)
       fast_begins_row.find(".time").html(@zmanim.magenAbrahamDawn().format('h:mm A'))
@@ -181,17 +179,4 @@ class Schedule
       a = a[@hebrew_date.weekOfYear()] if a?
     )
 
-window.showHolidaySchedule = (day_iterator) ->
-  schedule = new Schedule(day_iterator)
-  if schedule.hebrew_date.isErebShabbat() || schedule.hebrew_date.isErebYomKippur() || schedule.hebrew_date.isErebYomTob()
-    schedule.hadlakat_nerot_schedule()
-  if schedule.hebrew_date.isYomKippur()
-    schedule.yom_kippur_schedule()
-  else if schedule.hebrew_date.isShabbat() || schedule.hebrew_date.isYomTob()
-    schedule.shabbat_schedule()
-  else if schedule.hebrew_date.isTaanit() || schedule.hebrew_date.isEreb9Ab() || schedule.hebrew_date.isPurim()
-    schedule.taanit_schedule()
-  if schedule.hebrew_date.isShabbat() || schedule.hebrew_date.isErebPesach()
-    $(".announcement.jumbotron").removeClass('hidden').html(schedule.announcement()) if schedule.announcement()?
-  else if schedule.hebrew_date.isErebHoshanaRaba()
-    schedule.tiqun_leil_hoshana_raba_schedule()
+(exports ? this).HolidaySchedule = HolidaySchedule
