@@ -180,6 +180,8 @@ class Schedule
         "#{burn}<br>#{stop_eating}<br>#{nullify}"
       else
         "#{stop_eating}<br>#{burn}"
+    else if @hebrew_date.isEreb9Ab() && @hebrew_date.isShabbat()
+      "Bring your תִּשְׁעָה בְּאָב shoes to shul before שַׁבָּת"
     else
       a = window.announcements[@hebrew_date.getHebrewYear().getYearFromCreation()]
       a = a[@hebrew_date.weekOfYear()] if a?

@@ -7,6 +7,5 @@ window.announcements =
     '22': "Mazal Tov to the Harari family on Marc's Bar Mitzva!"
     '25': "Sunday, March 22nd @ 3PM:<br>הַכְנָסַת סֵפֶר תּוֹרָה"
     '26': "Sunday, March 22nd @ 3PM:<br>הַכְנָסַת סֵפֶר תּוֹרָה"
-    '44': "Bring your תִּשְׁעָה בְּאָב shoes to shul before שַׁבָּת"
   '5776':
     '6': "Mazal Tov to the Botton and Laniado families on the marriage of Mazalle & Eliezer<br><br>Mazal Tov to the בּוּחבּוּט family on the birth of a baby boy"
