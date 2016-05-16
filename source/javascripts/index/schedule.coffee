@@ -1,4 +1,4 @@
-//= require ./weekTableFactory
+//= require ./tableFactory
 //= require ../site/raven
 //= require ../site/shaharit
 //= require ./holidaySchedule
@@ -13,21 +13,21 @@ initialDate = ->
 write_schedule = (day_iterator) ->
   $('.start-hidden').addClass('hidden')
   $('.start-shown').removeClass('hidden')
-  weekTableFactory = new WeekTableFactory(day_iterator)
+  tableFactory = new TableFactory(day_iterator)
   window.catching_errors 'Morning', day_iterator.toDate(), ->
-    $(".weekly-table").html(weekTableFactory.generateTable())
+    $(".weekly-table").html(tableFactory.generateWeekTable())
   window.catching_errors 'Sedra', day_iterator.toDate(), ->
-    for hebrewDate in weekTableFactory.hebrewWeek
+    for hebrewDate in tableFactory.hebrewWeek
       if hebrewDate.isShabbat()
         sedra = "#{if hebrewDate.isRegel() || hebrewDate.isYomKippur() || hebrewDate.isYomTob() then "" else "שַׁבַּת פְּרָשָׁת"} #{hebrewDate.sedra().replace(/-/g, ' - ')}"
         for event, name of window.ShabbatEvents
           sedra = "#{sedra} &mdash; #{name}" if hebrewDate["is#{event}"]()
         $('.sedra').html(sedra)
   window.catching_errors 'Holiday Schedule', day_iterator.toDate(), ->
-    for i in [0...(weekTableFactory.gregorianWeek.length)]
-      gregorianDate = weekTableFactory.gregorianWeek[i]
-      hebrewDate = weekTableFactory.hebrewWeek[i]
-      zmanim = weekTableFactory.zmanimWeek[i]
+    for i in [0...(tableFactory.gregorianWeek.length)]
+      gregorianDate = tableFactory.gregorianWeek[i]
+      hebrewDate = tableFactory.hebrewWeek[i]
+      zmanim = tableFactory.zmanimWeek[i]
       schedule = new HolidaySchedule(gregorianDate, hebrewDate, zmanim)
       if hebrewDate.hasHadlakatNerot()
         schedule.hadlakat_nerot_schedule()
@@ -40,10 +40,10 @@ write_schedule = (day_iterator) ->
       if hebrewDate.isErebHoshanaRaba()
         schedule.tiqun_leil_hoshana_raba_schedule()
   window.catching_errors 'Announcements', day_iterator.toDate(), ->
-    for i in [0...(weekTableFactory.gregorianWeek.length)]
-      hebrewDate = weekTableFactory.hebrewWeek[i]
+    for i in [0...(tableFactory.gregorianWeek.length)]
+      hebrewDate = tableFactory.hebrewWeek[i]
       if hebrewDate.isShabbat() || hebrewDate.isErebPesach()
-        zmanim = weekTableFactory.zmanimWeek[i]
+        zmanim = tableFactory.zmanimWeek[i]
         announcement = new Announcement(hebrewDate, zmanim).announcement()
         $(".announcement.jumbotron").removeClass('hidden').html(announcement) if announcement?
   window.catching_errors 'Resizing Chag Tables', day_iterator.toDate(), ->

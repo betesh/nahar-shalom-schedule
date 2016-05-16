@@ -1,11 +1,11 @@
-//= require index/weekTableFactory
+//= require index/tableFactory
 //= require qunit/helpers
 
 replaceWhitespaceBetweenHtmlTags = (string) -> string.replace(/\>\s+\</g, '><')
 
-weekTableFactoryTest = (gregorianDate, expectedHtml) ->
-  factory = new WeekTableFactory(gregorianDate)
-  actualHtml = factory.generateTable()
+weekTableTest = (gregorianDate, expectedHtml) ->
+  factory = new TableFactory(gregorianDate)
+  actualHtml = factory.generateWeekTable()
   expectedHtml = replaceWhitespaceBetweenHtmlTags(expectedHtml)
   actualHtml = replaceWhitespaceBetweenHtmlTags(actualHtml)
   QUnit.test "During week of #{gregorianDate}", (assert) ->
@@ -326,10 +326,10 @@ EXPECTED_2015_SEPTEMBER_23 = """
 
 $ ->
   # Sefirat Haomer
-  weekTableFactoryTest(new Date(2016,4,15), EXPECTED_2016_MAY_14)
+  weekTableTest(new Date(2016,4,15), EXPECTED_2016_MAY_14)
 
   # Rosh Hashana in middle of week
-  weekTableFactoryTest(new Date(2015,8,16), EXPECTED_2015_SEPTEMBER_16)
+  weekTableTest(new Date(2015,8,16), EXPECTED_2015_SEPTEMBER_16)
 
   # Yom Kippuer in middle of week
-  weekTableFactoryTest(new Date(2015,8,23), EXPECTED_2015_SEPTEMBER_23)
+  weekTableTest(new Date(2015,8,23), EXPECTED_2015_SEPTEMBER_23)

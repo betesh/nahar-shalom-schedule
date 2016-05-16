@@ -6,7 +6,7 @@
 //= require ./hebrewEvents
 //= require ./weekTable
 
-class WeekTableFactory
+class TableFactory
   constructor: (gregorianDate) ->
     gregorianDate = gregorianDate
     @gregorianWeek = (moment(gregorianDate).day(weekday) for weekday in moment.weekdays())
@@ -14,10 +14,10 @@ class WeekTableFactory
     @zmanimWeek = (new Zmanim(day, window.config) for day in @gregorianWeek)
     @shaharitWeek = for i in [0...(@gregorianWeek.length)]
       new Shaharit(@hebrewWeek[i], new Sunrise(@gregorianWeek[i]).get(), @zmanimWeek[i].sofZmanKeriatShema())
-  generateTable: ->
+  generateWeekTable: ->
     weekTable = new WeekTable(@gregorianWeek, @hebrewWeek, @zmanimWeek, @shaharitWeek, window.HebrewEvents)
     weekTableRows = for i in [0...(@gregorianWeek.length)]
       weekTable.generateRow(i)
     weekTable.generateHeaderRow() + weekTableRows.join('')
 
-(exports ? this).WeekTableFactory = WeekTableFactory
+(exports ? this).TableFactory = TableFactory
