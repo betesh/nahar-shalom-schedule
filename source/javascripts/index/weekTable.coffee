@@ -1,19 +1,14 @@
-//= require ./mincha
 //= require ./arbit
 //= require ../site/hebrewDateExtensions
 
 class WeekTable
-  constructor: (gregorianWeek, hebrewWeek, zmanimWeek, shaharitWeek, events) ->
-    [@gregorianWeek, @hebrewWeek, @zmanimWeek, @shaharitWeek, @events] = [gregorianWeek, hebrewWeek, zmanimWeek, shaharitWeek, events]
+  constructor: (gregorianWeek, hebrewWeek, zmanimWeek, shaharitWeek, minchaWeek, events) ->
+    [@gregorianWeek, @hebrewWeek, @zmanimWeek, @shaharitWeek, @minchaWeek, @events] = [gregorianWeek, hebrewWeek, zmanimWeek, shaharitWeek, minchaWeek, events]
   hasSelihot: -> @_hasSelihot ?= true in (shaharit.hasSelihot() for shaharit in @shaharitWeek)
   hasOmer: -> @_hasOmer ?= true in (hebrewDate.omer()? for hebrewDate in @hebrewWeek)
   hasEvents: ->
     @_hasEvents ?= true in for hebrewDate in @hebrewWeek
       true in (hebrewDate["is#{event}"]() for event, name of @events)
-  dateOfNextHadlakatNerot: (i) ->
-    i++ until @hebrewWeek[i].hasHadlakatNerot()
-    i
-  nextHadlakatNerot: (iterator) -> moment(@zmanimWeek[@dateOfNextHadlakatNerot(iterator)].sunset()).subtract(19.5, 'minutes')
   generateHeaderRow:  ->
     """
       <tr>
@@ -34,7 +29,6 @@ class WeekTable
   hebrewMonthAndDate: (hebrewDate) -> "#{hebrewDate.staticHebrewMonth.name} #{hebrewDate.dayOfMonth}"
   dayOfWeek: (gregorianDate, hebrewDate) -> if hebrewDate.isShabbat() then "שַׁבָּת" else gregorianDate.format("dddd")
   selihot: (shaharit) -> if @hasSelihot() then "<td>#{if shaharit.selihot()? then shaharit.selihot().format("h:mm") else ""}</td>" else ""
-  mincha: (hebrewDate, zmanim, iterator) -> (new Mincha(hebrewDate, zmanim.plag(), zmanim.sunset()).time() ? @nextHadlakatNerot(iterator)).format("h:mm")
   arbit: (hebrewDate, zmanim) ->
     arbit = new Arbit(hebrewDate, zmanim.plag(), zmanim.sunset().subtract(30, 'seconds'), zmanim.setHaKochabimGeonim(), zmanim.setHaKochabim3Stars()).time()
     if arbit? then arbit.format("h:mm") else ""
@@ -49,7 +43,7 @@ class WeekTable
       list.push name if hebrewDate["is#{event}"]()
     list
   generateRow: (iterator) ->
-    [gregorianDate, hebrewDate, zmanim, shaharit] = [@gregorianWeek[iterator], @hebrewWeek[iterator], @zmanimWeek[iterator], @shaharitWeek[iterator]]
+    [gregorianDate, hebrewDate, zmanim, shaharit, mincha] = [@gregorianWeek[iterator], @hebrewWeek[iterator], @zmanimWeek[iterator], @shaharitWeek[iterator], @minchaWeek[iterator]]
     korbanot = (time.format("h:mm") for time in shaharit.korbanot())
     hodu = (time.format("h:mm") for time in shaharit.hodu())
     switch hodu.length
@@ -74,7 +68,7 @@ class WeekTable
         <td>#{hodu}</td>
         <td>#{yishtabach}</td>
         <td class='bold'>#{amidah}</td>
-        <td>#{@mincha(hebrewDate, zmanim, iterator)}</td>
+        <td>#{mincha}</td>
         <td>#{@arbit(hebrewDate, zmanim)}</td>
         #{if @hasOmer() then "<td>#{@omer(gregorianDate, hebrewDate)}</td>" else ""}
         #{if @hasEvents() then "<td>#{@eventList(hebrewDate).join(" / ")}</td>" else ""}
