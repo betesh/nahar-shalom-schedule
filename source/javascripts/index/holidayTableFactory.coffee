@@ -49,15 +49,20 @@ class HolidayTableFactory
   generateTableSection: (iterator) ->
     rowData = @generateRows(iterator)
     rows = rowData.rows
-    tableSection = []
     return if 0 == rows.length
+    tableSection = []
     for row in rows
       if row.time?
         tableSection.push("<td>#{row.description}</td><td>#{row.time}</td>")
       else
         tableSection.push("<td colspan=2 class='text-center'><strong>#{row.description}</strong></td>")
-    dateCells = "<td rowspan='#{rows.length}'>#{rowData.dayOfWeek}</td><td rowspan='#{rows.length}'>#{rowData.gregorianDate}</td>"
-    "<tr>#{dateCells}#{tableSection.join("</tr><tr>")}</tr>"
+    """
+      <tr>
+        <td rowspan='#{rows.length}'>#{rowData.dayOfWeek}</td>
+        <td rowspan='#{rows.length}'>#{rowData.gregorianDate}</td>
+        #{tableSection.join("</tr><tr>")}
+      </tr>
+    """
   generateRows: (iterator) ->
     [gregorianDate, hebrewDate, zmanim, shaharit, mincha] = [@gregorianWeek[iterator], @hebrewWeek[iterator], @zmanimWeek[iterator], @shaharitWeek[iterator], @minchaWeek[iterator]]
     rows = []
