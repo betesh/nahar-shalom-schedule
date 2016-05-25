@@ -29,7 +29,11 @@ write_schedule = (day_iterator) ->
       if hebrewDate.isShabbat() || hebrewDate.isErebPesach()
         zmanim = tableFactory.zmanimWeek[i]
         announcement = new Announcement(hebrewDate, zmanim).announcement()
-        announcementHtml = "<div class='col-lg-4 col-lg-offset-1 col-xs-5 jumbotron font22'>#{announcement}</div>" if announcement?
+        switch announcement.length
+          when 1
+            announcementHtml = "<div class='col-lg-4 col-lg-offset-1 col-xs-5 jumbotron font22'>#{announcement}</div>"
+          when 2
+            announcementHtml = "<div class='col-lg-4 col-lg-offset-1 col-xs-5 jumbotron font22 double-jumbotron'>#{announcement.join("<br><br>")}</div>"
   window.catching_errors 'Holiday Schedule', day_iterator.toDate(), ->
     tables = tableFactory.generateHolidayTables()
     hasAnnouncement = "" != announcementHtml

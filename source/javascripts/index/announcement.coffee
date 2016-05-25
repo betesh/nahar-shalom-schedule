@@ -18,14 +18,22 @@ class ErebPesachAnnouncement
 class Announcement
   constructor: (hebrewDate, zmanim) ->
     [@hebrewDate, @zmanim] = [hebrewDate, zmanim]
-  announcement: -> @_announcement ?= if @hebrewDate.isErebPesach()
+  announcement: -> @_announcement ?= (
+    announcements = []
+    announcement1 = @configuredAnnouncement()
+    announcement2 = @generatedAnnouncement()
+    announcements.push(announcement1) if announcement1?
+    announcements.push(announcement2) if announcement2?
+    announcements
+    )
+  generatedAnnouncement: ->
+    if @hebrewDate.isErebPesach()
       (new ErebPesachAnnouncement(@hebrewDate, @zmanim)).announcement()
     else if @hebrewDate.isEreb9Ab() && @hebrewDate.isShabbat()
       "Bring your תִּשְׁעָה בְּאָב shoes to shul before שַׁבָּת"
     else if @hebrewDate.isErebShabuot() && @hebrewDate.isShabbat()
       "If starting סְעוּדַת שְׁלִישִׁית after #{@zmanim.samuchLeminchaKetana().format("h:mm A")}, wash your hands without a בְּרָכָה and eat less than 54 grams of bread.<br><b>There will be סְעוּדַת שְׁלִישִׁית in shul.</b>"
-    else
-      a = window.announcements[@hebrewDate.getHebrewYear().getYearFromCreation()]
-      a = a[@hebrewDate.weekOfYear()] if a?
+  configuredAnnouncement: ->
+    window.announcements[@hebrewDate.getHebrewYear().getYearFromCreation()]?[@hebrewDate.weekOfYear()]
 
 (exports ? this).Announcement = Announcement
