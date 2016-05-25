@@ -32,7 +32,7 @@ EXPECTED_2016_MAY_14 = """
     <td>6:14</td>
     <td>6:25</td>
     <td class='bold'>6:34:25</td>
-    <td>7:44</td>
+    <td>7:46</td>
     <td>8:00</td>
     <td>Sun. night: <b>23</b></td>
   </tr>
@@ -44,7 +44,7 @@ EXPECTED_2016_MAY_14 = """
     <td>6:13</td>
     <td>6:25</td>
     <td class='bold'>6:33:55</td>
-    <td>7:44</td>
+    <td>7:46</td>
     <td>8:01</td>
     <td>Mon. night: <b>24</b></td>
   </tr>
@@ -56,7 +56,7 @@ EXPECTED_2016_MAY_14 = """
     <td>6:13</td>
     <td>6:24</td>
     <td class='bold'>6:33:25</td>
-    <td>7:44</td>
+    <td>7:46</td>
     <td>8:01</td>
     <td>Tue. night: <b>25</b></td>
   </tr>
@@ -68,7 +68,7 @@ EXPECTED_2016_MAY_14 = """
     <td>6:13</td>
     <td>6:24</td>
     <td class='bold'>6:33:00</td>
-    <td>7:44</td>
+    <td>7:46</td>
     <td>8:02</td>
     <td>Wed. night: <b>26</b></td>
   </tr>
@@ -80,7 +80,7 @@ EXPECTED_2016_MAY_14 = """
     <td>6:12</td>
     <td>6:24</td>
     <td class='bold'>6:32:35</td>
-    <td>7:44</td>
+    <td>7:46</td>
     <td>8:03</td>
     <td>Thu. night: <b>27</b></td>
   </tr>
@@ -185,7 +185,7 @@ EXPECTED_2015_SEPTEMBER_16 = """
     <td>6:47</td>
     <td>6:58</td>
     <td class='bold'>7:07:05</td>
-    <td>7:04</td>
+    <td>7:05</td>
     <td>7:24</td>
     <td></td>
   </tr>
@@ -240,7 +240,7 @@ EXPECTED_2015_SEPTEMBER_23 = """
     <td>6:48</td>
     <td>6:59</td>
     <td class='bold'>7:08:15</td>
-    <td>6:59</td>
+    <td>7:01</td>
     <td>7:21</td>
     <td></td>
   </tr>
@@ -253,7 +253,7 @@ EXPECTED_2015_SEPTEMBER_23 = """
     <td>6:48</td>
     <td>7:00</td>
     <td class='bold'>7:08:40</td>
-    <td>6:59</td>
+    <td>7:01</td>
     <td>7:19</td>
     <td></td>
   </tr>
@@ -292,7 +292,7 @@ EXPECTED_2015_SEPTEMBER_23 = """
     <td>6:49</td>
     <td>7:01</td>
     <td class='bold'>7:09:55</td>
-    <td>6:56</td>
+    <td>6:57</td>
     <td>7:16</td>
     <td></td>
   </tr>

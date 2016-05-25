@@ -34,7 +34,7 @@ class Zmanim
   samuchLeminchaKetana: -> @_samuchLeminchaKetana ?= @shaaZemaniMagenAbraham(9)
   plag: -> @_plag ?= @shaaZemaniGra(10.75)
   hadlakatNerot: -> # TODO: test
-    if (new HebrewDate(@gregorianDate)).hasHadlakatNerot() then moment(@sunset()).subtract(19.5, 'minutes').seconds(0) else null
+    if (new HebrewDate(@gregorianDate)).hasHadlakatNerot() then moment(@sunset()).subtract(18, 'minutes').seconds(0) else null
   sunset: -> @_sunset ?= moment(@zmanim.sunset)
   setHaKochabimGeonim: -> @_setHaKochabimGeonim ?= @shaaZemaniGra(12.225).add(1, 'minute')
   setHaKochabim3Stars: -> @_setHaKochabim3Stars ?= moment(@zmanim.setHaKochabim)

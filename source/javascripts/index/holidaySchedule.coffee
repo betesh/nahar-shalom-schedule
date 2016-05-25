@@ -153,7 +153,7 @@ class HolidaySchedule
     $(".#{@chag()}.neilah .time").html(time_format(minutes_before_event(@sunset, 55)))
     @rabbenu_tam_schedule()
   mincha: -> @_mincha ?= (new Mincha(@hebrew_date, @zmanim.plag(), @sunset)).time()
-  hadlakat_nerot: -> if @hebrew_date.hasHadlakatNerotAfterSetHaKochabim() then @zmanim.setHaKochabim3Stars() else moment(@sunset).subtract(19, 'minutes')
+  hadlakat_nerot: -> if @hebrew_date.hasHadlakatNerotAfterSetHaKochabim() then @zmanim.setHaKochabim3Stars() else moment(@sunset).subtract(18, 'minutes').seconds(0)
   has_hadlakat_nerot_before_sunset: -> @hebrew_date.isErebShabbat() || @hebrew_date.isErebYomKippur() || @hebrew_date.isErebYomTob()
   hadlakat_nerot_text: ->
     if @hebrew_date.yomYobThatWePrayAtPlag() && !@hebrew_date.isErebShabbat() && !@hebrew_date.isShabbat()
