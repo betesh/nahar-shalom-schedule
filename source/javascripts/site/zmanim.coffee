@@ -36,7 +36,13 @@ class Zmanim
   hadlakatNerot: -> # TODO: test
     if (new HebrewDate(@gregorianDate)).hasHadlakatNerot() then moment(@sunset()).subtract(18, 'minutes').seconds(0) else null
   sunset: -> @_sunset ?= moment(@zmanim.sunset)
-  setHaKochabimGeonim: -> @_setHaKochabimGeonim ?= @shaaZemaniGra(12.225).add(1, 'minute')
+  setHaKochabimGeonim: -> @_setHaKochabimGeonim ?= (
+    time = @shaaZemaniGra(12.225)
+    timeSinceSunset = time.diff(@sunset()) / 1000.0 / 60.0
+    timeSinceSunset = 27 - timeSinceSunset if timeSinceSunset < 13.5
+    time = moment(@sunset()).add(timeSinceSunset, 'minutes')
+    time.seconds(60)
+  )
   setHaKochabim3Stars: -> @_setHaKochabim3Stars ?= moment(@zmanim.setHaKochabim)
 
 (exports ? this).Zmanim = Zmanim
