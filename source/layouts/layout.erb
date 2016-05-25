@@ -18,7 +18,7 @@
       <%= javascript_include_tag  "https://cdn.ravenjs.com/2.3.0/raven.min.js" %>
     <% end %>
     <%= javascript_include_tag  current_page.path.gsub(".html", "") %>
-
+    <script>$(function(){ moment.locale('en'); });</script>
   </head>
 
   <body class="<%= page_classes %>">

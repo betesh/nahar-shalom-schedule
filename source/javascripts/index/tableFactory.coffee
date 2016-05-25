@@ -1,5 +1,5 @@
 //= require ../vendor/hebrewDate
-//= require ../site/config
+//= require ../site/coordinates
 //= require ../site/sunrise
 //= require ../site/shaharit
 //= require ./mincha
@@ -30,7 +30,7 @@ class TableFactory
     gregorianDate = gregorianDate
     @gregorianWeek = (moment(gregorianDate).day(weekday) for weekday in moment.weekdays())
     @hebrewWeek = (new HebrewDate(date.toDate()) for date in @gregorianWeek)
-    @zmanimWeek = (new Zmanim(day, window.config) for day in @gregorianWeek)
+    @zmanimWeek = (new Zmanim(day, window.coordinates) for day in @gregorianWeek)
     @shaharitWeek = for i in [0...(@gregorianWeek.length)]
       new Shaharit(@hebrewWeek[i], new Sunrise(@gregorianWeek[i]).get(), @zmanimWeek[i].sofZmanKeriatShema())
     @minchaWeek = (@mincha(i) for i in [0...(@gregorianWeek.length)])

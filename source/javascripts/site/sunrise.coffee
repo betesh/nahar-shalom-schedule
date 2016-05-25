@@ -1,4 +1,4 @@
-//= require ./config
+//= require ./sunrises
 //= require ../vendor/hebrewDate
 
 class Sunrise

@@ -1,5 +1,6 @@
 //= require ../vendor/hebrewDate
-//= require ../site/config
+//= require ../site/sunrises
+//= require ../site/coordinates
 //= require ../site/raven
 //= require ../site/shaharit
 //= require ../site/sunrise
@@ -34,7 +35,7 @@ tableRow = (momentInstance, hebrewDate) ->
   korbanot = shaharit.korbanotVatikin().format("h:mm")
   showGregorianYear = (hebrewDate.isRoshHashana() && hebrewDate.is1stDayOfYomTob()) || (0 == momentInstance.month() && momentInstance.date() <= 7)
   gregorianDate = momentInstance.format("MMMM D#{if showGregorianYear then " YYYY" else ""}")
-  earliestTallit = (new Zmanim(hebrewDate.gregorianDate, window.config)).earliestTallit().format("h:mm:ss")
+  earliestTallit = (new Zmanim(hebrewDate.gregorianDate, window.coordinates)).earliestTallit().format("h:mm:ss")
   """
     <tr>
       <td>#{hebrewDate.dayOfMonth} #{hebrewDate.staticHebrewMonth.name}</td>
