@@ -20,7 +20,7 @@ class TableFactory
     i++ until @hebrewWeek[i].hasHadlakatNerot()
     i
   nextHadlakatNerot: (iterator) -> moment(@zmanimWeek[@dateOfNextHadlakatNerot(iterator)].sunset()).subtract(19.5, 'minutes')
-  mincha: (iterator) -> (new Mincha(@hebrewWeek[iterator], @zmanimWeek[iterator].plag(), @zmanimWeek[iterator].sunset()).time() ? @nextHadlakatNerot(iterator)).format("h:mm")
+  mincha: (iterator) -> new Mincha(@hebrewWeek[iterator], @zmanimWeek[iterator].plag(), @zmanimWeek[iterator].sunset()).time() ? @nextHadlakatNerot(iterator)
   generateWeekTable: ->
     weekTable = new WeekTable(@gregorianWeek, @hebrewWeek, @zmanimWeek, @shaharitWeek, @minchaWeek, window.HebrewEvents)
     weekTableRows = for i in [0...(@gregorianWeek.length)]

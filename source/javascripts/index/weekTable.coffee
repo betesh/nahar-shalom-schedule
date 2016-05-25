@@ -68,7 +68,7 @@ class WeekTable
         <td>#{hodu}</td>
         <td>#{yishtabach}</td>
         <td class='bold'>#{amidah}</td>
-        <td>#{mincha}</td>
+        <td>#{mincha.format("h:mm")}</td>
         <td>#{@arbit(hebrewDate, zmanim)}</td>
         #{if @hasOmer() then "<td>#{@omer(gregorianDate, hebrewDate)}</td>" else ""}
         #{if @hasEvents() then "<td>#{@eventList(hebrewDate).join(" / ")}</td>" else ""}
