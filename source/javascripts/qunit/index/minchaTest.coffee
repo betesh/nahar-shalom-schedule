@@ -68,7 +68,7 @@ $ ->
   minchaTest(new Date(2021,4,16), 18, 55)
 
   # Ereb Shabuot on Shabbat
-  minchaTest(new Date(2016,5,11), 17, 30)
+  minchaTest(new Date(2016,5,11), 18, 0)
 
   # 1st Day of Shabuot
   minchaTest(new Date(2021,4,17), 17, 45)

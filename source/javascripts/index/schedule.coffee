@@ -1,7 +1,6 @@
 //= require ./tableFactory
 //= require ../site/raven
 //= require ../site/shaharit
-//= require ./holidaySchedule
 //= require ./shabbatEvents
 //= require ./announcement
 
@@ -23,45 +22,32 @@ write_schedule = (day_iterator) ->
         for event, name of window.ShabbatEvents
           sedra = "#{sedra} &mdash; #{name}" if hebrewDate["is#{event}"]()
         $('.sedra').html(sedra)
-  window.catching_errors 'Holiday Schedule', day_iterator.toDate(), ->
-    for i in [0...(tableFactory.gregorianWeek.length)]
-      gregorianDate = tableFactory.gregorianWeek[i]
-      hebrewDate = tableFactory.hebrewWeek[i]
-      zmanim = tableFactory.zmanimWeek[i]
-      schedule = new HolidaySchedule(gregorianDate, hebrewDate, zmanim)
-      if hebrewDate.hasHadlakatNerot()
-        schedule.hadlakat_nerot_schedule()
-      if hebrewDate.isYomKippur()
-        schedule.yom_kippur_schedule()
-      else if hebrewDate.isShabbat() || hebrewDate.isYomTob()
-        schedule.shabbat_schedule()
-      else if hebrewDate.isTaanit() || hebrewDate.isEreb9Ab() || hebrewDate.isPurim()
-        schedule.taanit_schedule()
-      if hebrewDate.isErebHoshanaRaba()
-        schedule.tiqun_leil_hoshana_raba_schedule()
+  announcementHtml = ""
   window.catching_errors 'Announcements', day_iterator.toDate(), ->
     for i in [0...(tableFactory.gregorianWeek.length)]
       hebrewDate = tableFactory.hebrewWeek[i]
       if hebrewDate.isShabbat() || hebrewDate.isErebPesach()
         zmanim = tableFactory.zmanimWeek[i]
         announcement = new Announcement(hebrewDate, zmanim).announcement()
-        $(".announcement.jumbotron").removeClass('hidden').html(announcement) if announcement?
-  window.catching_errors 'Resizing Chag Tables', day_iterator.toDate(), ->
-    visible_tables = $("#chagim-tables > div").not(".hidden").not(".announcement")
-    has_announcement = $("#chagim-tables > div.announcement").not(".hidden").size() > 0
-    visible_tables.removeClass("col-xs-5").removeClass("col-xs-6").removeClass("col-xs-7").removeClass("col-xs-8")
-    new_width = switch visible_tables.size()
+        announcementHtml = "<div class='col-lg-4 col-lg-offset-1 col-xs-5 jumbotron font22'>#{announcement}</div>" if announcement?
+  window.catching_errors 'Holiday Schedule', day_iterator.toDate(), ->
+    tables = tableFactory.generateHolidayTables()
+    hasAnnouncement = "" != announcementHtml
+    widths = switch tables.length
       when 1
-        if has_announcement then [7] else [8]
+        if hasAnnouncement then [7] else [8]
       when 2
         switch
-          when $("#chagim-tables > div.shabbat .zachor").not(".hidden").size() > 0 then [5,7]
+          when tableFactory.hebrewWeek[6].isShabbatZachor() then [5,7]
           else [6,6]
       when 3
         switch
-          when $("#chagim-tables > div.rosh-hashana").not(".hidden").size() > 0 then [6,6,6]
+          when (true in (date.isRoshHashana() for date in tableFactory.hebrewWeek)) then [6,6,6]
           else throw "This should never happen!"
-    visible_tables.each (i) -> $(this).addClass("col-xs-#{new_width[i]}")
+    html = ""
+    for i in [0...(tables.length)]
+      html = "#{html}<div class='col-xs-#{widths[i]}'>#{tables[i]}</div>"
+    $('.chagim-tables').html(html + announcementHtml)
 
 $ ->
   $('.calendar').change(-> write_schedule(moment(this.value))).val(initialDate()).change()
