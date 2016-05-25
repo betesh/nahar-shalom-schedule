@@ -104,7 +104,7 @@ class HolidayTableFactory
     if hebrewDate.hasHadlakatNerot() || hebrewDate.hasHadlakatNerotAfterSetHaKochabim()
       rows.push(description: "הַדְלַקָת נֵרוֹת", time: hadlakatNerotTime(hebrewDate, zmanim))
       if hebrewDate.yomYobThatWePrayAtPlag() && !hebrewDate.isErebShabbat() && !hebrewDate.isShabbat()
-        rows.push(description: "Eat from all cooked foods before #{zmanim.sunset().format('h:mm')}")
+        rows.push(description: "Eat from all cooked foods before #{zmanim.sunset().format('h:mm A')}")
     if hebrewDate.isErebHoshanaRaba()
       rows.push(description: "תִּקוּן לֵיל הוֹשַׁעֲנָא רַבָּא", time: moment(gregorianDate).hour(24).minute(0).format('h:mm A'), tomorrow: true)
     if hebrewDate.isErebShabuot()
