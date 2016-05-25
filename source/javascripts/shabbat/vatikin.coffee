@@ -24,6 +24,20 @@ sedra = (hebrewDate) ->
   else if hebrewDate.isYomKippur() then "יוֹם הַכִּפֻּרִים"
   else hebrewDate.sedra()
 
+tableHeader = (year) ->
+  """
+    <tr>
+      <th>#{year}</th>
+      <th></th>
+      <th></th>
+      <th>קָרְבָּנוֹת</th>
+      <th>Say בְּרָכָה on<br>טַלִית after</th>
+      <th>הוֹדוּ</th>
+      <th>נִשְׁמַת כָּל-חַי</th>
+      <th>עֲמִידָה</th>
+    </tr>
+  """
+
 tableRow = (momentInstance, hebrewDate) ->
   sunrise = new Sunrise(momentInstance).get()
   shaharit = new Shaharit(hebrewDate, sunrise)
@@ -54,9 +68,8 @@ updateTable = ->
   window.catching_errors 'Shabbat', value, -> updateTableInTryCatch(value)
 
 updateTableInTryCatch = (value) ->
-  $("table.vatikin-schedule tr").not(":nth-child(1)").remove()
   year = parseInt(value)
-  $("table.vatikin-schedule tr:nth-child(1) th:nth-child(1)").html(year)
+  $("table.vatikin-schedule").html(tableHeader(year))
   hebrewDate =  new HebrewDate(new RoshHashana(year).getGregorianDate())
   while hebrewDate.getYearFromCreation() == year
     gregorianDate = hebrewDate.gregorianDate
