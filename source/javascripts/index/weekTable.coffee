@@ -58,6 +58,7 @@ class WeekTable
         yishtabach = shaharit.yishtabach().format("h:mm")
         amidah = shaharit.amidah().format("h:mm:ss")
       else throw "This should never happen!"
+    kinnusDate = gregorianDate.isSame('2015-09-01', 'day') || gregorianDate.isSame('2016-06-05', 'day')
     """
       <tr>
         <td>#{@dayOfWeek(gregorianDate, hebrewDate)}</td>
@@ -68,8 +69,8 @@ class WeekTable
         <td>#{hodu}</td>
         <td>#{yishtabach}</td>
         <td class='bold'>#{amidah}</td>
-        <td>#{mincha.format("h:mm")}</td>
-        <td>#{@arbit(hebrewDate, zmanim)}</td>
+        <td>#{if kinnusDate then "" else mincha.format("h:mm")}</td>
+        <td>#{if kinnusDate then "" else @arbit(hebrewDate, zmanim)}</td>
         #{if @hasOmer() then "<td>#{@omer(gregorianDate, hebrewDate)}</td>" else ""}
         #{if @hasEvents() then "<td>#{@eventList(hebrewDate).join(" / ")}</td>" else ""}
       </tr>
