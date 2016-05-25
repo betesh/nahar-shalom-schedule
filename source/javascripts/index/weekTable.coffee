@@ -32,9 +32,9 @@ class WeekTable
   arbit: (hebrewDate, zmanim) ->
     arbit = new Arbit(hebrewDate, zmanim.plag(), zmanim.sunset().subtract(30, 'seconds'), zmanim.setHaKochabimGeonim(), zmanim.setHaKochabim3Stars()).time()
     if arbit? then arbit.format("h:mm") else ""
-  omer: (gregorianDate, hebrewDate) ->
+  omer: (gregorianDate, hebrewDate, zmanim) ->
     if (hebrewDate.omer()? && hebrewDate.omer().tonight)
-      "#{gregorianDate.format('ddd')}. night: <b>#{hebrewDate.omer().tonight}</b>"
+      "#{gregorianDate.format('ddd')}. night: <b>#{hebrewDate.omer().tonight}</b> (After #{zmanim.setHaKochabimGeonim().format('h:mm')})"
     else
       ""
   eventList: (hebrewDate) ->
@@ -71,7 +71,7 @@ class WeekTable
         <td class='bold'>#{amidah}</td>
         <td>#{if kinnusDate then "" else mincha.format("h:mm")}</td>
         <td>#{if kinnusDate then "" else @arbit(hebrewDate, zmanim)}</td>
-        #{if @hasOmer() then "<td>#{@omer(gregorianDate, hebrewDate)}</td>" else ""}
+        #{if @hasOmer() then "<td>#{@omer(gregorianDate, hebrewDate, zmanim)}</td>" else ""}
         #{if @hasEvents() then "<td>#{@eventList(hebrewDate).join(" / ")}</td>" else ""}
       </tr>
     """
