@@ -38,8 +38,8 @@ hadlakatNerotTime = (hebrewDate, zmanim) ->
     zmanim.hadlakatNerot().format('h:mm')
 
 seudat_shelishit_in_shul_description = (hebrewDate) ->
-  seudat_shelishit_verb = if hebrewDate.isErebShabuot() || hebrewDate.isEreb9Ab() then "<strong>Finish</strong>" else "Begin"
-  "<span class='font13'>#{seudat_shelishit_verb} סְעוּדַת שְׁלִישִׁית before</span>"
+  verb = if hebrewDate.isErebShabuot() || hebrewDate.isEreb9Ab() then "<strong>Finish</strong>" else "Begin"
+  "<span class='font13'>#{verb} סְעוּדַת שְׁלִישִׁית before</span>"
 
 rabbenuTamTime = (zmanim) -> moment(zmanim.sunset()).add(72, 'minutes').seconds(60).format('h:mm')
 
