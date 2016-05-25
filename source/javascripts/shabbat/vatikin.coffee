@@ -24,6 +24,14 @@ sedra = (hebrewDate) ->
   else if hebrewDate.isYomKippur() then "יוֹם הַכִּפֻּרִים"
   else hebrewDate.sedra()
 
+generateTable = (year, rows) ->
+  """
+    <table class='table table-striped table-condensed'>
+      #{tableHeader(year)}
+      #{rows.join('')}
+    </table>
+  """
+
 tableHeader = (year) ->
   """
     <tr>
@@ -69,15 +77,17 @@ updateTable = ->
 
 updateTableInTryCatch = (value) ->
   year = parseInt(value)
-  $("table.vatikin-schedule").html(tableHeader(year))
   hebrewDate =  new HebrewDate(new RoshHashana(year).getGregorianDate())
+  rows = []
   while hebrewDate.getYearFromCreation() == year
     gregorianDate = hebrewDate.gregorianDate
     momentInstance = moment(gregorianDate)
     if momentInstance.isAfter(moment("2015-11-08", "YYYY-MM-DD")) && (hebrewDate.isShabbat() || hebrewDate.isYomTob() || hebrewDate.isYomKippur())
-      $("table.vatikin-schedule").append(tableRow(momentInstance, hebrewDate))
+      rows.push(tableRow(momentInstance, hebrewDate))
     gregorianDate.setDate(gregorianDate.getDate() + 1)
     hebrewDate = new HebrewDate(gregorianDate)
+  table = generateTable(year, rows)
+  $(".vatikin-schedule").html(table)
 
 $ ->
   validYears = []
