@@ -101,7 +101,7 @@ class HolidayTableFactory
       rows.push(description: "שַׁבָּת ends", time: zmanim.setHaKochabim3Stars().format('h:mm'))
       rows.push(description: "רַבֵּנוּ תָּם", time: rabbenuTamTime(zmanim))
       if zmanim.sunset().isBefore(moment(gregorianDate).hour(18).minute(35)) && !hebrewDate.isErebPurim()
-        rows.push(description: "אָבוֹת וּבָּנִים", time: roundedToNearest5Minutes(moment(zmanim.sunset()).add(101, 'minute')))
+        rows.push(description: "אָבוֹת וּבָּנִים", time: roundedToNearest5Minutes(moment(zmanim.sunset()).add(101, 'minute')).format('h:mm'))
     if hebrewDate.isYomKippur()
       rows.push(description: "נְעִילָה", time: minutesBefore(zmanim.sunset(), 55).format('h:mm'))
       rows.push(description: "בִּרְכַּת כֹּהֲנִים before", time: zmanim.sunset().format('h:mm'))
