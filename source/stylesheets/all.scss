@@ -9,6 +9,21 @@
     padding-left: 10px;
     padding-right: 10px;
   }
+
+  // This is needed in order for break-before to work in Chrome.
+  // See http://stackoverflow.com/a/24813258/1633753
+  .shabbat { div { float: none !important; } }
+  .page-break-before {
+    break-before: always;
+    page-break-before: always;
+    -webkit-page-break-before: always;
+  }
+}
+
+@media screen {
+  .print-only {
+    display: none;
+  }
 }
 
 .links {

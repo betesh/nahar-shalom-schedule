@@ -56,7 +56,7 @@ tableRow = (momentInstance, hebrewDate) ->
   hodu = shaharit.hoduVatikin().format("h:mm")
   korbanot = shaharit.korbanotVatikin().format("h:mm")
   showGregorianYear = (hebrewDate.isRoshHashana() && hebrewDate.is1stDayOfYomTob()) || (0 == momentInstance.month() && momentInstance.date() <= 7)
-  gregorianDate = momentInstance.format("MMMM D#{if showGregorianYear then " YYYY" else ""}")
+  gregorianDate = momentInstance.format("MMM D#{if showGregorianYear then " YYYY" else ""}")
   earliestTallit = (new Zmanim(hebrewDate.gregorianDate, window.coordinates)).earliestTallit().format("h:mm:ss")
   """
     <tr>
@@ -78,16 +78,33 @@ updateTable = ->
 updateTableInTryCatch = (value) ->
   year = parseInt(value)
   hebrewDate =  new HebrewDate(new RoshHashana(year).getGregorianDate())
-  rows = []
+  screenRows = []
+  printRows = []
+  printTables = []
+  i = 1
   while hebrewDate.getYearFromCreation() == year
     gregorianDate = hebrewDate.gregorianDate
     momentInstance = moment(gregorianDate)
     if momentInstance.isAfter(moment("2015-11-08", "YYYY-MM-DD")) && (hebrewDate.isShabbat() || hebrewDate.isYomTob() || hebrewDate.isYomKippur())
-      rows.push(tableRow(momentInstance, hebrewDate))
+      row = tableRow(momentInstance, hebrewDate)
+      printRows.push(row)
+      screenRows.push(row)
+      if 19 == (i % 22)
+        printTables.push(generateTable(year, printRows))
+        printRows = []
+      i++
     gregorianDate.setDate(gregorianDate.getDate() + 1)
     hebrewDate = new HebrewDate(gregorianDate)
-  table = generateTable(year, rows)
-  $(".vatikin-schedule").html(table)
+  printTables.push(generateTable(year, printRows)) unless 0 == printRows.length
+  html = """
+    <div class='print-only'>
+      #{printTables.join("<p class='page-break-before'>&nbsp;</p>")}
+    </div>
+    <div class='screen-only'>
+      #{generateTable(year, screenRows)}
+    </div>
+  """
+  $(".vatikin-schedule").html(html)
 
 $ ->
   validYears = []
