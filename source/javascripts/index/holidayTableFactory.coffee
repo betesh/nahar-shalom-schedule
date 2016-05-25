@@ -7,7 +7,7 @@ roundedToNearest5Minutes = NaharShalomScheduleHelpers.roundedToNearest5Minutes
 
 dayOfWeek = (gregorianDate, hebrewDate, rows) ->
   dow = if hebrewDate.isShabbat() then "שַׁבָּת" else gregorianDate.format('dddd')
-  dow = "#{dow} night" if 1 == rows.length && rows[0].tomorrow
+  dow = "#{dow} night" if rows[0]?.tomorrow
   dow
 
 afternoonShiurimTimes = (hebrewDate) ->
