@@ -9,6 +9,12 @@ initialDate = ->
   initialDate = if initialDate.length > 0 then moment(initialDate, "YYYYMMDD").toDate() else (new Date())
   moment(initialDate).add(12, 'hours').format("YYYY-MM-DD")
 
+weekDescription = (shabbat) ->
+  sedra = "#{if shabbat.isRegel() || shabbat.isYomKippur() || shabbat.isYomTob() then "" else "שַׁבַּת פְּרָשָׁת"} #{shabbat.sedra().replace(/-/g, ' - ')}"
+  for event, name of window.ShabbatEvents
+    sedra = "#{sedra} &mdash; #{name}" if shabbat["is#{event}"]()
+  sedra
+
 write_schedule = (day_iterator) ->
   $('.start-hidden').addClass('hidden')
   $('.start-shown').removeClass('hidden')
@@ -16,12 +22,8 @@ write_schedule = (day_iterator) ->
   window.catching_errors 'Morning', day_iterator.toDate(), ->
     $(".weekly-table").html(tableFactory.generateWeekTable())
   window.catching_errors 'Sedra', day_iterator.toDate(), ->
-    for hebrewDate in tableFactory.hebrewWeek
-      if hebrewDate.isShabbat()
-        sedra = "#{if hebrewDate.isRegel() || hebrewDate.isYomKippur() || hebrewDate.isYomTob() then "" else "שַׁבַּת פְּרָשָׁת"} #{hebrewDate.sedra().replace(/-/g, ' - ')}"
-        for event, name of window.ShabbatEvents
-          sedra = "#{sedra} &mdash; #{name}" if hebrewDate["is#{event}"]()
-        $('.sedra').html(sedra)
+    shabbat = tableFactory.hebrewWeek[6]
+    $('.sedra').html(weekDescription(shabbat))
   announcementHtml = ""
   window.catching_errors 'Announcements', day_iterator.toDate(), ->
     for i in [0...(tableFactory.gregorianWeek.length)]
