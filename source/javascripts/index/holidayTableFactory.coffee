@@ -10,11 +10,22 @@ dayOfWeek = (gregorianDate, hebrewDate, rows) ->
   dow = "#{dow} night" if rows[0]?.tomorrow
   dow
 
-afternoonShiurimTimes = (hebrewDate) ->
-  if hebrewDate.isErebShabuot()
+zachorTimes = (shaharit) ->
+  zachor1 = roundedToNearest5Minutes(minutesAfter(shaharit.hodu()[0], 80)).format('h:mm A')
+  zachor2 = roundedToNearest5Minutes(minutesAfter(shaharit.hodu()[1], 105)).format('h:mm A')
+  "#{zachor1} <strong>and</strong> #{zachor2}"
+
+morningMegillaTimes = (gregorianDate, zmanim) ->
+  megilla1 = roundedToNearest5Minutes(minutesAfter(zmanim.sunrise(), 20))
+  megilla2 = moment(gregorianDate).hour(9).minute(30).second(0)
+  "#{megilla1.format('h:mm A')} <strong>and</strong> #{megilla2.format('h:mm A')}"
+
+afternoonShiurimTimes = (hebrewDate, mincha) ->
+  minuteList = if hebrewDate.isErebShabuot()
     [90, 60, -65]
   else
     [120, 90, 30]
+  (minutesBefore(mincha, minutes).format('h:mm') for minutes in minuteList).join(" / ")
 
 hadlakatNerotTime = (hebrewDate, zmanim) ->
   if hebrewDate.yomYobThatWePrayAtPlag() && !hebrewDate.isErebShabbat() && !hebrewDate.isShabbat()
@@ -25,6 +36,10 @@ hadlakatNerotTime = (hebrewDate, zmanim) ->
     "After #{zmanim.setHaKochabim3Stars().format('h:mm')}"
   else
     zmanim.hadlakatNerot().format('h:mm')
+
+seudat_shelishit_in_shul_description = (hebrewDate) ->
+  seudat_shelishit_verb = if hebrewDate.isErebShabuot() || hebrewDate.isEreb9Ab() then "<strong>Finish</strong>" else "Begin"
+  "<span class='font13'>#{seudat_shelishit_verb} סְעוּדַת שְׁלִישִׁית before</span>"
 
 rabbenuTamTime = (zmanim) -> moment(zmanim.sunset()).add(72, 'minutes').seconds(60).format('h:mm')
 
@@ -49,18 +64,13 @@ class HolidayTableFactory
     if hebrewDate.isTaanit() && !hebrewDate.is9Ab()
       rows.push(description: "Fast begins", time: zmanim.magenAbrahamDawn().format('h:mm A'))
     if hebrewDate.isPurim()
-      megilla1 = roundedToNearest5Minutes(minutesAfter(zmanim.sunrise(), 20))
-      megilla2 = moment(gregorianDate).hour(9).minute(30).second(0)
-      rows.push(description: "קְרִיאַת הַמְגִּילִָה", time: "#{megilla1.format('h:mm A')} <strong>and</strong> #{megilla2.format('h:mm A')}")
+      rows.push(description: "קְרִיאַת הַמְגִּילִָה", time: morningMegillaTimes(gregorianDate, zmanim))
     if shaharit.hoduLate()? && zmanim.sofZmanKeriatShema().diff(shaharit.hoduLate(), 'minutes') < 60
       rows.push(description: "<strong>Say שְׁמַע יִשְׂרָאֵל before</strong>", time: "<strong>#{zmanim.sofZmanKeriatShema().format("h:mm")}</strong>")
     if hebrewDate.isRoshHashana() && !hebrewDate.isShabbat()
         rows.push(description: "<strong>תְּקִיעַת שׁוֹפַר</strong>", time: "<strong>#{moment(shaharit.hoduLate()).add(150, 'minutes').format('h:mm')}</strong>")
     if hebrewDate.isShabbatZachor()
-      zachor1 = roundedToNearest5Minutes(minutesAfter(shaharit.hodu()[0], 80)).format('h:mm A')
-      zachor2 = roundedToNearest5Minutes(minutesAfter(shaharit.hodu()[1], 105)).format('h:mm A')
-      time = "#{zachor1}<strong>and</strong>#{zachor2}"
-      rows.push(description: "פְּרָשָׁת זָכוֹר", time: time)
+      rows.push(description: "פְּרָשָׁת זָכוֹר", time: zachorTimes(shaharit))
     if hebrewDate.isShabbatMevarechim()
       hachrazatRoshHodesh = new HachrazatRoshChodesh(hebrewDate)
       rows.push(description: "#{hachrazatRoshHodesh.moladAnnouncement()}<br>#{hachrazatRoshHodesh.sephardicAnnouncement()}")
@@ -80,17 +90,14 @@ class HolidayTableFactory
       seudat_shelishit_description = "Begin סְעוּדַת שְׁלִישִׁית <strong>at home</strong> before"
       rows.push(description: "<span class='font13'>#{seudat_shelishit_description}</span>", time: zmanim.sunset().format('h:mm'))
     if (hebrewDate.isShabbat() || hebrewDate.isYomTob()) && !hebrewDate.is1stDayOfPesach()  && !hebrewDate.is2ndDayOfPesach() && !hebrewDate.is1stDayOfShabuot() && !hebrewDate.isYomKippur()
-      times = (minutesBefore(mincha, minutes).format('h:mm') for minutes in afternoonShiurimTimes(hebrewDate))
-      rows.push(description: "Afternoon Shiurim", time: times.join(" / "))
+      rows.push(description: "Afternoon Shiurim", time: afternoonShiurimTimes(hebrewDate, mincha))
     if hebrewDate.isRoshHashana() && hebrewDate.is1stDayOfYomTob()
       rows.push(description: "תַּשְׁלְיךְ", time: "After מִנְחָה")
     if hebrewDate.is2ndDayOfYomTob() && !hebrewDate.isErebShabbat() && !hebrewDate.isShabbat()
       rows.push(description: "יוֹם טוֹב ends", time: zmanim.setHaKochabim3Stars().format('h:mm'))
     if hebrewDate.isShabbat() && !hebrewDate.isYomKippur()
       unless hebrewDate.is1stDayOfYomTob()
-        seudat_shelishit_verb = if hebrewDate.isErebShabuot() || hebrewDate.isEreb9Ab() then "<strong>Finish</strong>" else "Begin"
-        seudat_shelishit_description = "<span class='font13'>#{seudat_shelishit_verb} סְעוּדַת שְׁלִישִׁית before</span>"
-        rows.push(description: seudat_shelishit_description, time: zmanim.sunset().format('h:mm'))
+        rows.push(description: seudat_shelishit_in_shul_description(hebrewDate), time: zmanim.sunset().format('h:mm'))
       rows.push(description: "שַׁבָּת ends", time: zmanim.setHaKochabim3Stars().format('h:mm'))
       rows.push(description: "רַבֵּנוּ תָּם", time: rabbenuTamTime(zmanim))
       if zmanim.sunset().isBefore(moment(gregorianDate).hour(18).minute(35)) && !hebrewDate.isErebPurim()
