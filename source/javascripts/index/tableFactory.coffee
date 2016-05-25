@@ -58,9 +58,16 @@ class TableFactory
         tableSectionTitle = title(hebrewDate)
         tableSectionTitles.push(tableSectionTitle) if tableSectionTitle? and (tableSectionTitle not in tableSectionTitles)
       if (endOfTable || !tableSection?) && tableSections.length > 0
-        table = tableSections.join("")
-        titles = tableSectionTitles.join(" / ")
-        table = "<table class='table table-striped table-condensed'><tr><th colspan=4 class='text-center'>#{titles}</th></tr>#{table}</table>"
+        table = """
+          <table class='table table-striped table-condensed'>
+            <tr>
+              <th colspan=4 class='text-center'>
+                #{tableSectionTitles.join(" / ")}
+              </th>
+            </tr>
+            #{tableSections.join("")}
+          </table>
+        """
         tables.push(table)
         tableSections = []
         tableSectionTitles = []

@@ -29,6 +29,7 @@ write_schedule = (day_iterator) ->
     for i in [0...(tableFactory.gregorianWeek.length)]
       hebrewDate = tableFactory.hebrewWeek[i]
       if hebrewDate.isShabbat() || hebrewDate.isErebPesach()
+        # TODO: If Shabbat during the week of Ereb Pesach has an announcement, one will clobber the other
         zmanim = tableFactory.zmanimWeek[i]
         announcement = new Announcement(hebrewDate, zmanim).announcement()
         switch announcement.length
