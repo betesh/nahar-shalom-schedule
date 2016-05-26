@@ -37,7 +37,7 @@ hadlakatNerotTime = (hebrewDate, zmanim) ->
   else
     zmanim.hadlakatNerot().format('h:mm')
 
-seudat_shelishit_in_shul_description = (hebrewDate) ->
+seudatShelishitInShulDescription = (hebrewDate) ->
   verb = if hebrewDate.isErebShabuot() || hebrewDate.isEreb9Ab() then "<strong>Finish</strong>" else "Begin"
   "<span class='font13'>#{verb} סְעוּדַת שְׁלִישִׁית before</span>"
 
@@ -92,8 +92,8 @@ class HolidayTableFactory
     if hebrewDate.isEreb9Ab() && !hebrewDate.isShabbat()
       rows.push(description: "Fast begins", time: zmanim.sunset().format('h:mm'))
     if hebrewDate.is1stDayOfYomTob() && hebrewDate.isShabbat()
-      seudat_shelishit_description = "Begin סְעוּדַת שְׁלִישִׁית <strong>at home</strong> before"
-      rows.push(description: "<span class='font13'>#{seudat_shelishit_description}</span>", time: zmanim.sunset().format('h:mm'))
+      seudatShelishitDescription = "Begin סְעוּדַת שְׁלִישִׁית <strong>at home</strong> before"
+      rows.push(description: "<span class='font13'>#{seudatShelishitDescription}</span>", time: zmanim.sunset().format('h:mm'))
     if (hebrewDate.isShabbat() || hebrewDate.isYomTob()) && !hebrewDate.is1stDayOfPesach()  && !hebrewDate.is2ndDayOfPesach() && !hebrewDate.is1stDayOfShabuot() && !hebrewDate.isYomKippur()
       rows.push(description: "Afternoon Shiurim", time: afternoonShiurimTimes(hebrewDate, mincha))
     if hebrewDate.isRoshHashana() && hebrewDate.is1stDayOfYomTob()
@@ -102,7 +102,7 @@ class HolidayTableFactory
       rows.push(description: "יוֹם טוֹב ends", time: zmanim.setHaKochabim3Stars().format('h:mm'))
     if hebrewDate.isShabbat() && !hebrewDate.isYomKippur()
       unless hebrewDate.is1stDayOfYomTob()
-        rows.push(description: seudat_shelishit_in_shul_description(hebrewDate), time: zmanim.sunset().format('h:mm'))
+        rows.push(description: seudatShelishitInShulDescription(hebrewDate), time: zmanim.sunset().format('h:mm'))
       rows.push(description: "שַׁבָּת ends", time: zmanim.setHaKochabim3Stars().format('h:mm'))
       rows.push(description: "רַבֵּנוּ תָּם", time: rabbenuTamTime(zmanim))
       if zmanim.sunset().isBefore(moment(gregorianDate).hour(18).minute(35)) && !hebrewDate.isErebPurim()
