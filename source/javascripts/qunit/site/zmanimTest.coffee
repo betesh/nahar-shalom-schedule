@@ -67,7 +67,7 @@ zmanimTest = ->
     assertTimeEqual assert, actual.samuchLeminchaKetana(), moment(date).hour(16).minute(50).second(45), "One half hour before Mincha Ketana"
     assertTimeEqual assert, actual.plag(), moment(date).hour(18).minute(18).second(42), "Plag Hamincha"
     assertTimeEqual assert, actual.sunset(), moment(date).hour(19).minute(47).second(13), "Sunset"
-    assertTimeEqual assert, actual.setHaKochabimGeonim(), moment(date).hour(20).minute(4).second(9), "Set HaKochabim according to the Geonim"
+    assertTimeEqual assert, actual.setHaKochabimGeonim(), moment(date).hour(20).minute(4).second(0), "Set HaKochabim according to the Geonim"
     assertTimeEqual assert, actual.setHaKochabim3Stars(), moment(date).hour(20).minute(33).second(39), "Set HaKochabim according to the custom in the USA"
 
 $ ->

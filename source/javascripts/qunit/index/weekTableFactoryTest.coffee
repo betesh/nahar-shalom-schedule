@@ -34,7 +34,7 @@ EXPECTED_2016_MAY_14 = """
     <td class='bold'>6:34:25</td>
     <td>7:46</td>
     <td>8:00</td>
-    <td>Sun. night: <b>23</b></td>
+    <td>Sun. night: <b>23</b> (After 8:17)</td>
   </tr>
   <tr>
     <td>Monday</td>
@@ -46,7 +46,7 @@ EXPECTED_2016_MAY_14 = """
     <td class='bold'>6:33:55</td>
     <td>7:46</td>
     <td>8:01</td>
-    <td>Mon. night: <b>24</b></td>
+    <td>Mon. night: <b>24</b> (After 8:18)</td>
   </tr>
   <tr>
     <td>Tuesday</td>
@@ -58,7 +58,7 @@ EXPECTED_2016_MAY_14 = """
     <td class='bold'>6:33:25</td>
     <td>7:46</td>
     <td>8:01</td>
-    <td>Tue. night: <b>25</b></td>
+    <td>Tue. night: <b>25</b> (After 8:18)</td>
   </tr>
   <tr>
     <td>Wednesday</td>
@@ -70,7 +70,7 @@ EXPECTED_2016_MAY_14 = """
     <td class='bold'>6:33:00</td>
     <td>7:46</td>
     <td>8:02</td>
-    <td>Wed. night: <b>26</b></td>
+    <td>Wed. night: <b>26</b> (After 8:19)</td>
   </tr>
   <tr>
     <td>Thursday</td>
@@ -82,7 +82,7 @@ EXPECTED_2016_MAY_14 = """
     <td class='bold'>6:32:35</td>
     <td>7:46</td>
     <td>8:03</td>
-    <td>Thu. night: <b>27</b></td>
+    <td>Thu. night: <b>27</b> (After 8:19)</td>
   </tr>
   <tr>
     <td>Friday</td>
@@ -94,7 +94,7 @@ EXPECTED_2016_MAY_14 = """
     <td class='bold'>6:32:10</td>
     <td>6:30</td>
     <td></td>
-    <td>Fri. night: <b>28</b></td>
+    <td>Fri. night: <b>28</b> (After 8:20)</td>
   </tr>
   <tr>
     <td>שַׁבָּת</td>
@@ -106,7 +106,7 @@ EXPECTED_2016_MAY_14 = """
     <td class='bold'><span class='screen-only'><a href='shabbat.html'>6:31:45</a></td>
     <td>7:15</td>
     <td>8:52</td>
-    <td>Sat. night: <b>29</b></td>
+    <td>Sat. night: <b>29</b> (After 8:20)</td>
   </tr>
 """
 
