@@ -72,8 +72,7 @@ tableRow = (momentInstance, hebrewDate) ->
   """
 
 updateTable = ->
-  value = this.value
-  window.catchingErrors 'Shabbat', value, -> updateTableInTryCatch(value)
+  window.catchingErrors 'Shabbat', @value, => updateTableInTryCatch(@value)
 
 updateTableInTryCatch = (value) ->
   year = parseInt(value)
