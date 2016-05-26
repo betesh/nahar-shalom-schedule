@@ -43,6 +43,12 @@ seudatShelishitInShulDescription = (hebrewDate) ->
 
 rabbenuTamTime = (zmanim) -> moment(zmanim.sunset()).add(72, 'minutes').seconds(60).format('h:mm')
 
+generateRowHtml = (row) ->
+  if row.time?
+    "<td>#{row.description}</td><td>#{row.time}</td>"
+  else
+    "<td colspan=2 class='text-center'><strong>#{row.description}</strong></td>"
+
 class HolidayTableFactory
   constructor: (gregorianWeek, hebrewWeek, zmanimWeek, shaharitWeek, minchaWeek) ->
     [@gregorianWeek, @hebrewWeek, @zmanimWeek, @shaharitWeek, @minchaWeek] = [gregorianWeek, hebrewWeek, zmanimWeek, shaharitWeek, minchaWeek]
@@ -50,12 +56,7 @@ class HolidayTableFactory
     rowData = @generateRows(iterator)
     rows = rowData.rows
     return if 0 == rows.length
-    tableSection = []
-    for row in rows
-      if row.time?
-        tableSection.push("<td>#{row.description}</td><td>#{row.time}</td>")
-      else
-        tableSection.push("<td colspan=2 class='text-center'><strong>#{row.description}</strong></td>")
+    tableSection = (generateRowHtml(row) for row in rows)
     """
       <tr>
         <td rowspan='#{rows.length}'>#{rowData.dayOfWeek}</td>
