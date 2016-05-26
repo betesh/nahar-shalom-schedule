@@ -15,9 +15,9 @@ class Arbit
     when @hebrewDate.isErebShabbat() || (@hebrewDate.isErebYomTob() && !@hebrewDate.isShabbat()) then null
     when @hebrewDate.isShabbat() && @hebrewDate.isEreb9Ab() then minutesAfter(@setHaKochabim3Stars, 0).seconds(0)
     when @hebrewDate.isShabbat() && !@hebrewDate.tonightIsYomTob() then minutesAfter(@setHaKochabim3Stars, 10).seconds(0)
-    when @hebrewDate.yomYobThatWePrayAtPlag() && !@hebrewDate.isErebShabbat() && !@hebrewDate.isShabbat() then moment(@plag).seconds(60)
+    when @hebrewDate.yomYobThatWePrayAtPlag() && !@hebrewDate.isShabbat() then moment(@plag).seconds(60)
     when @hebrewDate.hasHadlakatNerotAfterSetHaKochabim() then moment(@setHaKochabimGeonim).seconds(0)
-    when @hebrewDate.is2ndDayOfYomTob() && !@hebrewDate.isErebShabbat() then roundedToNearest5Minutes(minutesBefore(@setHaKochabim3Stars, 10))
+    when @hebrewDate.is2ndDayOfYomTob() then roundedToNearest5Minutes(minutesBefore(@setHaKochabim3Stars, 10))
     else moment(@sunset).seconds(0)
 
 (exports ? this).Arbit = Arbit
