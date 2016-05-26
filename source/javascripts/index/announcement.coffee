@@ -12,6 +12,7 @@ class ErebPesachAnnouncement
   announcement: -> @_announcement ?=if @hebrewDate.isShabbat()
         "#{@burn()}<br>#{@stopEating()}<br>#{@nullify()}"
         # TODO: Need to decide what to do announce about Seudat Shelishit
+        # TODO: This could be more accurate if we generate the burn announcement using Friday's time instead of Saturday's
       else
         "#{@stopEating()}<br>#{@burn()}"
 
