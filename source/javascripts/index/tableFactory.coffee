@@ -18,7 +18,7 @@ title = (hebrewDate) -> switch
   when hebrewDate.isTaanitEster() then "תַּעֲנִית אֶסְתֵּר"
   when hebrewDate.isFastOfGedaliah() then "צוֹם גְּדַלְיָה"
   when hebrewDate.isPurim() then "פּוּרִים"
-  when hebrewDate.is7thDayOfPesach() || hebrewDate.is8thDayOfPesach() then " שְׁבִיעִי וְאַחֲרוֹן שֶׁל פֶּסַח"
+  when hebrewDate.is7thDayOfPesach() || hebrewDate.is8thDayOfPesach() then "שְׁבִיעִי וְאַחֲרוֹן שֶׁל פֶּסַח"
   when hebrewDate.is1stDayOfPesach() || hebrewDate.is2ndDayOfPesach() then "יוֹם טוֹב רִאשׁוֹן שֶׁל פֶּסַח"
   when hebrewDate.isSukkot() && hebrewDate.isYomTob() && !hebrewDate.isSheminiAseret() then "חַג הַסֻּכּוֹת"
   when hebrewDate.isSheminiAseret() then "שְּׁמִינִי עֲצֶרֶת"
