@@ -3,8 +3,7 @@ window.catchingErrors = function(topic, date, fn) {
     try {
       fn();
     } catch(e) {
-      console.warn(e);
-      console.warn(e.stack);
+      console.warn("Error on: " + topic + " / " + date + "\n" + e.stack);
       alert(e);
   }
   <% else %>
