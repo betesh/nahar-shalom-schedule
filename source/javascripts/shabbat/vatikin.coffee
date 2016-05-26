@@ -112,11 +112,11 @@ $ ->
   for year, sunrises of window.sunrises
     validYears.push(year)
     if parseInt(year) >= 5776
-      $("select.year_select").append($("<option>", { text: year }))
-  $("select.year_select").change updateTable
+      $("select.year-select").append($("<option>", { text: year }))
+  $("select.year-select").change updateTable
   unless  initialDate in validYears
     initialDate = new Date()
     initialDate.setDate(initialDate.getDate() + 2)
     initialDate = new HebrewDate(initialDate).getYearFromCreation()
-  $("select.year_select").val(initialDate)
-  $("select.year_select").change()
+  $("select.year-select").val(initialDate)
+  $("select.year-select").change()
