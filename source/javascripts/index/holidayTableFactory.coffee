@@ -93,7 +93,7 @@ class HolidayTableFactory
       rows.push(description: "Fast begins", time: zmanim.sunset().format('h:mm'))
     if hebrewDate.is1stDayOfYomTob() && hebrewDate.isShabbat()
       seudatShelishitAtHomeDescription = "Begin סְעוּדַת שְׁלִישִׁית <strong>at home</strong> before"
-      rows.push(description: "<span class='font13'>#{seudatShelishitAtHomeDescription}</span>", time: zmanim.sunset().format('h:mm'))
+      rows.push(description: "<span class='font13'>#{seudatShelishitAtHomeDescription}</span>", time: zmanim.samuchLeminchaKetana().format('h:mm'))
     if (hebrewDate.isShabbat() || hebrewDate.isYomTob()) && !hebrewDate.is1stDayOfPesach()  && !hebrewDate.is2ndDayOfPesach() && !hebrewDate.is1stDayOfShabuot() && !hebrewDate.isYomKippur()
       rows.push(description: "Afternoon Shiurim", time: afternoonShiurimTimes(hebrewDate, mincha))
     if hebrewDate.isRoshHashana() && hebrewDate.is1stDayOfYomTob()
