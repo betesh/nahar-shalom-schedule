@@ -20,7 +20,7 @@ class Schedule
   tableFactory: -> @_tableFactory ?= new TableFactory(@momentInstance)
   shabbat: -> @_shabbat ?= @tableFactory().hebrewWeek[6]
   iterators: -> @_iterators ?= [0...(@tableFactory().gregorianWeek.length)]
-  catchingErrors: (description, fn) -> window.catching_errors description, @momentInstance.toDate(), fn
+  catchingErrors: (description, fn) -> window.catchingErrors description, @momentInstance.toDate(), fn
   announcementHtml: -> @_announcementHtml ?= (=>
     for i in @iterators()
       hebrewDate = @tableFactory().hebrewWeek[i]
