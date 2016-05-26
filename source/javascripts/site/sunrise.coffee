@@ -9,6 +9,6 @@ class Sunrise
     if this_year_sunrises
       doy = hebrew_date.getDayOfYear()
       @sunrise = moment(this_year_sunrises[doy - 1], 'h:mm:ss').add(dst_offset, 'hours').year(moment_instance.year()).month(moment_instance.month()).date(moment_instance.date())
-  get: -> @sunrise
+  time: -> @sunrise
 
 window.Sunrise = Sunrise

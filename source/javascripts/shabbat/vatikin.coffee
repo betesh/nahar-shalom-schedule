@@ -47,7 +47,7 @@ tableHeader = (year) ->
   """
 
 tableRow = (momentInstance, hebrewDate) ->
-  sunrise = new Sunrise(momentInstance).get()
+  sunrise = new Sunrise(momentInstance).time()
   shaharit = new Shaharit(hebrewDate, sunrise)
   return unless shaharit.hoduLate()?
   firstDayOfYear = hebrewDate.isRoshHashana() && hebrewDate.is1stDayOfYomTob()
