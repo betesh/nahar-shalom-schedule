@@ -8,6 +8,8 @@
 //= require ./weekTable
 //= require ./holidayTableFactory
 
+endOfTable = (hebrewDate) -> hebrewDate.isShabbat() || hebrewDate.is2ndDayOfYomTob() || hebrewDate.isPurim() || hebrewDate.is10Tevet()
+
 title = (hebrewDate) -> switch
   when hebrewDate.is9Ab() then "תִּשְׁעָה בְּאָב"
   when hebrewDate.isRoshHashana() then "רֹאשׁ הַשָּׁנָה"
@@ -31,18 +33,18 @@ class TableFactory
     @gregorianWeek = (moment(gregorianDate).day(weekday) for weekday in moment.weekdays())
     @hebrewWeek = (new HebrewDate(date.toDate()) for date in @gregorianWeek)
     @zmanimWeek = (new Zmanim(day, window.coordinates) for day in @gregorianWeek)
-    @shaharitWeek = for i in [0...(@gregorianWeek.length)]
-      new Shaharit(@hebrewWeek[i], new Sunrise(@gregorianWeek[i]).time() ? @zmanimWeek[i].sunrise(), @zmanimWeek[i].sofZmanKeriatShema())
+    @shaharitWeek = (@shaharit(i) for i in [0...(@gregorianWeek.length)])
     @minchaWeek = (@mincha(i) for i in [0...(@gregorianWeek.length)])
   dateOfNextHadlakatNerot: (i) ->
     i++ until @hebrewWeek[i].hasHadlakatNerot()
     i
   nextHadlakatNerot: (iterator) -> @zmanimWeek[@dateOfNextHadlakatNerot(iterator)].hadlakatNerot()
   mincha: (iterator) -> new Mincha(@hebrewWeek[iterator], @zmanimWeek[iterator].plag(), @zmanimWeek[iterator].sunset()).time() ? @nextHadlakatNerot(iterator)
+  sunrise: (iterator) -> new Sunrise(@gregorianWeek[iterator]).time() ? @zmanimWeek[iterator].sunrise()
+  shaharit: (iterator) -> new Shaharit(@hebrewWeek[iterator], @sunrise(iterator), @zmanimWeek[iterator].sofZmanKeriatShema())
   generateWeekTable: ->
     weekTable = new WeekTable(@gregorianWeek, @hebrewWeek, @zmanimWeek, @shaharitWeek, @minchaWeek, window.HebrewEvents)
-    weekTableRows = for i in [0...(@gregorianWeek.length)]
-      weekTable.generateRow(i)
+    weekTableRows = (weekTable.generateRow(i) for i in [0...(@gregorianWeek.length)])
     weekTable.generateHeaderRow() + weekTableRows.join('')
   generateHolidayTables: ->
     holidayTableFactory = new HolidayTableFactory(@gregorianWeek, @hebrewWeek, @zmanimWeek, @shaharitWeek, @minchaWeek)
@@ -52,12 +54,11 @@ class TableFactory
     for i in [0...(@gregorianWeek.length)]
       hebrewDate = @hebrewWeek[i]
       tableSection = holidayTableFactory.generateTableSection(i)
-      endOfTable = hebrewDate.isShabbat() || hebrewDate.is2ndDayOfYomTob() || hebrewDate.isPurim() || hebrewDate.is10Tevet()
       if tableSection?
         tableSections.push(tableSection)
         tableSectionTitle = title(hebrewDate)
         tableSectionTitles.push(tableSectionTitle) if tableSectionTitle? and (tableSectionTitle not in tableSectionTitles)
-      if (endOfTable || !tableSection?) && tableSections.length > 0
+      if (endOfTable(hebrewDate) || !tableSection?) && tableSections.length > 0
         table = """
           <table class='table table-striped table-condensed'>
             <tr>
