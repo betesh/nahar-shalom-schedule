@@ -16,8 +16,6 @@ weekDescription = (shabbat) ->
   sedra
 
 write_schedule = (day_iterator) ->
-  $('.start-hidden').addClass('hidden')
-  $('.start-shown').removeClass('hidden')
   tableFactory = new TableFactory(day_iterator)
   window.catching_errors 'Morning', day_iterator.toDate(), ->
     $(".weekly-table").html(tableFactory.generateWeekTable())
