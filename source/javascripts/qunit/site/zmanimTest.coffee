@@ -69,6 +69,16 @@ zmanimTest = ->
     assertTimeEqual assert, actual.sunset(), moment(date).hour(19).minute(47).second(13), "Sunset"
     assertTimeEqual assert, actual.setHaKochabimGeonim(), moment(date).hour(20).minute(4).second(0), "Set HaKochabim according to the Geonim"
     assertTimeEqual assert, actual.setHaKochabim3Stars(), moment(date).hour(20).minute(33).second(39), "Set HaKochabim according to the custom in the USA"
+  winterDate = new Date(2016,0,3)
+  QUnit.test "Zmanim test for #{moment(winterDate).format("YYYY-MM-DD")} in Boston", (assert) ->
+    actual = new Zmanim(winterDate, boston)
+    assertTimeEqual assert, actual.sunset(), moment(winterDate).hour(16).minute(24).second(31), "Sunset"
+    assertTimeEqual assert, actual.setHaKochabimGeonim(), moment(winterDate).hour(16).minute(42).second(0), "Set HaKochabim according to the Geonim"
+  summerDate = new Date(2016,6,3)
+  QUnit.test "Zmanim test for #{moment(summerDate).format("YYYY-MM-DD")} in Boston", (assert) ->
+    actual = new Zmanim(summerDate, boston)
+    assertTimeEqual assert, actual.sunset(), moment(summerDate).hour(20).minute(25).second(40), "Sunset"
+    assertTimeEqual assert, actual.setHaKochabimGeonim(), moment(summerDate).hour(20).minute(43).second(0), "Set HaKochabim according to the Geonim"
 
 $ ->
   zmanimTest()

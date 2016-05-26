@@ -38,9 +38,10 @@ class Zmanim
   sunset: -> @_sunset ?= moment(@zmanim.sunset)
   setHaKochabimGeonim: -> @_setHaKochabimGeonim ?= (
     time = @shaaZemaniGra(12.225)
-    timeSinceSunset = time.diff(@sunset()) / 1000.0 / 60.0
-    timeSinceSunset = 27 - timeSinceSunset if timeSinceSunset < 13.5
-    time = moment(@sunset()).add(timeSinceSunset, 'minutes')
+    timeSinceSunset = time.diff(@sunset())
+    if timeSinceSunset < 13.5 * 60 * 1000
+      timeSinceSunset = 27 * 60 * 1000 - timeSinceSunset
+      time = moment(@sunset()).add(timeSinceSunset)
     time.seconds(60)
   )
   setHaKochabim3Stars: -> @_setHaKochabim3Stars ?= moment(@zmanim.setHaKochabim)
