@@ -35,6 +35,9 @@ class Announcement
     else if @hebrewDate.isErebShabuot() && @hebrewDate.isShabbat()
       "If starting סְעוּדַת שְׁלִישִׁית after #{@zmanim.samuchLeminchaKetana().format("h:mm A")}, wash your hands without a בְּרָכָה and eat less than 54 grams of bread.<br><b>There will be סְעוּדַת שְׁלִישִׁית in shul.</b>"
   configuredAnnouncement: ->
-    window.announcements[@hebrewDate.getHebrewYear().getYearFromCreation()]?[@hebrewDate.weekOfYear()]
+    year = @hebrewDate.getHebrewYear().getYearFromCreation()
+    week = @hebrewDate.weekOfYear()
+    console.log "Looking for announcement for week #{week} of year #{year}"
+    window.announcements[year]?[week]
 
 (exports ? this).Announcement = Announcement
