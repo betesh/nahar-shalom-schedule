@@ -33,6 +33,7 @@ class Schedule
             return "<div class='col-lg-4 col-lg-offset-1 col-xs-5 jumbotron font22'>#{announcement}</div>"
           when 2
             return "<div class='col-lg-4 col-lg-offset-1 col-xs-5 jumbotron font22 double-jumbotron'>#{announcement.join("<br><br>")}</div>"
+    false
   )()
   holidayTableWidths: (length) -> @_holidayTableWidths ?= switch length
     when 1
@@ -52,7 +53,7 @@ class Schedule
     widths = @holidayTableWidths(tables.length)
     html = for i in [0...(tables.length)]
       "<div class='col-xs-#{widths[i]}'>#{tables[i]}</div>"
-    $('.chagim-tables').html(html.join('') + (@announcementHtml() ? ''))
+    $('.chagim-tables').html(html.join('') + (@announcementHtml() || ''))
   writeSchedule: ->
     @writeWeekTable()
     @writeSedra()
