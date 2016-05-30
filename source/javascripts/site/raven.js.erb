@@ -5,7 +5,7 @@ window.catchingErrors = function(topic, date, fn) {
     } catch(e) {
       console.warn("Error on: " + topic + " / " + date + "\n" + e.stack);
       alert(e);
-  }
+    }
   <% else %>
     Raven.wrap({ tags: { date: date, topic: topic }}, fn)();
   <% end %>
