@@ -8,7 +8,7 @@
 //= require ./weekTable
 //= require ./holidayTableFactory
 
-endOfTable = (hebrewDate) -> hebrewDate.isShabbat() || hebrewDate.is2ndDayOfYomTob() || hebrewDate.isPurim() || hebrewDate.is10Tevet()
+endOfTable = (hebrewDate) -> hebrewDate.isShabbat() || hebrewDate.is2ndDayOfYomTob() || hebrewDate.isPurim() || hebrewDate.is10Tevet() || (hebrewDate.isTaanitEster() && 11 == hebrewDate.getDayOfMonth())
 
 title = (hebrewDate) -> switch
   when hebrewDate.is9Ab() then "תִּשְׁעָה בְּאָב"
