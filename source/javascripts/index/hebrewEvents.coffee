@@ -1,6 +1,10 @@
 HebrewEvents =
   RoshHodesh: "רֹאשׁ חֹדֶשׁ"
-  Taanit: "תַּעֲנִית"
+  SeventeenthOfTamuz: "שִׁבְעָה עֲשָׂר בְּתַּמוּז"
+  TenthOfTebet: "עֲשָׂרָה בְּטֵבֵת"
+  TaanitEster: "תַּעֲנִית אֶסְתֵּר"
+  FastOfGedaliah: "צוֹם גְּדַלְיָה"
+  NinthOfAb: "תִּשְׁעָה בְּאָב"
   Hanuka: "חֲנֻכַּה"
   Purim: "פּוּרִים"
   Moed: "חוֹל הַמוֹעֵד"
