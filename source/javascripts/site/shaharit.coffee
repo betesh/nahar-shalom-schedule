@@ -35,8 +35,7 @@ class Shaharit
     when @hebrewDate.isYomKippur() then moment(@hebrewDate.gregorianDate).hours(7).minutes(15).seconds(0)
     when @hebrewDate.is1stDayOfPesach() || @hebrewDate.is2ndDayOfPesach() then moment(@hebrewDate.gregorianDate).hours(9).minutes(0).seconds(0)
     when @hebrewDate.isShabuot() && @hebrewDate.is1stDayOfYomTob() then null
-    when @hebrewDate.isYomTob() then moment(@hebrewDate.gregorianDate).hours(8).minutes(0).seconds(0)
-    when @hebrewDate.isShabbat() then @hoduLateOnShabbat()
+    when @hebrewDate.isYomTob() || @hebrewDate.isShabbat() then @hoduLateOnShabbat()
     else null
   selihot: -> @_selihot ?= if @hasSelihot() then moment(@korbanotVatikin()).subtract(@selihotMinutes(), 'minutes').seconds(0) else null
   korbanot: -> if @korbanotLate()? then [@korbanotVatikin().seconds(0), @korbanotLate().seconds(0)] else [@korbanotVatikin().seconds(0)]

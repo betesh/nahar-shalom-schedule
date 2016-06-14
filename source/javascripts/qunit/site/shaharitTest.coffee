@@ -29,15 +29,6 @@ shaharitTest = (gregorianDate, expected, sofZmanKeriatShemaMinute = 31) ->
     assertTimeEqual assert, shaharit.yishtabach(), expected.yishtabach,"Yishtabach"
     assertTimeEqual assert, shaharit.amidah(), expected.amidah,"Amidah"
 
-shaharitYomTobTest  = (date) ->
-  shaharitTest date,
-    selihot: null,
-    korbanot: [moment(date).hours(5).minutes(11), moment(date).hours(7).minutes(45)],
-    hodu: [moment(date).hours(5).minutes(26), moment(date).hours(8).minutes(0)],
-    nishmat: moment(date).hours(5).minutes(51),
-    yishtabach: moment(date).hours(5).minutes(55),
-    amidah: moment(date).hours(6).minutes(8).seconds(8)
-
 shaharitPesachTest  = (date) ->
   shaharitTest date,
     selihot: null,
@@ -73,11 +64,11 @@ shaharitWeekdayTest = (date, selihot) ->
     yishtabach: moment(date).hours(5).minutes(59),
     amidah: moment(date).hours(6).minutes(8).seconds(8)
 
-shaharitShabbatTest815  = (date) ->
+shaharitShabbatTest815  = (date, yomTob = false) ->
   shaharitTest date,
     selihot: null,
-    korbanot: [moment(date).hours(5).minutes(13), moment(date).hours(8).minutes(15)],
-    hodu: [moment(date).hours(5).minutes(28), moment(date).hours(8).minutes(30)],
+    korbanot: [moment(date).hours(5).minutes(if yomTob then 11 else 13), moment(date).hours(8).minutes(15)],
+    hodu: [moment(date).hours(5).minutes(if yomTob then 26 else 28), moment(date).hours(8).minutes(30)],
     nishmat: moment(date).hours(5).minutes(51),
     yishtabach: moment(date).hours(5).minutes(55),
     amidah: moment(date).hours(6).minutes(8).seconds(8)
@@ -111,19 +102,19 @@ $ ->
   shaharitHolHaMoedTest(new Date(2017,3,16))
 
   # 7th Day of Pesach
-  shaharitYomTobTest(new Date(2017,3,17))
+  shaharitShabbatTest815(new Date(2017,3,17), true)
 
   # 8th Day of Pesach
-  shaharitYomTobTest(new Date(2017,3,18))
+  shaharitShabbatTest815(new Date(2017,3,18), true)
 
   # 1st Day of Shabuot
   shaharitShabuotTest(new Date(2021,4,17))
 
   # 2nd Day of Shabuot
-  shaharitYomTobTest(new Date(2021,4,18))
+  shaharitShabbatTest815(new Date(2021,4,18), true)
 
   # 1st Day of Rosh Hashana
-  shaharitYomTobTest(new Date(2016,9,3))
+  shaharitShabbatTest815(new Date(2016,9,3), true)
 
   # Rosh Hodesh Elul
   shaharitWeekdayTest(new Date(2016,8,4))
