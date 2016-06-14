@@ -174,7 +174,7 @@ EXPECTED_2015_SEPTEMBER_16 = """
     <td class='bold'>7:06:40</td>
     <td>6:55</td>
     <td>7:25</td>
-    <td>תַּעֲנִית</td>
+    <td>צוֹם גְּדַלְיָה</td>
   </tr>
   <tr>
     <td>Thursday</td>
