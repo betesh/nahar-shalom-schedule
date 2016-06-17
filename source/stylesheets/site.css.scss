@@ -40,7 +40,10 @@
 }
 
 .row table.table {
-  td, th {
+  font-size: medium;
+  text-align: start;
+
+  tbody tr td, thead:first-child tr th {
     border-top: 1px dashed #555;
     border-right: 1px dashed #555;
     border-bottom: 1px dashed #555;
