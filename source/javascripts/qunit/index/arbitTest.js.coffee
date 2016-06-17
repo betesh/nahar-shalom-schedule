@@ -1,5 +1,5 @@
-//= require index/arbit
-//= require qunit/helpers
+#= require index/arbit
+#= require qunit/helpers
 
 occasionsThatDoNotAffectArbit = ["HataratNedarim", "10DaysOfTeshuba", "ErubTabshilin", "Regel", "ShabbatHaGadol", "Moed", "MaharHodesh", "ShabbatMevarechim"]
 assertTimeEqual = QunitHelpers.assertTimeEqual

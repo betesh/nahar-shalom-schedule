@@ -1,6 +1,6 @@
-//= require ../site/zmanim
-//= require ../site/hebrewDateExtensions
-//= require ../site/helpers
+#= require ../site/zmanim
+#= require ../site/hebrewDateExtensions
+#= require ../site/helpers
 
 minutesBefore = NaharShalomScheduleHelpers.minutesBefore
 minutesAfter = NaharShalomScheduleHelpers.minutesAfter

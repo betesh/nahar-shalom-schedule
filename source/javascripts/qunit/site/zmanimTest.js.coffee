@@ -1,5 +1,5 @@
-//= require site/zmanim
-//= require qunit/helpers
+#= require site/zmanim
+#= require qunit/helpers
 
 zmanimTest = ->
   assertTimeEqual = QunitHelpers.assertTimeEqual

@@ -1,5 +1,5 @@
-//= require ../vendor/hebrewDate
-//= require ../site/helpers
+#= require ../vendor/hebrewDate
+# = require ../site/helpers
 
 class Shaharit
   constructor: (hebrewDate, sunrise, sofZmanKeriatShema) ->

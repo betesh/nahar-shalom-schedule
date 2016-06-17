@@ -1,5 +1,5 @@
-//= require ./hachrazatTaanit
-//= require ../site/helpers
+#= require ./hachrazatTaanit
+#= require ../site/helpers
 
 minutesBefore = NaharShalomScheduleHelpers.minutesBefore
 minutesAfter = NaharShalomScheduleHelpers.minutesAfter

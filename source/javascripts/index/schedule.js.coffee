@@ -1,8 +1,8 @@
-//= require ./tableFactory
-//= require ../site/raven
-//= require ../site/shaharit
-//= require ./shabbatEvents
-//= require ./announcement
+#= require ./tableFactory
+#= require ../site/raven
+#= require ../site/shaharit
+#= require ./shabbatEvents
+#= require ./announcement
 
 initialDate = ->
   initialDate = window.location.search.replace("?", "")

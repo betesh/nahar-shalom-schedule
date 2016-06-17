@@ -1,5 +1,5 @@
 # TODO: Test this class
-//= require ./announcements
+#= require ./announcements
 
 class ErebPesachAnnouncement
   constructor: (hebrewDate, zmanim) ->

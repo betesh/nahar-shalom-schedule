@@ -1,5 +1,5 @@
-//= require ../vendor/suncalc
-//= require ../site/hebrewDateExtensions
+#= require ../vendor/suncalc
+#= require ../site/hebrewDateExtensions
 
 SunCalc.addTime(-8.5, 'smallStars3', 'setHaKochabim')
 SunCalc.addTime(-16.1, 'magenAbrahamDawn', 'magenAbrahamDusk')

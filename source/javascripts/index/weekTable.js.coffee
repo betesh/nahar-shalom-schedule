@@ -1,5 +1,5 @@
-//= require ./arbit
-//= require ../site/hebrewDateExtensions
+#= require ./arbit
+#= require ../site/hebrewDateExtensions
 
 class WeekTable
   constructor: (gregorianWeek, hebrewWeek, zmanimWeek, shaharitWeek, minchaWeek, events) ->

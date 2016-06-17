@@ -1,5 +1,5 @@
-//= require index/mincha
-//= require qunit/helpers
+#= require index/mincha
+#= require qunit/helpers
 
 occasionsThatDoNotAffectMincha = ["HataratNedarim", "10DaysOfTeshuba", "ErubTabshilin", "Regel", "ShabbatHaGadol", "Moed", "MaharHodesh", "ShabbatMevarechim"]
 assertTimeEqual = QunitHelpers.assertTimeEqual

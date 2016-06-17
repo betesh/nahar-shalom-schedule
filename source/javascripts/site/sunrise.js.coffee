@@ -1,5 +1,5 @@
-//= require ./sunrises
-//= require ../vendor/hebrewDate
+#= require ./sunrises
+#= require ../vendor/hebrewDate
 
 class Sunrise
   constructor: (momentInstance) ->

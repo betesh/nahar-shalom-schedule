@@ -1,5 +1,5 @@
-//= require ../site/hebrewDateExtensions
-//= require ../site/helpers
+#= require ../site/hebrewDateExtensions
+#= require ../site/helpers
 
 minutesBefore = NaharShalomScheduleHelpers.minutesBefore
 roundedToNearest5Minutes = NaharShalomScheduleHelpers.roundedToNearest5Minutes

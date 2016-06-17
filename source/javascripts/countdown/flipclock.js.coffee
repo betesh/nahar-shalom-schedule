@@ -1,6 +1,6 @@
-//= require ../vendor/flipclock
-//= require ../site/sunrise
-//= require ../site/raven
+#= require ../vendor/flipclock
+#= require ../site/sunrise
+#= require ../site/raven
 
 redirect = -> window.location.href = "/index.html"
 

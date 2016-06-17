@@ -1,12 +1,12 @@
-//= require ../vendor/hebrewDate
-//= require ../site/coordinates
-//= require ../site/sunrise
-//= require ../site/shaharit
-//= require ./mincha
-//= require ../site/zmanim
-//= require ./hebrewEvents
-//= require ./weekTable
-//= require ./holidayTableFactory
+#= require ../vendor/hebrewDate
+#= require ../site/coordinates
+#= require ../site/sunrise
+#= require ../site/shaharit
+#= require ./mincha
+#= require ../site/zmanim
+#= require ./hebrewEvents
+#= require ./weekTable
+#= require ./holidayTableFactory
 
 endOfTable = (hebrewDate) -> hebrewDate.isShabbat() || hebrewDate.is2ndDayOfYomTob() || hebrewDate.isPurim() || (hebrewDate.isTaanit() && !hebrewDate.isErebPurim())
 

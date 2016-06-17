@@ -1,5 +1,5 @@
-//= require site/shaharit
-//= require qunit/helpers
+#= require site/shaharit
+#= require qunit/helpers
 
 occasionsThatDoNotAffectShaharit = ["HataratNedarim", "ErubTabshilin", "Regel", "ShabbatHaGadol", "MaharHodesh", "ShabbatMevarechim", "ErebYomTob"]
 

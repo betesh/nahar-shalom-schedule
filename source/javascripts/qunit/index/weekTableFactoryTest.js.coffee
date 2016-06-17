@@ -1,5 +1,5 @@
-//= require index/tableFactory
-//= require qunit/helpers
+#= require index/tableFactory
+#= require qunit/helpers
 
 replaceWhitespaceBetweenHtmlTags = (string) -> string.replace(/\>\s+\</g, '><')
 
