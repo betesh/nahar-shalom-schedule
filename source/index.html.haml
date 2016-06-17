@@ -1,22 +1,27 @@
-;;;
-"title": "Nahar Shalom Shabbat Vatikin Schedule",
-"tracking_id":"UA-56578408-2"
-;;;
+---
+tracking_id: "UA-56578408-1"
+---
 .container-fluid
   .row.text-center
     .col-xs-5.col-lg-offset-1
       %img{:src => "images/logo.jpg"}
     .col-xs-7.col-lg-3.bold
-      .links http://times.naharshalom.com/shabbat.html
+      .links http://times.naharshalom.com/
+      .font48
+        %span.sedra
   .row.text-center
     .col-lg-10.col-lg-offset-1.col-xs-12
       .well.row.screen-only
         .col-xs-3
-          %select.year-select
-        .col-xs-3.col-xs-offset-6
-          %a{href: "/"} Click here for weekday schedule
+          %input.calendar{:type => :date}
+        .col-xs-9.text-lg
+          %a{:href => "countdown.html"} Click here for countdown to sunrise
       .row
-        .col-xs-12.vatikin-schedule
+        .col-xs-12
+          %table.table.table-striped.table-condensed.weekly-table
+      .row
+        .col-lg-10.col-xs-12.col-lg-offset-1
+          .row.chagim-tables
   .row.screen-only
     .col-xs-10.col-lg-offset-1
       .well

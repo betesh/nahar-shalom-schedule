@@ -1,16 +1,17 @@
-<html xmlns='http://www.w3.org/1999/xhtml'>
+<!doctype html>
+<html>
   <head>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
     <meta charset="utf-8">
-
-    <!-- Always force latest IE rendering engine or request Chrome Frame -->
-    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
 
     <!-- Use title if it's in the page YAML frontmatter -->
     <title><%= current_page.data.title || "Nahar Shalom Schedule" %></title>
 
-    <%= stylesheet_link_tag "normalize" %>
+    <link href='//fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
+
     <%= stylesheet_link_tag "http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" %>
-    <%= stylesheet_link_tag "all" %>
+    <%= stylesheet_link_tag :site %>
 
     <%= javascript_include_tag  "http://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js" %>
     <%= javascript_include_tag  "http://momentjs.com/static/js/global.js" %>

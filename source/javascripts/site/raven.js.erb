@@ -1,5 +1,5 @@
 window.catchingErrors = function(topic, date, fn) {
-  <% if development? %>
+  <% if app.development? %>
     try {
       fn();
     } catch(e) {
@@ -11,7 +11,7 @@ window.catchingErrors = function(topic, date, fn) {
   <% end %>
 };
 
-<% unless development? %>
+<% unless app.development? %>
   $(function(){
     Raven.config('https://83cf96b0b76d4dfeb6f5593181afd143@app.getsentry.com/35052').install();
   });
