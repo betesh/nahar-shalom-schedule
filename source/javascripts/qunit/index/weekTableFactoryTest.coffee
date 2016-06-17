@@ -12,7 +12,7 @@ weekTableTest = (gregorianDate, expectedHtml) ->
     assert.equal actualHtml, expectedHtml
 
 EXPECTED_2016_MAY_14 = """
-  <tr>
+  <thead><tr>
     <th></th>
     <th></th>
     <th></th>
@@ -23,8 +23,8 @@ EXPECTED_2016_MAY_14 = """
     <th>מִנְחָה</th>
     <th>עַרְבִית</th>
     <th>סְפִירַת הָעֹמֶר</th>
-  </tr>
-  <tr>
+  </tr></thead>
+  <tbody><tr>
     <td>Sunday</td>
     <td>15 May</td>
     <td>אִיָּר 7</td>
@@ -107,11 +107,11 @@ EXPECTED_2016_MAY_14 = """
     <td>7:15</td>
     <td>8:52</td>
     <td>Sat. night: <b>29</b> (After 8:20)</td>
-  </tr>
+  </tr></tbody>
 """
 
 EXPECTED_2015_SEPTEMBER_16 = """
-  <tr>
+  <thead><tr>
     <th></th>
     <th></th>
     <th></th>
@@ -123,8 +123,8 @@ EXPECTED_2015_SEPTEMBER_16 = """
     <th>מִנְחָה</th>
     <th>עַרְבִית</th>
     <th></th>
-  </tr>
-  <tr>
+  </tr></thead>
+  <tbody><tr>
     <td>Sunday</td>
     <td>13 Sep</td>
     <td>אֱלוּל 29</td>
@@ -214,11 +214,11 @@ EXPECTED_2015_SEPTEMBER_16 = """
     <td>6:35</td>
     <td>8:06</td>
     <td></td>
-  </tr>
+  </tr></tbody>
 """
 
 EXPECTED_2015_SEPTEMBER_23 = """
-  <tr>
+  <thead><tr>
     <th></th>
     <th></th>
     <th></th>
@@ -230,8 +230,8 @@ EXPECTED_2015_SEPTEMBER_23 = """
     <th>מִנְחָה</th>
     <th>עַרְבִית</th>
     <th></th>
-  </tr>
-  <tr>
+  </tr></thead>
+  <tbody><tr>
     <td>Sunday</td>
     <td>20 Sep</td>
     <td>תִּשְׁרִי 7</td>
@@ -321,7 +321,7 @@ EXPECTED_2015_SEPTEMBER_23 = """
     <td>6:25</td>
     <td>7:58</td>
     <td></td>
-  </tr>
+  </tr></tbody>
 """
 
 $ ->

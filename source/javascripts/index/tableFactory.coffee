@@ -45,7 +45,7 @@ class TableFactory
   generateWeekTable: ->
     weekTable = new WeekTable(@gregorianWeek, @hebrewWeek, @zmanimWeek, @shaharitWeek, @minchaWeek, window.HebrewEvents)
     weekTableRows = (weekTable.generateRow(i) for i in [0...(@gregorianWeek.length)])
-    weekTable.generateHeaderRow() + weekTableRows.join('')
+    "<thead>#{weekTable.generateHeaderRow()}</thead><tbody>#{weekTableRows.join('')}</tbody>"
   generateHolidayTables: ->
     holidayTableFactory = new HolidayTableFactory(@gregorianWeek, @hebrewWeek, @zmanimWeek, @shaharitWeek, @minchaWeek)
     tableSections = []
@@ -61,12 +61,14 @@ class TableFactory
       if (endOfTable(hebrewDate) || !tableSection?) && tableSections.length > 0
         table = """
           <table class='table table-striped table-condensed'>
-            <tr>
-              <th colspan=4 class='text-center'>
-                #{tableSectionTitles.join(" / ")}
-              </th>
-            </tr>
-            #{tableSections.join("")}
+            <thead>
+              <tr>
+                <th colspan=4 class='text-center'>
+                  #{tableSectionTitles.join(" / ")}
+                </th>
+              </tr>
+            </thead>
+            <tbody>#{tableSections.join("")}</tbody>
           </table>
         """
         tables.push(table)

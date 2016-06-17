@@ -27,8 +27,8 @@ sedra = (hebrewDate) ->
 generateTable = (year, rows) ->
   """
     <table class='table table-striped table-condensed'>
-      #{tableHeader(year)}
-      #{rows.join('')}
+      <thead>#{tableHeader(year)}</thead>
+      <tbody>#{rows.join('')}</tbody>
     </table>
   """
 
