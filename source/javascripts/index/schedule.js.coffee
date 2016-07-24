@@ -5,9 +5,15 @@
 #= require ./announcement
 
 initialDate = ->
-  initialDate = window.location.search.replace("?", "")
-  initialDate = if initialDate.length > 0 then moment(initialDate, "YYYYMMDD").toDate() else (new Date())
-  moment(initialDate).add(12, 'hours').format("YYYY-MM-DD")
+  try
+    initialDate = window.location.search.replace("?", "")
+    initialDate = if initialDate.length > 0 then moment(initialDate, "YYYYMMDD").toDate() else (new Date())
+    result = moment(initialDate).add(12, 'hours').format("YYYY-MM-DD")
+    if "Invalid date" == result
+      throw "Invalid date"
+    end
+  catch
+    moment().format("YYYY-MM-DD")
 
 weekDescription = (shabbat) ->
   sedra = "#{if shabbat.isRegel() || shabbat.isYomKippur() || shabbat.isYomTob() then "" else "שַׁבַּת פְּרָשָׁת"} #{shabbat.sedra().replace(/-/g, ' - ')}"
