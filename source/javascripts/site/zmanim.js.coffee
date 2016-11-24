@@ -31,7 +31,7 @@ class Zmanim
   sunrise: -> @_sunrise ?= moment(@zmanim.sunrise)
   sofZmanKeriatShema: -> @_sofZmanKeriatShema ?= @shaaZemaniMagenAbraham(3)
   chatzot: -> @_chatzot ?= moment(@zmanim.solarNoon)
-  samuchLeminchaKetana: -> @_samuchLeminchaKetana ?= @shaaZemaniMagenAbraham(9)
+  samuchLeminchaKetana: -> @_samuchLeminchaKetana ?= @shaaZemaniGra(9)
   plag: -> @_plag ?= @shaaZemaniGra(10.75)
   hadlakatNerot: -> # TODO: test
     if (new HebrewDate(@gregorianDate)).hasHadlakatNerot() then moment(@sunset()).subtract(18, 'minutes').seconds(0) else null
