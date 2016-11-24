@@ -1,6 +1,8 @@
 #= require ./arbit
 #= require ../site/hebrewDateExtensions
 
+linkToShabbatOnScreen = (content) -> "<span class='screen-only'><a href='shabbat.html'>#{content}</a></span><span class='print-only'>#{content}</span>"
+
 class WeekTable
   constructor: (gregorianWeek, hebrewWeek, zmanimWeek, shaharitWeek, minchaWeek, events) ->
     [@gregorianWeek, @hebrewWeek, @zmanimWeek, @shaharitWeek, @minchaWeek, @events] = [gregorianWeek, hebrewWeek, zmanimWeek, shaharitWeek, minchaWeek, events]
@@ -48,10 +50,10 @@ class WeekTable
     hodu = (time.format("h:mm") for time in shaharit.hodu())
     switch hodu.length
       when 2
-        korbanot = "<span class='screen-only'><a href='shabbat.html'>#{korbanot[0]}</a> and </span>#{korbanot[1]}"
-        hodu = "<span class='screen-only'><a href='shabbat.html'>#{hodu[0]}</a> and </span>#{hodu[1]}"
+        korbanot = "#{linkToShabbatOnScreen(korbanot[0])} and #{korbanot[1]}"
+        hodu = "#{linkToShabbatOnScreen(hodu[0])} and #{hodu[1]}"
         yishtabach = ""
-        amidah = "<span class='screen-only'><a href='shabbat.html'>#{shaharit.amidah().format("h:mm:ss")}</a>"
+        amidah = "#{linkToShabbatOnScreen(shaharit.amidah().format("h:mm:ss"))}"
       when 1
         korbanot = korbanot[0]
         hodu = hodu[0]
