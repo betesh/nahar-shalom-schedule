@@ -22,9 +22,9 @@ morningMegillaTimes = (gregorianDate, zmanim) ->
 
 afternoonShiurimTimes = (hebrewDate, mincha) ->
   minuteList = if hebrewDate.isErebShabuot()
-    [90, 60, -65]
+    [30, -65]
   else
-    [120, 90, 30]
+    [90, 60]
   (minutesBefore(mincha, minutes).format('h:mm') for minutes in minuteList).join(" / ")
 
 hadlakatNerotTime = (hebrewDate, zmanim) ->
