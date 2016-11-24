@@ -23,8 +23,9 @@ title = (hebrewDate) -> switch
   when hebrewDate.is7thDayOfPesach() || hebrewDate.is8thDayOfPesach() then "שְׁבִיעִי וְאַחֲרוֹן שֶׁל פֶּסַח"
   when hebrewDate.is1stDayOfPesach() || hebrewDate.is2ndDayOfPesach() then "יוֹם טוֹב רִאשׁוֹן שֶׁל פֶּסַח"
   when hebrewDate.isSukkot() && hebrewDate.isYomTob() && !hebrewDate.isSheminiAseret() then "חַג הַסֻּכּוֹת"
-  when hebrewDate.isSheminiAseret() then "שְּׁמִינִי עֲצֶרֶת"
-  when hebrewDate.isSheminiAseret() then "שִׂמְחַת תּוֹרָה"
+  when hebrewDate.isErebHoshanaRaba() then "#{if hebrewDate.isShabbat() then "שַׁבָּת / לֵיל " else ""}הוֹשַׁעֲנָא רַבָּא"
+  when hebrewDate.isSheminiAseret() && hebrewDate.is1stDayOfYomTob() then "שְּׁמִינִי עֲצֶרֶת"
+  when hebrewDate.isSheminiAseret() && hebrewDate.is2ndDayOfYomTob() then "שִׂמְחַת תּוֹרָה"
   when hebrewDate.isShabbat() then "שַׁבָּת"
 
 class TableFactory
