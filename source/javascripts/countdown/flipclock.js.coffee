@@ -14,7 +14,7 @@ countDown = (clock) ->
   window.catchingErrors 'Countdown Clock', "#{clock.time.time} seconds", ->
     seconds = secondsToSunrise()
     clock.setTime(seconds)
-    console.log "Resetting sunrise clock, with #{seconds} seconds left" if console?
+    console.log "Resetting sunrise clock, with #{seconds} seconds left" if window.console && console.log
     if seconds > 10
       setTimeout((-> countDown(clock)), 1e4)
     else

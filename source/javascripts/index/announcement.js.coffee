@@ -37,7 +37,7 @@ class Announcement
   configuredAnnouncement: ->
     year = @hebrewDate.getHebrewYear().getYearFromCreation()
     week = @hebrewDate.weekOfYear()
-    console.log "Looking for announcement for week #{week} of year #{year}"
+    console.log "Looking for announcement for week #{week} of year #{year}" if window.console && console.log
     window.announcements[year]?[week]
 
 (exports ? this).Announcement = Announcement

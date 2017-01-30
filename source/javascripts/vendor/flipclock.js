@@ -1522,8 +1522,7 @@ var FlipClock;
 				date = this.getDateObject();
 			}
 
-			console.log(date);
-
+			this.log(date);
 
 			var hours = date.getHours();
 			var merid = hours > 12 ? 'PM' : 'AM';
