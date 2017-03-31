@@ -58,9 +58,26 @@ class Schedule
       "<div class='col-xs-#{widths[i]}'>#{tables[i]}</div>"
     $('.chagim-tables').html(html.join('') + (@announcementHtml() || ''))
   writeSchedule: ->
-    @writeWeekTable()
-    @writeSedra()
-    @writeHolidaySchedule()
+    if @momentInstance.isValid()
+      @writeWeekTable()
+      @writeSedra()
+      @writeHolidaySchedule()
+    else
+      @catchingErrors 'Invalid Date', =>
+        html = """
+          <table class='table table-striped table-condensed'>
+            <thead>
+              <tr>
+                <th colspan=4 class='text-center'>
+                  Please enter a valid date!
+                </th>
+              </tr>
+            </thead>
+          </table>
+        """
+        $(".weekly-table").html(html)
+        $(".sedra").html('')
+        $(".chagim-tables").html('')
 
 $ ->
   $('.calendar').change(-> (new Schedule(moment(this.value))).writeSchedule()).val(initialDate()).change()
