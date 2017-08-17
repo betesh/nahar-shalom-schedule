@@ -12,3 +12,6 @@ window.announcements =
     '37': "On Sunday, June 5th, מִנְחָה and עַרְבִית will take place at Bnai Sephardim, 3670 Stirling Road, at 7:00 PM.  Followed by Derashot from local Sephardic Rabbis."
     '38': "On Sunday, June 5th, מִנְחָה and עַרְבִית will take place at Bnai Sephardim, 3670 Stirling Road, at 7:00 PM.  Followed by Derashot from local Sephardic Rabbis."
     '39': "On Sunday, June 5th, מִנְחָה and עַרְבִית will take place at Bnai Sephardim, 3670 Stirling Road, at 7:00 PM.  Followed by Derashot from local Sephardic Rabbis."
+  '5777':
+    '46': "Mazal Tov to the Betesh family on the birth of a baby girl!"
+    '47': "Mazal Tov to the Betesh family on the birth of a baby girl!"
