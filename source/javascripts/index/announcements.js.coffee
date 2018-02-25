@@ -15,3 +15,5 @@ window.announcements =
   '5777':
     '46': "Mazal Tov to the Betesh family on the birth of a baby girl!"
     '47': "Mazal Tov to the Betesh family on the birth of a baby girl!"
+  '5778':
+    '25': "Mazal Tov to the Botton family on Eliyahu's Bar Mitzva!"
