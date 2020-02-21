@@ -83,6 +83,16 @@ shaharitShabbatTest745  = (date) ->
     amidah: moment(date).hours(6).minutes(8).seconds(8),
     13
 
+shaharitShabbatTest845  = (date) ->
+  shaharitTest date,
+    selihot: null,
+    korbanot: [moment(date).hours(5).minutes(11), moment(date).hours(8).minutes(30)],
+    hodu: [moment(date).hours(5).minutes(26), moment(date).hours(8).minutes(45)],
+    nishmat: moment(date).hours(5).minutes(51),
+    yishtabach: moment(date).hours(5).minutes(55),
+    amidah: moment(date).hours(6).minutes(8).seconds(8),
+    13
+
 shaharitHolHaMoedTest = (date) ->
   shaharitTest date,
     selihot: null,
@@ -111,7 +121,7 @@ $ ->
   shaharitShabuotTest(new Date(2021,4,17))
 
   # 2nd Day of Shabuot
-  shaharitShabbatTest830(new Date(2021,4,18), true)
+  shaharitShabbatTest845(new Date(2021,4,18), true)
 
   # 1st Day of Rosh Hashana
   shaharitShabbatTest815(new Date(2016,9,3), true)

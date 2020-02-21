@@ -79,7 +79,7 @@ $ ->
   arbitTest(new Date(2021,4,18), 20, 25)
 
   # 2nd Day of Shabuot on Shabbat
-  arbitTest(new Date(2020,4,30), 20, 47)
+  arbitTest(new Date(2020,4,30), 20, 37)
 
   # Ereb 9 Ab
   arbitTest(new Date(2017,6,31), 19, 21)

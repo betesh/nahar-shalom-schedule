@@ -29,8 +29,10 @@ class Shaharit
   korbanotLate: -> @_korbanotLate ?= moment(@hoduLate()).subtract(@korbanotMinutes(), 'minutes') if @hoduLate()?
   hoduLateOnShabbat: -> @_hoduLateOnShabbat ?= if moment(@hebrewDate.gregorianDate).isBefore(moment("2016-03-13", "YYYY-MM-DD"))
       moment(@hebrewDate.gregorianDate).hours(8).minutes(0).seconds(0)
-    else
+    else if moment(@hebrewDate.gregorianDate).isBefore(moment("2020-02-20", "YYYY-MM-DD"))
       moment(@hebrewDate.gregorianDate).hours(8).minutes(30).seconds(0)
+    else
+      moment(@hebrewDate.gregorianDate).hours(8).minutes(45).seconds(0)
   hoduLate: -> @_hoduLate ?= switch
     when @hebrewDate.isYomKippur() then moment(@hebrewDate.gregorianDate).hours(7).minutes(15).seconds(0)
     when @hebrewDate.is1stDayOfPesach() || @hebrewDate.is2ndDayOfPesach() then moment(@hebrewDate.gregorianDate).hours(9).minutes(0).seconds(0)
