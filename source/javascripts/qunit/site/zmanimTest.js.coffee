@@ -64,7 +64,7 @@ zmanimTest = ->
     assertTimeEqual assert, actual.sunrise(), moment(date).hour(5).minute(37).second(22), "Sunrise"
     assertTimeEqual assert, actual.sofZmanKeriatShema(), moment(date).hour(8).minute(21).second(19), "Latest time for Keriat Shema"
     assertTimeEqual assert, actual.chatzot(), moment(date).hour(12).minute(42).second(17), "Chatzot Hayom"
-    assertTimeEqual assert, actual.samuchLeminchaKetana(), moment(date).hour(16).minute(50).second(45), "One half hour before Mincha Ketana"
+    assertTimeEqual assert, actual.samuchLeminchaKetana(), moment(date).hour(16).minute(14).second(45), "One half hour before Mincha Ketana"
     assertTimeEqual assert, actual.plag(), moment(date).hour(18).minute(18).second(42), "Plag Hamincha"
     assertTimeEqual assert, actual.sunset(), moment(date).hour(19).minute(47).second(13), "Sunset"
     assertTimeEqual assert, actual.setHaKochabimGeonim(), moment(date).hour(20).minute(4).second(0), "Set HaKochabim according to the Geonim"

@@ -111,7 +111,7 @@ $ ->
   shaharitShabuotTest(new Date(2021,4,17))
 
   # 2nd Day of Shabuot
-  shaharitShabbatTest815(new Date(2021,4,18), true)
+  shaharitShabbatTest830(new Date(2021,4,18), true)
 
   # 1st Day of Rosh Hashana
   shaharitShabbatTest815(new Date(2016,9,3), true)
