@@ -46,7 +46,9 @@ class TableFactory
   generateWeekTable: ->
     weekTable = new WeekTable(@gregorianWeek, @hebrewWeek, @zmanimWeek, @shaharitWeek, @minchaWeek, window.HebrewEvents)
     weekTableRows = (weekTable.generateRow(i) for i in [0...(@gregorianWeek.length)])
-    "<thead>#{weekTable.generateHeaderRow()}</thead><tbody>#{weekTableRows.join('')}</tbody>"
+    sunrisesMissing = ((new Sunrise(@gregorianWeek[i]).time())? for i in [0...(@gregorianWeek.length)]).indexOf(false) != -1
+    warningAboutMissingSunrises = if sunrisesMissing then "<thead><tr><th colspan='100%'  style='text-align:center'>WARNING: Sunrise times are based on degrees at location, not chaitables.com.  Fore more precise times for Vatikin, please contact a developer to download data from chaitables.com</th></tr></thead>" else ""
+    "#{warningAboutMissingSunrises}<thead>#{weekTable.generateHeaderRow()}</thead><tbody>#{weekTableRows.join('')}</tbody>"
   generateHolidayTables: ->
     holidayTableFactory = new HolidayTableFactory(@gregorianWeek, @hebrewWeek, @zmanimWeek, @shaharitWeek, @minchaWeek)
     tableSections = []
