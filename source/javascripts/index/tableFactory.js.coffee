@@ -12,6 +12,7 @@ endOfTable = (hebrewDate) ->
   hebrewDate.isShabbat() ||
   hebrewDate.is2ndDayOfYomTob() ||
   hebrewDate.isPurim() ||
+  hebrewDate.isYomKippur() ||
   (hebrewDate.isTaanit() && !hebrewDate.isErebPurim())
 
 title = (hebrewDate) -> switch
