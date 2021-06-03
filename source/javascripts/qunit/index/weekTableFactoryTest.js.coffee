@@ -331,5 +331,5 @@ $ ->
   # Rosh Hashana in middle of week
   weekTableTest(new Date(2015,8,16), EXPECTED_2015_SEPTEMBER_16)
 
-  # Yom Kippuer in middle of week
+  # Yom Kippur in middle of week
   weekTableTest(new Date(2015,8,23), EXPECTED_2015_SEPTEMBER_23)
