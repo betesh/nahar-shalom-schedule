@@ -2,7 +2,7 @@
 # the following line to use 'http://'
 source 'https://rubygems.org'
 
-ruby "3.1.2"
+ruby "3.2.0"
 
 # For faster file watcher updates on Windows:
 gem 'wdm', '~> 0.1.0', platforms: [:mswin, :mingw]
@@ -17,6 +17,6 @@ gem 'mime-types'
 gem 'middleman', '>= 4.0.0'
 gem 'middleman-livereload'
 gem 'middleman-sprockets', '~> 4.0.0.rc.3'
-gem 'middleman-s3_sync'
+gem 'middleman-s3_sync', github: 'vprigent/middleman-s3_sync', branch: 'ruby-3.2-compat'
 
 gem 'sprockets', '~> 4.0.2'
