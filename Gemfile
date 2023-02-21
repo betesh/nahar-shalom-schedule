@@ -14,9 +14,9 @@ gem 'haml'
 gem 'mime-types'
 
 # Middleman Gems
-gem 'middleman', '>= 4.0.0'
+gem 'middleman'
 gem 'middleman-livereload'
 gem 'middleman-sprockets', '= 4.1.0'
-gem 'middleman-s3_sync', github: 'vprigent/middleman-s3_sync', branch: 'ruby-3.2-compat'
+gem 'middleman-s3_sync', github: 'fredjean/middleman-s3_sync'
 
-gem 'sprockets', '~> 4.0.2'
+gem 'sprockets'
