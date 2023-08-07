@@ -19,7 +19,7 @@ holidayTablesTest = (gregorianDate, expectedHtmlArray) ->
 
 EXPECTED_2021_SEPT_14 = [
   """
-    <table class='table table-striped table-condensed'>
+    <table class='table table-striped table-sm'>
        <thead>
           <tr>
              <th colspan=4 class='text-center'>
@@ -59,7 +59,7 @@ EXPECTED_2021_SEPT_14 = [
     </table>
   """,
   """
-      <table class='table table-striped table-condensed'>
+      <table class='table table-striped table-sm'>
          <thead>
             <tr>
                <th colspan=4 class='text-center'>

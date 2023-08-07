@@ -4,30 +4,35 @@ tracking_id: "G-X0HFQRWNQ5"
 ---
 .container-fluid
   .row.text-center
-    .col-xs-5.col-lg-offset-1
+    .col-5.offset-lg-1
       %img{src: "images/logo.jpg"}
-    .col-xs-7.col-lg-3.bold
+    .col-7.col-lg-3.bold
       .links http://times.naharshalom.com/shabbat.html
+  %br.screen-only
   .row.text-center
-    .col-lg-10.col-lg-offset-1.col-xs-12
-      .well.row.screen-only
-        .col-xs-3
-          %select.year-select
-        .col-xs-3.col-xs-offset-6
-          %a{href: "/"} Click here for weekday schedule
+    .col-lg-10.offset-lg-1.col-12
+      .card.screen-only
+        .card-header
+          .row
+            .col-3
+              %select.year-select
+            .col-3.offset-6
+              %a{href: "/"} Click here for weekday schedule
+      %br.screen-only
       .row
-        .col-xs-12.vatikin-schedule
+        .col-12.vatikin-schedule
   .row.screen-only
-    .col-xs-10.col-lg-offset-1
-      .well
-        %p This page is an open source project, created by Isaac Betesh.
-        %p
-          It uses Vladimir Agafonkin's
-          %a{href: "https://github.com/mourner/suncalc"} SunCalc JavaScript library
-          to calculate Plag HaMincha, sunset, and Set Hakochabim.
-        %p It uses MyZmanim.com's definition of Set HaKochabim: when the sun's declination is -8.5°
-        %p
-          Sunrise times were generated for the Hollywood, FL area using
-          %a{href: "http://chaitables.com"} Chaitables.com
-          and represent the earliest visible sunrise in an 8km radius of 26°1'13" N, 80°11'35" W (which is approximately 5km due south of 3489 Griffin Road)
-        %a{href: "https://github.com/betesh/nahar-shalom-schedule"} View Source
+    .col-10.offset-lg-1
+      .card
+        .card-header
+          %p This page is an open source project, created by Isaac Betesh.
+          %p
+            It uses Vladimir Agafonkin's
+            %a{href: "https://github.com/mourner/suncalc"} SunCalc JavaScript library
+            to calculate Plag HaMincha, sunset, and Set Hakochabim.
+          %p It uses MyZmanim.com's definition of Set HaKochabim: when the sun's declination is -8.5°
+          %p
+            Sunrise times were generated for the Hollywood, FL area using
+            %a{href: "http://chaitables.com"} Chaitables.com
+            and represent the earliest visible sunrise in an 8km radius of 26°1'13" N, 80°11'35" W (which is approximately 5km due south of 3489 Griffin Road)
+          %a{href: "https://github.com/betesh/nahar-shalom-schedule"} View Source

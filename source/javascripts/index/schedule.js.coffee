@@ -33,9 +33,9 @@ class Schedule
         announcement = new Announcement(hebrewDate, zmanim).announcement()
         switch announcement.length
           when 1
-            return "<div class='col-lg-4 col-lg-offset-1 col-xs-5 jumbotron font22'>#{announcement}</div>"
+            return "<div class='col-lg-4 offset-lg-1 col-5 jumbotron font22'>#{announcement}</div>"
           when 2
-            return "<div class='col-lg-4 col-lg-offset-1 col-xs-5 jumbotron font22 double-jumbotron'>#{announcement.join("<br><br>")}</div>"
+            return "<div class='col-lg-4 offset-lg-1 col-5 jumbotron font22 double-jumbotron'>#{announcement.join("<br><br>")}</div>"
     false
   )()
   holidayTableWidths: (length) -> @_holidayTableWidths ?= switch length
@@ -55,7 +55,7 @@ class Schedule
     tables = @tableFactory().generateHolidayTables()
     widths = @holidayTableWidths(tables.length)
     html = for i in [0...(tables.length)]
-      "<div class='col-xs-#{widths[i]}'>#{tables[i]}</div>"
+      "<div class='col-#{widths[i]}'>#{tables[i]}</div>"
     $('.chagim-tables').html(html.join('') + (@announcementHtml() || ''))
   writeSchedule: ->
     if @momentInstance.isValid()
@@ -65,7 +65,7 @@ class Schedule
     else
       @catchingErrors 'Invalid Date', =>
         html = """
-          <table class='table table-striped table-condensed'>
+          <table class='table table-striped table-sm'>
             <thead>
               <tr>
                 <th colspan=4 class='text-center'>

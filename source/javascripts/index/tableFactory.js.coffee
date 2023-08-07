@@ -68,7 +68,7 @@ class TableFactory
         tableSectionTitles.push(tableSectionTitle) if tableSectionTitle? and (tableSectionTitle not in tableSectionTitles)
       if (endOfTable(hebrewDate) || !tableSection?) && tableSections.length > 0
         table = """
-          <table class='table table-striped table-condensed'>
+          <table class='table table-striped table-sm'>
             <thead>
               <tr>
                 <th colspan=4 class='text-center'>
