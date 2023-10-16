@@ -3,8 +3,8 @@
 
 class Sunrise
   constructor: (momentInstance) ->
-    dstOffset = if moment(momentInstance).hour(12).isDST() then 1 else 0
     hebrewDate = new HebrewDate(momentInstance.toDate())
+    dstOffset = if hebrewDate.getYearFromCreation() >= 5784 || !moment(momentInstance).hour(12).isDST() then 0 else 1
     sunrisesThisYear = window.sunrises["#{hebrewDate.getYearFromCreation()}"]
     if sunrisesThisYear
       doy = hebrewDate.getDayOfYear()
