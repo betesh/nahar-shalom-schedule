@@ -4,5 +4,5 @@ rm -rf build
 bundle exec middleman build
 if (bundle exec middleman s3_sync); then
   git tag -f deployed
-  git push -f --tags
+  git push origin HEAD:master -f --tags
 fi
