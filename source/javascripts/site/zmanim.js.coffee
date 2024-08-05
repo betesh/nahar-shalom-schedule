@@ -8,6 +8,8 @@ SunCalc.addTime(-10.2, 'earliestTallit', 'dusk10_2')
 shaaZemani = (beginningOfDay, lengthOfDay, hour) ->
   beginningOfDay.add(lengthOfDay * hour / 12.0, 'seconds')
 
+moment.tz.setDefault('America/New_York')
+
 class Zmanim
   constructor: (gregorianDate, coordinates) ->
     @gregorianDate = moment(gregorianDate).toDate()
