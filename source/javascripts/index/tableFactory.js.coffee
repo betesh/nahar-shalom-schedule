@@ -35,7 +35,6 @@ title = (hebrewDate) -> switch
 
 class TableFactory
   constructor: (gregorianDate) ->
-    gregorianDate = gregorianDate
     @gregorianWeek = (moment(gregorianDate).day(weekday) for weekday in moment.weekdays())
     @hebrewWeek = (new HebrewDate(date.toDate()) for date in @gregorianWeek)
     @zmanimWeek = (new Zmanim(day, window.coordinates) for day in @gregorianWeek)

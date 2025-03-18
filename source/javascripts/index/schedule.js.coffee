@@ -79,5 +79,9 @@ class Schedule
         $(".sedra").html('')
         $(".chagim-tables").html('')
 
+generateSchedule = (seedDate) ->
+  timestamp = seedDate + " 00:00:00+00:00"
+  (new Schedule(moment(timestamp))).writeSchedule()
+
 $ ->
-  $('.calendar').change(-> (new Schedule(moment(this.value))).writeSchedule()).val(initialDate()).change()
+  $('.calendar').change(-> generateSchedule(this.value)).val(initialDate()).change()
