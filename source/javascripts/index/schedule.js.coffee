@@ -47,16 +47,18 @@ class Schedule
         else [6,6]
     when 3
       switch
-        when (true in (date.isRoshHashana() for date in @tableFactory().hebrewWeek)) then [6,6,6]
+        when (true in (date.isRoshHashana() for date in @tableFactory().hebrewWeek)) then [6,6]
         else throw "This should never happen!"
   writeWeekTable: -> @catchingErrors 'Week Table', => $(".weekly-table").html(@tableFactory().generateWeekTable())
   writeSedra: -> @catchingErrors 'Sedra', => $('.sedra').html(weekDescription(@shabbat()))
   writeHolidaySchedule: -> @catchingErrors 'Holiday Schedule', =>
     tables = @tableFactory().generateHolidayTables()
     widths = @holidayTableWidths(tables.length)
-    html = for i in [0...(tables.length)]
-      "<div class='col-#{widths[i]}'>#{tables[i]}</div>"
-    $('.chagim-tables').html(html.join('') + (@announcementHtml() || ''))
+    html = "<div class='col-#{widths[0]}'>#{tables[0]}"
+    html += "</div><div class='col-#{widths[1]}'>#{tables[1]}" if tables.length > 1
+    html += "<br>#{tables[2]}" if tables.length > 2
+    html += "</div>"
+    $('.chagim-tables').html(html + (@announcementHtml() || ''))
   writeSchedule: ->
     if @momentInstance.isValid()
       @writeWeekTable()
