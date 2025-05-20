@@ -48,15 +48,7 @@ configure :build do
 end
 
 activate :s3_sync do |s3_sync|
-  s3_sync.delete                     = true
-  s3_sync.after_build                = false # We do not chain after the build step by default.
-  s3_sync.prefer_gzip                = true
-  s3_sync.path_style                 = true
-  s3_sync.reduced_redundancy_storage = false
-  s3_sync.acl                        = 'public-read'
-  s3_sync.encryption                 = false
-  s3_sync.prefix                     = ''
-  s3_sync.version_bucket             = false
+  s3_sync.prefix = ''
 end
 
 activate :sprockets
