@@ -19,6 +19,6 @@ gem 'mutex_m'
 gem 'middleman'
 gem 'middleman-livereload'
 gem 'middleman-sprockets', '= 4.1.0'
-gem 'middleman-s3_sync', github: 'fredjean/middleman-s3_sync'
+gem 'middleman-s3_sync'
 
 gem 'sprockets'
