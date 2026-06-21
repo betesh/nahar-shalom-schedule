@@ -17,6 +17,9 @@
     - unless development?
       = javascript_include_tag "//cdn.ravenjs.com/2.3.0/raven.min.js"
       = javascript_include_tag "//www.googletagmanager.com/gtag/js?id=#{current_page.data.tracking_id}", async: true
+    %script{type: :module}
+      import * as SunCalc from '//cdn.jsdelivr.net/npm/suncalc/+esm';
+      window.SunCalc = SunCalc
     = javascript_include_tag  current_page.path.gsub(".html", "")
     :javascript
       $(function(){ moment.locale('en'); });

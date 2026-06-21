@@ -82,7 +82,7 @@ class Schedule
         $(".chagim-tables").html('')
 
 generateSchedule = (seedDate) ->
-  timestamp = seedDate + " 00:00:00+00:00"
+  timestamp = seedDate + " 00:00:00-06:00"
   (new Schedule(moment(timestamp))).writeSchedule()
 
 $ ->

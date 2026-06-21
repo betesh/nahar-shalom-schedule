@@ -32,9 +32,9 @@ EXPECTED_2016_MAY_14 = """
     <td>6:14</td>
     <td>6:25</td>
     <td class='bold'>6:34:25</td>
-    <td>7:46</td>
-    <td>8:00</td>
-    <td>Sun. night: <b>23</b> (After 8:17)</td>
+    <td>7:44</td>
+    <td>7:59</td>
+    <td>Sun. night: <b>23</b> (After 8:16)</td>
   </tr>
   <tr>
     <td>Monday</td>
@@ -44,9 +44,9 @@ EXPECTED_2016_MAY_14 = """
     <td>6:13</td>
     <td>6:25</td>
     <td class='bold'>6:33:55</td>
-    <td>7:46</td>
-    <td>8:01</td>
-    <td>Mon. night: <b>24</b> (After 8:18)</td>
+    <td>7:44</td>
+    <td>8:00</td>
+    <td>Mon. night: <b>24</b> (After 8:16)</td>
   </tr>
   <tr>
     <td>Tuesday</td>
@@ -56,9 +56,9 @@ EXPECTED_2016_MAY_14 = """
     <td>6:13</td>
     <td>6:24</td>
     <td class='bold'>6:33:25</td>
-    <td>7:46</td>
-    <td>8:01</td>
-    <td>Tue. night: <b>25</b> (After 8:18)</td>
+    <td>7:44</td>
+    <td>8:00</td>
+    <td>Tue. night: <b>25</b> (After 8:17)</td>
   </tr>
   <tr>
     <td>Wednesday</td>
@@ -68,9 +68,9 @@ EXPECTED_2016_MAY_14 = """
     <td>6:13</td>
     <td>6:24</td>
     <td class='bold'>6:33:00</td>
-    <td>7:46</td>
-    <td>8:02</td>
-    <td>Wed. night: <b>26</b> (After 8:19)</td>
+    <td>7:44</td>
+    <td>8:01</td>
+    <td>Wed. night: <b>26</b> (After 8:18)</td>
   </tr>
   <tr>
     <td>Thursday</td>
@@ -80,9 +80,9 @@ EXPECTED_2016_MAY_14 = """
     <td>6:12</td>
     <td>6:24</td>
     <td class='bold'>6:32:35</td>
-    <td>7:46</td>
-    <td>8:03</td>
-    <td>Thu. night: <b>27</b> (After 8:19)</td>
+    <td>7:44</td>
+    <td>8:01</td>
+    <td>Thu. night: <b>27</b> (After 8:18)</td>
   </tr>
   <tr>
     <td>Friday</td>
@@ -94,7 +94,7 @@ EXPECTED_2016_MAY_14 = """
     <td class='bold'>6:32:10</td>
     <td>6:30</td>
     <td></td>
-    <td>Fri. night: <b>28</b> (After 8:20)</td>
+    <td>Fri. night: <b>28</b> (After 8:19)</td>
   </tr>
   <tr>
     <td>שַׁבָּת</td>
@@ -105,8 +105,8 @@ EXPECTED_2016_MAY_14 = """
     <td></td>
     <td class='bold'><span class='screen-only'><a href='shabbat.html'>6:31:45</a></span><span class='print-only'>6:31:45</span></td>
     <td>7:15</td>
-    <td>8:52</td>
-    <td>Sat. night: <b>29</b> (After 8:20)</td>
+    <td>8:51</td>
+    <td>Sat. night: <b>29</b> (After 8:19)</td>
   </tr></tbody>
 """
 
@@ -147,7 +147,7 @@ EXPECTED_2015_SEPTEMBER_16 = """
     <td></td>
     <td class='bold'><span class='screen-only'><a href='shabbat.html'>7:05:50</a></span><span class='print-only'>7:05:50</span></td>
     <td>6:25</td>
-    <td>7:43</td>
+    <td>7:41</td>
     <td>יוֹם טוֹב</td>
   </tr>
   <tr>
@@ -160,7 +160,7 @@ EXPECTED_2015_SEPTEMBER_16 = """
     <td></td>
     <td class='bold'><span class='screen-only'><a href='shabbat.html'>7:06:15</a></span><span class='print-only'>7:06:15</span></td>
     <td>6:45</td>
-    <td>7:50</td>
+    <td>7:45</td>
     <td>יוֹם טוֹב</td>
   </tr>
   <tr>
@@ -172,8 +172,8 @@ EXPECTED_2015_SEPTEMBER_16 = """
     <td>6:46</td>
     <td>6:58</td>
     <td class='bold'>7:06:40</td>
-    <td>6:55</td>
-    <td>7:25</td>
+    <td>6:50</td>
+    <td>7:23</td>
     <td>צוֹם גְּדַלְיָה</td>
   </tr>
   <tr>
@@ -185,8 +185,8 @@ EXPECTED_2015_SEPTEMBER_16 = """
     <td>6:47</td>
     <td>6:58</td>
     <td class='bold'>7:07:05</td>
-    <td>7:05</td>
-    <td>7:24</td>
+    <td>7:03</td>
+    <td>7:22</td>
     <td></td>
   </tr>
   <tr>
@@ -212,7 +212,7 @@ EXPECTED_2015_SEPTEMBER_16 = """
     <td></td>
     <td class='bold'><span class='screen-only'><a href='shabbat.html'>7:07:50</a></span><span class='print-only'>7:07:50</span></td>
     <td>6:35</td>
-    <td>8:06</td>
+    <td>8:04</td>
     <td></td>
   </tr></tbody>
 """
@@ -240,8 +240,8 @@ EXPECTED_2015_SEPTEMBER_23 = """
     <td>6:48</td>
     <td>6:59</td>
     <td class='bold'>7:08:15</td>
-    <td>7:01</td>
-    <td>7:21</td>
+    <td>6:59</td>
+    <td>7:19</td>
     <td></td>
   </tr>
   <tr>
@@ -253,8 +253,8 @@ EXPECTED_2015_SEPTEMBER_23 = """
     <td>6:48</td>
     <td>7:00</td>
     <td class='bold'>7:08:40</td>
-    <td>7:01</td>
-    <td>7:19</td>
+    <td>6:59</td>
+    <td>7:18</td>
     <td></td>
   </tr>
   <tr>
@@ -280,7 +280,7 @@ EXPECTED_2015_SEPTEMBER_23 = """
     <td></td>
     <td class='bold'><span class='screen-only'><a href='shabbat.html'>7:09:30</a></span><span class='print-only'>7:09:30</span></td>
     <td>4:00</td>
-    <td>8:02</td>
+    <td>8:00</td>
     <td>יוֹם הַכִּפֻּרִים</td>
   </tr>
   <tr>
@@ -292,8 +292,8 @@ EXPECTED_2015_SEPTEMBER_23 = """
     <td>6:49</td>
     <td>7:01</td>
     <td class='bold'>7:09:55</td>
-    <td>6:57</td>
-    <td>7:16</td>
+    <td>6:56</td>
+    <td>7:14</td>
     <td></td>
   </tr>
   <tr>
@@ -319,7 +319,7 @@ EXPECTED_2015_SEPTEMBER_23 = """
     <td></td>
     <td class='bold'><span class='screen-only'><a href='shabbat.html'>7:10:40</a></span><span class='print-only'>7:10:40</span></td>
     <td>6:25</td>
-    <td>7:58</td>
+    <td>7:57</td>
     <td></td>
   </tr></tbody>
 """

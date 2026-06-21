@@ -32,28 +32,28 @@ EXPECTED_2021_SEPT_14 = [
              <td rowspan='1'>Wednesday</td>
              <td rowspan='1'>15 Sep</td>
              <td>הַדְלַקָת נֵרוֹת</td>
-             <td>7:08</td>
+             <td>7:06</td>
           </tr>
           <tr>
              <td rowspan='5'>Thursday</td>
              <td rowspan='5'>16 Sep</td>
              <td>נְעִילָה</td>
-             <td>6:30</td>
+             <td>6:28</td>
           </tr>
           <tr>
              <td>בִּרְכַּת כֹּהֲנִים before</td>
-             <td>7:25</td>
+             <td>7:23</td>
           </tr>
           <tr>
              <td>שׁוֹפַר</td>
-             <td>7:59</td>
+             <td>7:57</td>
           </tr>
           <tr>
              <td colspan=2 class='text-center'><strong>No eating before הַבְדָלָה</strong></td>
           </tr>
           <tr>
              <td>רַבֵּנוּ תָּם</td>
-             <td>8:38</td>
+             <td>8:36</td>
           </tr>
        </tbody>
     </table>
@@ -72,13 +72,13 @@ EXPECTED_2021_SEPT_14 = [
                <td rowspan='1'>Friday</td>
                <td rowspan='1'>17 Sep</td>
                <td>הַדְלַקָת נֵרוֹת</td>
-               <td>7:06</td>
+               <td>7:04</td>
             </tr>
             <tr>
                <td rowspan='5'>שַׁבָּת</td>
                <td rowspan='5'>18 Sep</td>
                <td><strong>Say שְׁמַע יִשְׂרָאֵל before</strong></td>
-               <td><strong>9:36</strong></td>
+               <td><strong>9:35</strong></td>
             </tr>
             <tr>
                <td>Afternoon Shiurim</td>
@@ -86,15 +86,15 @@ EXPECTED_2021_SEPT_14 = [
             </tr>
             <tr>
                <td><span class='font13'>Begin סְעוּדַת שְׁלִישִׁית before</span></td>
-               <td>7:23</td>
+               <td>7:21</td>
             </tr>
             <tr>
                <td>שַׁבָּת ends</td>
-               <td>7:57</td>
+               <td>7:55</td>
             </tr>
             <tr>
                <td>רַבֵּנוּ תָּם</td>
-               <td>8:36</td>
+               <td>8:34</td>
             </tr>
          </tbody>
       </table>

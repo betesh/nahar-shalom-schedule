@@ -1,9 +1,9 @@
-#= require ../vendor/suncalc
 #= require ../site/hebrewDateExtensions
 
-SunCalc.addTime(-8.5, 'smallStars3', 'setHaKochabim')
-SunCalc.addTime(-16.1, 'magenAbrahamDawn', 'magenAbrahamDusk')
-SunCalc.addTime(-10.2, 'earliestTallit', 'dusk10_2')
+$ ->
+  SunCalc.addTime(-8.5, 'smallStars3', 'setHaKochabim')
+  SunCalc.addTime(-16.1, 'magenAbrahamDawn', 'magenAbrahamDusk')
+  SunCalc.addTime(-10.2, 'earliestTallit', 'dusk10_2')
 
 shaaZemani = (beginningOfDay, lengthOfDay, hour) ->
   beginningOfDay.add(lengthOfDay * hour / 12.0, 'seconds')
@@ -13,7 +13,6 @@ moment.tz.setDefault('America/New_York')
 class Zmanim
   constructor: (gregorianDate, coordinates) ->
     @gregorianDate = moment(gregorianDate).toDate()
-    @gregorianDate.setHours(12)
     @zmanim = SunCalc.getTimes(@gregorianDate, coordinates.latitude, coordinates.longitude)
   shaaZemaniGra: (hour) ->
     beginningOfDay = moment(@zmanim.sunrise)
