@@ -85,5 +85,5 @@ generateSchedule = (seedDate) ->
   timestamp = seedDate + " 00:00:00-06:00"
   (new Schedule(moment(timestamp))).writeSchedule()
 
-$ ->
+$(window).on 'load', ->
   $('.calendar').change(-> generateSchedule(this.value)).val(initialDate()).change()

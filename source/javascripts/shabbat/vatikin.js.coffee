@@ -105,7 +105,7 @@ updateTableInTryCatch = (value) ->
   """
   $(".vatikin-schedule").html(html)
 
-$ ->
+$(window).on 'load', ->
   validYears = []
   initialDate = window.location.search.replace("?", "")
   for year, sunrises of window.sunrises

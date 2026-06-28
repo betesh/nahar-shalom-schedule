@@ -88,5 +88,5 @@ zmanimTest = ->
     assertTimeEqual assert, actual.sunset(), moment(summerDate).hour(20).minute(24).second(22), "Sunset"
     assertTimeEqual assert, actual.setHaKochabimGeonim(), moment(summerDate).hour(20).minute(42).second(0), "Set HaKochabim according to the Geonim"
 
-$ ->
+$(window).on 'load', ->
   zmanimTest()

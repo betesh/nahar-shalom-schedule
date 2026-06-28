@@ -1,6 +1,6 @@
 #= require ../site/hebrewDateExtensions
 
-$ ->
+$(window).on 'load', ->
   SunCalc.addTime(-8.5, 'smallStars3', 'setHaKochabim')
   SunCalc.addTime(-16.1, 'magenAbrahamDawn', 'magenAbrahamDusk')
   SunCalc.addTime(-10.2, 'earliestTallit', 'dusk10_2')
