@@ -1,0 +1,3 @@
+#! /bin/bash
+
+agent --resume=cce54098-666f-4c5b-ab7b-892e08894525
