@@ -1,5 +1,3 @@
-# If you do not have OpenSSL installed, change
-# the following line to use 'http://'
 source 'https://rubygems.org'
 
 ruby "4.0.6"
@@ -19,5 +17,3 @@ gem 'middleman'
 gem 'middleman-livereload'
 gem 'middleman-sprockets', '= 4.1.0'
 gem 'middleman-s3_sync'
-
-gem 'sprockets'
