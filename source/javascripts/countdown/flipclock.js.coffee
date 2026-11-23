@@ -20,6 +20,6 @@ countDown = (clock) ->
     else
       setTimeout(redirect, (seconds + 4) * 1000)
 
-$ ->
+$(window).on 'load', ->
   clock = $('.countdown-to-sunrise').FlipClock 60, countdown:true
   countDown(clock)
